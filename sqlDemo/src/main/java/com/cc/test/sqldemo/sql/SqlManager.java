@@ -18,6 +18,30 @@ public class SqlManager {
     }
 
     /**
+     * 执行sql语句命令 实现增、删、改等功能
+     * @param sql sql语句
+     */
+    public void doSql(String sql){
+        SQLiteDatabase db = sqlHelper.getWritableDatabase();
+        db.execSQL(sql);
+        db.close();
+        //insert into table ("列名1",itemNum,exceptedRst) values("值1",0,"vvvYes");
+        //"update " + table + " set exceptedRst = ?,realRst = ?,isPass = ? where pageNum = ? and itemNum = ?;", new Object[]{}
+        //"delete from " + table + " where pageNum = ? and itemNum = ?;", new Integer[]{pageNum, itemNum}
+    }
+
+    /**
+     * 执行sql语句命令 实现增、删、改等功能
+     * @param sql sql语句
+     * @param params 参数
+     */
+    public void doSql(String sql,Object[] params){
+        SQLiteDatabase db = sqlHelper.getWritableDatabase();
+        db.execSQL(sql,params);
+        db.close();
+    }
+
+    /**
      * 插入数据
      *
      * @param table
@@ -31,13 +55,6 @@ public class SqlManager {
         return false;
     }
 
-    // 删除数据
-    public void deleteDatas(String table, int pageNum, int itemNum) {   //mark
-        SQLiteDatabase db = sqlHelper.getWritableDatabase();
-        db.execSQL("delete from " + table + " where pageNum = ? and itemNum = ?;", new Integer[]{pageNum, itemNum});
-        db.close();
-    }
-
     //删除所有数据
     public void deleteAllDatas(String table) {
         SQLiteDatabase db = sqlHelper.getWritableDatabase();
@@ -45,36 +62,19 @@ public class SqlManager {
         db.close();
     }
 
-    // 修改数据
-    public void updateDatas(String table) {  //mark
-        SQLiteDatabase db = sqlHelper.getWritableDatabase();
-
-        db.execSQL("update " + table + " set exceptedRst = ?,realRst = ?,isPass = ? where pageNum = ? and itemNum = ?;", new Object[]{});
-        db.close();
-    }
 
     /**
      * 查找数据
      *
-     * @param pageNum
-     * @param itemNum
      * @return
      */
-    public List<Object> seleteDatas(String table, int pageNum, int itemNum) {
+    public Cursor seleteDatas(String sql, String[] params) {
         SQLiteDatabase db = sqlHelper.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("select * from " + table + " where pageNum = ? and itemNum =?;", new String[]{String.valueOf(pageNum), String.valueOf(itemNum)});
-        while (cursor.moveToNext()) {
-            cursor.getInt(cursor.getColumnIndex("pageNum"));
-            cursor.getInt(cursor.getColumnIndex("itemNum"));
-            cursor.getInt(cursor.getColumnIndex("isPass"));
-            cursor.getString(cursor.getColumnIndex("exceptedRst"));
-            cursor.getString(cursor.getColumnIndex("realRst"));
-
-        }
+        Cursor cursor = db.rawQuery(sql,params);//"select * from " + table + " where pageNum = ? and itemNum =?;"
         cursor.close();
         db.close();
-        return null;//mark
+        return cursor;//mark
     }
 
     /**
@@ -82,22 +82,10 @@ public class SqlManager {
      *
      * @return
      */
-    public List<Object> getAllDatas(String table) {
+    public Cursor getAllDatas(String table) {
         SQLiteDatabase db = sqlHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from  " + table + " ;", null);
-
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                cursor.getInt(cursor.getColumnIndex("pageNum"));
-                cursor.getInt(cursor.getColumnIndex("itemNum"));
-                cursor.getInt(cursor.getColumnIndex("isPass"));
-                cursor.getString(cursor.getColumnIndex("exceptedRst"));
-                cursor.getString(cursor.getColumnIndex("realRst"));
-            }
-            cursor.close();
-            db.close();
-        }
-
-        return null;//mark
+        db.close();
+        return cursor;//mark
     }
 }
