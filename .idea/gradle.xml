@@ -8,15 +8,15 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/RecyclerViewDemo" />
             <option value="$PROJECT_DIR$/clibrary" />
-            <option value="$PROJECT_DIR$/demoapplication" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/RecyclerViewDemo" />
             <option value="$PROJECT_DIR$/clibrary" />
-            <option value="$PROJECT_DIR$/demoapplication" />
           </set>
         </option>
       </GradleProjectSettings>
