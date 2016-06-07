@@ -32,16 +32,15 @@ public class DemoActivity extends AppCompatActivity {
 
     private void initResources() {
         mAdapter = new MyAdapter();
-        
+
         data = new ArrayList<>();
-        for(int i = 0;i < 28;i++){
-            data.add("第"+i+"个位置");
+        for (int i = 0; i < 28; i++) {
+            data.add("第" + i + "个位置");
         }
 
         mHeights = new ArrayList<Integer>();
-        for (int i = 0; i < data.size(); i++)
-        {
-            mHeights.add( (int) (100 + Math.random() * 300));
+        for (int i = 0; i < data.size(); i++) {
+            mHeights.add((int) (100 + Math.random() * 300));
         }
     }
 
@@ -49,12 +48,12 @@ public class DemoActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recylerview);
 
         recyclerView.addItemDecoration(new GridDivider(this));//(new LinearDivider(this,LinearLayoutManager.VERTICAL));
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
     }
 
-    private class MyLayoutManager extends RecyclerView.LayoutManager{
+    private class MyLayoutManager extends RecyclerView.LayoutManager {
         @Override
         public RecyclerView.LayoutParams generateDefaultLayoutParams() {
             return null;
@@ -64,9 +63,10 @@ public class DemoActivity extends AppCompatActivity {
     /**
      * 继承抽象类ViewHolder完成自定义布局数据的容器类，构造方法中要实现itemView模板，作为参数传入
      */
-   private class MyViewHolder extends ViewHolder{
+    private class MyViewHolder extends ViewHolder {
         private TextView tv;
         private RelativeLayout container;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             tv = (TextView) itemView.findViewById(R.id.adapter_tv);
@@ -77,12 +77,12 @@ public class DemoActivity extends AppCompatActivity {
     /**
      * 继承抽象类RecyclerView.Adapter实现方法完成布局模板的设置和内容的填充
      */
-    private class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
+    private class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            MyViewHolder viewHolder = new MyViewHolder(View.inflate(DemoActivity.this,R.layout.adpter,null));
+            MyViewHolder viewHolder = new MyViewHolder(View.inflate(DemoActivity.this, R.layout.adpter, null));
             return viewHolder;
         }
 
@@ -100,7 +100,4 @@ public class DemoActivity extends AppCompatActivity {
             return data.size();
         }
     }
-
-
-
 }
