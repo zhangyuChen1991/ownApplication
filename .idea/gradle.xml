@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/RecyclerViewDemo" />
             <option value="$PROJECT_DIR$/clibrary" />
+            <option value="$PROJECT_DIR$/sqlDemo" />
           </set>
         </option>
         <option name="myModules">
@@ -17,6 +18,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/RecyclerViewDemo" />
             <option value="$PROJECT_DIR$/clibrary" />
+            <option value="$PROJECT_DIR$/sqlDemo" />
           </set>
         </option>
       </GradleProjectSettings>

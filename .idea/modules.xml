@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/LocalApplication.iml" filepath="$PROJECT_DIR$/LocalApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/RecyclerViewDemo/demoapplication.iml" filepath="$PROJECT_DIR$/RecyclerViewDemo/demoapplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/clibrary/clibrary.iml" filepath="$PROJECT_DIR$/clibrary/clibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqlDemo/sqlDemo.iml" filepath="$PROJECT_DIR$/sqlDemo/sqlDemo.iml" />
     </modules>
   </component>
 </project>
