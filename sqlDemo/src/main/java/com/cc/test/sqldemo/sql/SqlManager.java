@@ -3,6 +3,7 @@ package com.cc.test.sqldemo.sql;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.List;
@@ -19,26 +20,42 @@ public class SqlManager {
 
     /**
      * 执行sql语句命令 实现增、删、改等功能
+     *
      * @param sql sql语句
      */
-    public void doSql(String sql){
-        SQLiteDatabase db = sqlHelper.getWritableDatabase();
-        db.execSQL(sql);
-        db.close();
-        //insert into table ("列名1",itemNum,exceptedRst) values("值1",0,"vvvYes");
-        //"update " + table + " set exceptedRst = ?,realRst = ?,isPass = ? where pageNum = ? and itemNum = ?;", new Object[]{}
-        //"delete from " + table + " where pageNum = ? and itemNum = ?;", new Integer[]{pageNum, itemNum}
+    public boolean doSql(String sql) {
+        try {
+            SQLiteDatabase db = sqlHelper.getWritableDatabase();
+            db.execSQL(sql);
+            db.close();
+            //insert into table ("列名1",itemNum,exceptedRst) values("值1",0,"vvvYes");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     /**
      * 执行sql语句命令 实现增、删、改等功能
-     * @param sql sql语句
+     *
+     * @param sql    sql语句
      * @param params 参数
      */
-    public void doSql(String sql,Object[] params){
-        SQLiteDatabase db = sqlHelper.getWritableDatabase();
-        db.execSQL(sql,params);
-        db.close();
+    public boolean doSql(String sql, Object[] params) {
+
+        try {
+            SQLiteDatabase db = sqlHelper.getWritableDatabase();
+            db.execSQL(sql, params);
+            db.close();
+            //"update " + table + " set exceptedRst = ?,realRst = ?,isPass = ? where pageNum = ? and itemNum = ?;", new Object[]{}
+            //"delete from " + table + " where pageNum = ? and itemNum = ?;", new Integer[]{pageNum, itemNum}
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
@@ -49,19 +66,25 @@ public class SqlManager {
      * @return
      */
     public boolean insertData(String table, ContentValues values) {
+        boolean ret;
         SQLiteDatabase db = sqlHelper.getWritableDatabase();
-        db.insert(table, "nullColumn", values);
+        long result = db.insert(table, "nullColumn", values);
         db.close();
-        return false;
+        return result == -1 ? false : true;
     }
 
     //删除所有数据
-    public void deleteAllDatas(String table) {
-        SQLiteDatabase db = sqlHelper.getWritableDatabase();
-        db.execSQL("delete from  " + table + " where 1=1;");
-        db.close();
+    public boolean deleteAllDatas(String table) {
+        try {
+            SQLiteDatabase db = sqlHelper.getWritableDatabase();
+            db.execSQL("delete from  " + table + " where 1=1;");
+            db.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-
 
     /**
      * 查找数据
@@ -69,12 +92,17 @@ public class SqlManager {
      * @return
      */
     public Cursor seleteDatas(String sql, String[] params) {
-        SQLiteDatabase db = sqlHelper.getReadableDatabase();
+        Cursor cursor = null;//"select * from " + table + " where pageNum = ? and itemNum =?;"
+        try {
+            SQLiteDatabase db = sqlHelper.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery(sql,params);//"select * from " + table + " where pageNum = ? and itemNum =?;"
-        cursor.close();
-        db.close();
-        return cursor;//mark
+            cursor = db.rawQuery(sql, params);
+            cursor.close();
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cursor;
     }
 
     /**
@@ -83,9 +111,14 @@ public class SqlManager {
      * @return
      */
     public Cursor getAllDatas(String table) {
-        SQLiteDatabase db = sqlHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from  " + table + " ;", null);
-        db.close();
-        return cursor;//mark
+        Cursor cursor = null;
+        try {
+            SQLiteDatabase db = sqlHelper.getReadableDatabase();
+            cursor = db.rawQuery("select * from  " + table + " ;", null);
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cursor;
     }
 }

@@ -9,11 +9,15 @@ import android.text.TextUtils;
  * Created by zhangyu on 2016-06-07 10:28.
  */
 public class SqlHelper extends SQLiteOpenHelper {
-    String createTableOrder;//建表命令
+    private String createTableOrder;//建表命令 //"create table tableName (id integer primary key autoincrement,pageNum int,itemNum int,isPass int,notPassInfo varchar(300))"
+    private  String dbName;     //数据库名
+    private  Context context;
 
     public SqlHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, String createTableOrder) {
         super(context, name, factory, version);
         this.createTableOrder = createTableOrder;
+        this.context = context;
+        this.dbName = name;
     }
 
     @Override
@@ -27,6 +31,14 @@ public class SqlHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    /**
+     * 删除数据库
+     * @return
+     */
+    public boolean deleteDatabase() {
+        return context.deleteDatabase(dbName);
     }
 
     /**
