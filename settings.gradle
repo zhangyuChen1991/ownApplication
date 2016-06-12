@@ -1,1 +1,1 @@
-include ':cLibrary', ':RecyclerViewDemo', ':sqlDemo'
+include ':cLibrary', ':RecyclerViewDemo', ':sqlDemo', ':DesignPattern'

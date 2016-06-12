@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.List;
-
 /**
  * Created by zhangyu on 2016-06-07 11:08.
  */
