@@ -1,5 +1,7 @@
 package com.cc.musiclist.util;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,7 +14,7 @@ import java.util.Map;
  * Created by zhangyu on 2016-06-17 17:12.
  */
 public class FileTypeUtil {
-
+    private static final String TAG = "FileTypeUtil";
     private final static Map<String, String> FILE_TYPE_MAP = new HashMap<String, String>();
 
 
@@ -106,7 +108,7 @@ public class FileTypeUtil {
      * @return
      */
     public static String getFileType(File file) {
-        String res = null;
+        String res = "";
         try {
             @SuppressWarnings("resource")
             FileInputStream fis = new FileInputStream(file);
@@ -127,6 +129,20 @@ public class FileTypeUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Log.v(TAG,"getFileType--> return : "+res);
         return res;
+    }
+
+    public static String getFileTypeByPostfix(File file) {
+        String type = "";
+
+        String filePath = file.getAbsolutePath();
+        int indexOfPoint = filePath.lastIndexOf(".");
+        indexOfPoint = indexOfPoint == -1 ? 0 : indexOfPoint;
+        String postFix = filePath.substring(indexOfPoint + 1);
+
+        Log.v(TAG, "getFileType--> return : " + postFix);
+        return postFix;
     }
 }

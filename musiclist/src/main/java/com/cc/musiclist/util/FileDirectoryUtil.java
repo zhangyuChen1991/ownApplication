@@ -2,6 +2,7 @@ package com.cc.musiclist.util;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import com.cc.musiclist.application.BaseApplication;
 
@@ -19,10 +20,14 @@ public class FileDirectoryUtil {
      * @return
      */
     public static File getRootDirectory() {
-        if (Environment.isExternalStorageEmulated())
-            return Environment.getExternalStorageDirectory();
+        File directory = null;
+        if ( Environment.isExternalStorageEmulated() && Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED)
+            directory = Environment.getExternalStorageDirectory();
         else
-            return Environment.getRootDirectory();
+            directory = Environment.getRootDirectory();
+
+        Log.d("FileDirectoryUtil","RootDirectory:"+directory.getAbsolutePath());
+        return directory;
     }
 
 
