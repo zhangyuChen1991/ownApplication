@@ -7,4 +7,6 @@ public class Constants {
     public static final int playState = 0x94;
     public static final int STATE_PAUSE = 977;
     public static final int STATE_PLAYING = 979;
+
+    public static final String filesPathCache = "filesPathCache";
 }

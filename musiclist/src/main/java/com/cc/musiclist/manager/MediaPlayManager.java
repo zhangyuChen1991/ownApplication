@@ -8,6 +8,7 @@ import android.os.Build;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by zhangyu on 2016/6/19 14:51.
@@ -17,6 +18,7 @@ public class MediaPlayManager {
     private MediaPlayer mediaPlayer;
     private ArrayList<File> playLists;
     private File nowPlayFile;
+    private int nowFilePosition;
     private int playModel;
     //顺序模式，随机模式，单曲模式
     public static final int SEQUENTIAL_MODEL = 0x11, RANDOM_MODEL = 0X13, SINGLE_MODEL = 0X15;
@@ -24,9 +26,15 @@ public class MediaPlayManager {
 
     public MediaPlayManager() {
         mediaPlayer = new MediaPlayer();
+        mediaPlayer.setOnCompletionListener(mCompletionListener);
         playModel = SEQUENTIAL_MODEL;
     }
 
+
+    public void setNowFilePosition(int nowFilePosition) {
+        this.nowFilePosition = nowFilePosition;
+        nowPlayFile = playLists.get(nowFilePosition);
+    }
     public void setPlayModel(int playModel) {
         this.playModel = playModel;
     }
@@ -49,7 +57,6 @@ public class MediaPlayManager {
         this.playLists = playLists;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public boolean prepare() {
         try {
             mediaPlayer.reset();
@@ -86,12 +93,37 @@ public class MediaPlayManager {
             playModel = SEQUENTIAL_MODEL;
     }
 
+    MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            //播放完
+            playNext();
+        }
+
+    };
+
+
+    public void playNext() {
+        switch (playModel){
+            case SEQUENTIAL_MODEL:
+                setNowFilePosition(nowFilePosition++);
+            case RANDOM_MODEL:
+                Random r = new Random();
+                int next = r.nextInt(playLists.size());
+                setNowFilePosition(next);
+                break;
+            case SINGLE_MODEL:
+                break;
+        }
+        prepare();
+        start();
+    }
+
     public void destory() {
         playLists.clear();
         mediaPlayer.release();
         mediaPlayer = null;
         playLists = null;
     }
-
 
 }

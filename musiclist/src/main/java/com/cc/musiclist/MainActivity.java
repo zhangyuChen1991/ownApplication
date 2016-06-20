@@ -23,7 +23,9 @@ import com.cc.musiclist.constant.Constants;
 import com.cc.musiclist.manager.MediaPlayManager;
 import com.cc.musiclist.util.FileDirectoryUtil;
 import com.cc.musiclist.util.FileUtil;
+import com.cc.musiclist.util.SpUtil;
 import com.cc.musiclist.util.ToastUtil;
+import com.cc.musiclist.util.TranslateUtil;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -94,14 +96,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Runnable scanFileRunnable = new Runnable() {
         @Override
         public void run() {
+            TranslateUtil tu = new TranslateUtil();
             handler.sendEmptyMessage(initFileStart);
             files = FileUtil.getFileList(FileDirectoryUtil.getRootDirectory(), "mp3");
+//            SpUtil.put(Constants.filesPathCache, );
             handler.sendEmptyMessage(initFileOver);
             //debug
             for (int i = 0; i < files.size(); i++) {
                 Log.d(TAG, files.get(i).getAbsolutePath());
             }
             //debug
+            tu = null;
         }
     };
 
@@ -157,8 +162,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     pauseOrPlay.setTag(Constants.STATE_PAUSE);
                     pauseOrPlay.setText("播放");
                 }
-            case R.id.stop:
-
+            case R.id.stop:     //停止
                 mediaPlayManager.stop();
                 break;
         }
