@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whitesmoke"
@@ -13,39 +14,133 @@
         android:layout_height="wrap_content"
         android:layout_weight="5"></ListView>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/model_change"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/btn_blue_press_selector"
-            android:text="顺序播放"
-            android:textColor="@color/whitesmoke"
-            android:textSize="15sp" />
+            android:layout_weight="2"
+            android:background="@color/dodgerblue"
+            android:orientation="vertical"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp">
 
-        <Button
-            android:id="@+id/pause_play"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/btn_blue_press_selector"
-            android:text="暂停"
-            android:textColor="@color/whitesmoke"
-            android:textSize="15sp" />
+            <TextView
+                android:id="@+id/song_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="没有歌曲在播放"
+                android:textColor="@color/whitesmoke"
+                android:textSize="13sp" />
 
-        <Button
-            android:id="@+id/stop"
+            <TextView
+                android:id="@+id/play_time"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="00:00"
+                android:textColor="@color/whitesmoke"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_blue"></View>
+
+
+
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="4"
+            android:background="@color/dodgerblue">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/model_change"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_blue_press_selector"
+                    android:text="顺序播放"
+                    android:textColor="@color/whitesmoke"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/pause_play"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_blue_press_selector"
+                    android:text="暂停"
+                    android:textColor="@color/whitesmoke"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/stop"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_blue_press_selector"
+                    android:text="停止"
+                    android:textColor="@color/whitesmoke"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/next"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_blue_press_selector"
+                    android:text="下一曲"
+                    android:textColor="@color/whitesmoke"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
+            <SeekBar
+                android:id="@+id/seek_bar"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="1dp"
+                android:layout_height="3.3dp"
+                android:indeterminate="false"
+                android:progressDrawable="@drawable/seek_bar_progress_drwable"
+                android:thumb="@drawable/thumb" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/menu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
             android:background="@drawable/btn_blue_press_selector"
-            android:text="停止"
-            android:textColor="@color/whitesmoke"
-            android:textSize="15sp" />
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/menu" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

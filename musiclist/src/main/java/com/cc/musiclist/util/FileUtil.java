@@ -12,12 +12,15 @@ public class FileUtil {
     private static final String TAG = "FileUtil";
     private static ArrayList<File> fileList = new ArrayList<>();
 
-    public static ArrayList<File> getFileList(File directory, String fileType) {
-        queryDirectory(directory, fileType);
+    public static ArrayList<File> getFileList(File directory, String[] fileTypes) {
+        if (!directory.exists() || !directory.canRead())
+            return fileList;
+
+        queryDirectory(directory, fileTypes);
         return fileList;
     }
 
-    private static void queryDirectory(File directory, String fileType) {
+    private static void queryDirectory(File directory, String[] fileTypes) {
 
         File[] files = directory.listFiles();
         if (files == null)
@@ -25,14 +28,15 @@ public class FileUtil {
         else {
             for (int i = 0; i < files.length; i++) {
                 File file = files[i];
-                Log.i(TAG,"file："+file.getAbsolutePath());
+                Log.i(TAG, "file：" + file.getAbsolutePath());
                 if (file.isDirectory()) {
-                    getFileList(file, fileType);
+                    queryDirectory(file, fileTypes);
                 } else {
-                    if (FileTypeUtil.getFileTypeByPostfix(file).equals(fileType)) {
-                        fileList.add(file);
-                        Log.d(TAG,"-->add:"+file.getAbsolutePath());
-                    }
+                    for (int m = 0; m < fileTypes.length; m++)
+                        if (FileTypeUtil.getFileTypeByPostfix(file).equals(fileTypes[m])) {
+                            fileList.add(file);
+                            Log.d(TAG, "-->add:" + file.getAbsolutePath());
+                        }
 
                 }
             }

@@ -4,6 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+
+    <!-- 白色 -->
+    <color name="background_blue">#0099CC</color>
+    <!-- 透明 -->
+    <color name="transparent">#00000000</color>
     <!-- 白色 -->
     <color name="ivory">#FFFFF0</color>
     <!-- 象牙色 -->

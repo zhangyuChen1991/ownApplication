@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MusicList</string>
+    <string name="remind">友情提示</string>
 </resources>
