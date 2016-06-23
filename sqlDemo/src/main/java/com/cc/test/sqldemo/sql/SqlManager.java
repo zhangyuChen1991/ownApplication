@@ -71,7 +71,13 @@ public class SqlManager {
         return result == -1 ? false : true;
     }
 
-    //删除所有数据
+
+
+    /**
+     *  删除所有数据
+     * @param table 表名
+     * @return
+     */
     public boolean deleteAllDatas(String table) {
         try {
             SQLiteDatabase db = sqlHelper.getWritableDatabase();
@@ -104,7 +110,7 @@ public class SqlManager {
     }
 
     /**
-     * 取出所欲数据
+     * 取出所有数据
      *
      * @return
      */

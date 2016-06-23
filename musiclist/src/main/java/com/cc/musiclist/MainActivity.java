@@ -1,8 +1,7 @@
 package com.cc.musiclist;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +24,7 @@ import android.widget.TextView;
 import com.cc.musiclist.constant.Constants;
 import com.cc.musiclist.manager.MediaPlayManager;
 import com.cc.musiclist.manager.TimeCountManager;
+import com.cc.musiclist.util.DisplayUtils;
 import com.cc.musiclist.util.FileDirectoryUtil;
 import com.cc.musiclist.util.FileUtil;
 import com.cc.musiclist.util.SpUtil;
@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private MAdapter adapter;
     private MediaPlayManager mediaPlayManager;
     private MHandler handler;
-    private AlertDialog progressDialog;
+    private Dialog progressDialog;
     private static final int initFileStart = 0x25, initFileOver = 0x27, updateProgress = 0x31;
     private TranslateUtil tu;
     private String filePathCache;
@@ -98,10 +98,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private void initProgressDialog() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("提示");
-        progressDialog.setMessage("正在扫描歌曲..");
-
+        progressDialog = new Dialog(this,R.style.base_dialog);
+        progressDialog.setContentView(R.layout.progress_dailog);
+        WindowManager.LayoutParams params = progressDialog.getWindow().getAttributes();
+        params.height = (int) (DisplayUtils.getHeight() * 0.2f);
+        params.width = (int) (DisplayUtils.getWidth() * 0.9f);
+        progressDialog.getWindow().setAttributes(params);
+        progressDialog.setCanceledOnTouchOutside(false);
     }
 
     private void initResources() {
@@ -224,7 +227,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.pause_play:
                 int state = mediaPlayManager.getPlayingState();
-                if (state == Constants.STATE_PLAY_STOP) {     //暂停或停止状态
+                if (state == Constants.STATE_PLAY_STOP || state == Constants.STATE_PLAY_PAUSE) {     //暂停或停止状态
                     mediaPlayManager.start();
                 } else {      //播放状态
                     mediaPlayManager.pause();
