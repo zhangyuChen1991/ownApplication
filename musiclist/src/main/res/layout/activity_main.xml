@@ -60,7 +60,6 @@
             android:background="@drawable/gradient_blue"></View>
 
 
-
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -72,6 +71,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/model_change"
                     android:layout_width="0dp"
@@ -118,10 +118,10 @@
             <SeekBar
                 android:id="@+id/seek_bar"
                 android:layout_width="match_parent"
+                android:layout_height="3.3dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="1dp"
-                android:layout_height="3.3dp"
                 android:indeterminate="false"
                 android:progressDrawable="@drawable/seek_bar_progress_drwable"
                 android:thumb="@drawable/thumb" />
