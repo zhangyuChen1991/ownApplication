@@ -8,6 +8,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -29,6 +30,7 @@ import com.cc.musiclist.util.FileDirectoryUtil;
 import com.cc.musiclist.util.FileUtil;
 import com.cc.musiclist.util.SpUtil;
 import com.cc.musiclist.util.StringUtil;
+import com.cc.musiclist.util.ToastUtil;
 import com.cc.musiclist.util.TranslateUtil;
 
 import java.io.File;
@@ -377,5 +379,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     break;
             }
         }
+    }
+
+    long firstClick = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        // 实现两秒内双击退出功能
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            long secondClick = System.currentTimeMillis();
+            if (secondClick - firstClick > 2000) {
+                ToastUtil.showToast("再按一次退出程序",0);
+                firstClick = secondClick;
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }
