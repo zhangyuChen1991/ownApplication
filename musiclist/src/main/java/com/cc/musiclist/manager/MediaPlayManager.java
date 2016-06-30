@@ -10,6 +10,7 @@ import com.cc.musiclist.util.ToastUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -44,20 +45,13 @@ public class MediaPlayManager {
         playModel = SEQUENTIA_LOOP_MODEL;
         playingState = Constants.STATE_PLAY_STOP;
         nowFileDuration = 0;
+        nowFilePosition = 0;
+        playLists = new LinkedList<>();
     }
 
 
     public void setPlayCallBack(PlayCallBack playCallBack) {
         this.playCallBack = playCallBack;
-    }
-
-    public void setNowFilePosition(int nowFilePosition) {
-        this.nowFilePosition = nowFilePosition;
-        nowPlayFile = playLists.get(nowFilePosition);
-    }
-
-    public int getNowFilePosition() {
-        return nowFilePosition;
     }
 
     public void setPlayModel(int playModel) {
@@ -77,7 +71,12 @@ public class MediaPlayManager {
     }
 
     public void setNowPlayFile(File nowPlayFile) {
-        this.nowPlayFile = nowPlayFile;
+        if (null != nowPlayFile) {
+            nowFilePosition = playLists.indexOf(nowPlayFile);
+            this.nowPlayFile = nowPlayFile;
+        } else
+            nowPlayFile = playLists.get(0);
+        insertPosition = -1;      //初始化插入位置
     }
 
     public int getNowFileDuration() {
@@ -91,22 +90,27 @@ public class MediaPlayManager {
             return mediaPlayer.getCurrentPosition();
     }
 
-
     /**
      * 设置播放列表
      *
      * @param playLists
      */
     public void setPlayLists(List<File> playLists) {
-        this.playLists = playLists;
+        for (File file : playLists) {
+            this.playLists.add(file);
+            Log.i(TAG,file.getName());
+        }
     }
 
     public boolean prepare() {
         try {
-            mediaPlayer.reset();
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setDataSource(nowPlayFile.getPath());
-            mediaPlayer.prepare();
+            if (null != nowPlayFile && nowPlayFile.exists()) {
+                mediaPlayer.reset();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mediaPlayer.setDataSource(nowPlayFile.getPath());
+                mediaPlayer.prepare();
+                return true;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -157,19 +161,33 @@ public class MediaPlayManager {
 
     };
 
+    private int insertPosition = -1;
+
+    public void insertSong(File insertFile) {
+
+        if(insertPosition == -1)
+            insertPosition = nowFilePosition + 1;
+
+        playLists.add(insertPosition++, insertFile);
+
+        //debug
+        for (File file:playLists)
+            Log.v(TAG,file.getName());
+        //debug
+    }
 
     public void playNext() {
         switch (playModel) {
             case SEQUENTIA_LOOP_MODEL:
                 nowFilePosition++;
-                if (nowFilePosition == playLists.size())
+                if (nowFilePosition >= playLists.size())
                     nowFilePosition = 0;
-                setNowFilePosition(nowFilePosition);
+                setNowPlayFile(playLists.get(nowFilePosition));
                 break;
             case RANDOM_MODEL:
                 Random r = new Random();
-                int next = r.nextInt(playLists.size());
-                setNowFilePosition(next);
+                nowFilePosition = r.nextInt(playLists.size());
+                setNowPlayFile(playLists.get(nowFilePosition));
                 break;
             case SINGLE_MODEL:
                 break;

@@ -1,5 +1,7 @@
 package com.cc.musiclist.util;
 
+import android.text.TextUtils;
+
 import java.io.File;
 
 /**
@@ -29,5 +31,13 @@ public class StringUtil {
         else
             sb.append(s);
         return sb.toString();
+    }
+
+    public static String subPostfix(String str){
+        if(!TextUtils.isEmpty(str) && str.contains(".")) {
+            int index = str.lastIndexOf(".");
+            return str.substring(0, index);
+        }else
+            return str;
     }
 }

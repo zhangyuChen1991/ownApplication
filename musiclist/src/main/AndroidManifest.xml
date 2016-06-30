@@ -3,6 +3,8 @@
     package="com.cc.musiclist">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
 
     <application
         android:name=".application.BaseApplication"

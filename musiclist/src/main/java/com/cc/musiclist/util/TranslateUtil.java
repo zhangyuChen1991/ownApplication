@@ -2,6 +2,7 @@ package com.cc.musiclist.util;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -67,4 +68,5 @@ public class TranslateUtil {
         }
         return files;
     }
+
 }

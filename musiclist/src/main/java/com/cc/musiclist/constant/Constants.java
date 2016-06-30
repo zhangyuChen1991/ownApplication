@@ -10,6 +10,7 @@ public class Constants {
     public static final int STATE_PLAYING = 979;
 
     public static final String filesPathCache = "filesPathCache";
+    public static final String lastPlayFilePath = "lastPlayFilePath";
 
     public static final String lastPlayPosition = "lastPlayPosition";
     public static final String lastPlayModel = "lastPlayModel";

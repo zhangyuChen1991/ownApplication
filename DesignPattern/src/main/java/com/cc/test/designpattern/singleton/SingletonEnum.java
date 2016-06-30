@@ -10,6 +10,7 @@ package com.cc.test.designpattern.singleton;
 public enum SingletonEnum {
     INSTANCE;
 
+
     public int valueInt;
     public void doSomething() {
     }
