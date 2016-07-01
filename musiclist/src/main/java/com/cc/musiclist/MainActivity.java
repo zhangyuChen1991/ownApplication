@@ -1,6 +1,5 @@
 package com.cc.musiclist;
 
-import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Build;
@@ -10,7 +9,6 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,6 +29,7 @@ import com.cc.musiclist.manager.MediaPlayManager;
 import com.cc.musiclist.manager.SystemBarTintManager;
 import com.cc.musiclist.manager.TimeCountManager;
 import com.cc.musiclist.util.DisplayUtils;
+import com.cc.musiclist.util.LogUtil;
 import com.cc.musiclist.util.SpUtil;
 import com.cc.musiclist.util.StringUtil;
 import com.cc.musiclist.util.ToastUtil;
@@ -52,7 +51,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private SeekBar seekBar;
     private MediaPlayManager mediaPlayManager;
     private MHandler handler;
-    private Dialog progressDialog;
+    private Dialog progressDiaLogUtil;
     private PopupWindow popWindow;
     private TabsAdapter tabsAdapter;
     private List<Fragment> fragmentList;
@@ -99,7 +98,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         menu.setOnClickListener(this);
 
 
-        initProgressDialog();
+        initProgressDiaLogUtil();
         initPopWindow();
     }
 
@@ -135,14 +134,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         v.findViewById(R.id.cancel_scan_song_file).setOnClickListener(this);
     }
 
-    private void initProgressDialog() {
-        progressDialog = new Dialog(this, R.style.base_dialog);
-        progressDialog.setContentView(R.layout.progress_dailog);
-        WindowManager.LayoutParams params = progressDialog.getWindow().getAttributes();
+    private void initProgressDiaLogUtil() {
+        progressDiaLogUtil = new Dialog(this, R.style.base_dialog);
+        progressDiaLogUtil.setContentView(R.layout.progress_dailog);
+        WindowManager.LayoutParams params = progressDiaLogUtil.getWindow().getAttributes();
         params.height = (int) (DisplayUtils.getHeight() * 0.2f);
         params.width = (int) (DisplayUtils.getWidth() * 0.9f);
-        progressDialog.getWindow().setAttributes(params);
-        progressDialog.setCanceledOnTouchOutside(false);
+        progressDiaLogUtil.getWindow().setAttributes(params);
+        progressDiaLogUtil.setCanceledOnTouchOutside(false);
     }
 
     private void initResources() {
@@ -163,7 +162,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void initMediaPlayerManager() {
         String prePath = SpUtil.getString(Constants.lastPlayFilePath, "");
-        Log.i(TAG, "prePath = " + prePath);
+        LogUtil.i(TAG, "prePath = " + prePath);
         File preFile = new File(prePath);
         mediaPlayManager = MediaPlayManager.getInstance();
         mediaPlayManager.setPlayCallBack(playCallBack);
@@ -232,7 +231,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         } else {
             pauseOrPlay.setText("播放");
         }
-        Log.d(TAG, "initViewState  playState = " + playState + "，playModel = " + playModel);
+        LogUtil.d(TAG, "initViewState  playState = " + playState + "，playModel = " + playModel);
     }
 
     private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -240,13 +239,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            Log.d(TAG, "onPageScrolled  position = " + position + "  ,positionOffset = " + positionOffset + "  ,positionOffsetPixels = " + positionOffsetPixels + "  ,currX = " + currX);
+            LogUtil.d(TAG, "onPageScrolled  position = " + position + "  ,positionOffset = " + positionOffset + "  ,positionOffsetPixels = " + positionOffsetPixels + "  ,currX = " + currX);
 
         }
 
         @Override
         public void onPageSelected(int position) {
-            Log.i(TAG, "onPageSelected  currX = " + currX);
+            LogUtil.i(TAG, "onPageSelected  currX = " + currX);
             if (currentPosition != position)
                 titleView.translateTo(currentPosition, position);
 
@@ -302,16 +301,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void showLoading() {
-        progressDialog.show();
+        progressDiaLogUtil.show();
     }
 
     private void dismissLoading() {
-        progressDialog.dismiss();
+        progressDiaLogUtil.dismiss();
     }
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "ondestory.");
+        LogUtil.d(TAG, "ondestory.");
         SpUtil.put(Constants.lastPlayFilePath, mediaPlayManager.getNowPlayFile().getAbsolutePath());
         SpUtil.put(Constants.lastPlayModel, mediaPlayManager.getPlayModel());
         audioFileFragment.files.clear();
@@ -344,7 +343,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private TimeCountManager timeCountManager = new TimeCountManager() {
         @Override
         public void onCount() {
-            Log.d(TAG, "sendEmptyMessage(updateProgress)");
+            LogUtil.d(TAG, "sendEmptyMessage(updateProgress)");
             handler.sendEmptyMessage(Constants.updateProgress);
         }
     };

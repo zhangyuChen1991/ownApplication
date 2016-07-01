@@ -1,6 +1,5 @@
 package com.cc.musiclist.util;
 
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -130,7 +129,7 @@ public class FileTypeUtil {
             e.printStackTrace();
         }
 
-        Log.v(TAG,"getFileType--> return : "+res);
+        LogUtil.v(TAG,"getFileType--> return : "+res);
         return res;
     }
 
@@ -142,7 +141,7 @@ public class FileTypeUtil {
         indexOfPoint = indexOfPoint == -1 ? 0 : indexOfPoint;
         String postFix = filePath.substring(indexOfPoint + 1);
 
-        Log.v(TAG, "getFileType--> return : " + postFix);
+        LogUtil.v(TAG, "getFileType--> return : " + postFix);
         return postFix;
     }
 }

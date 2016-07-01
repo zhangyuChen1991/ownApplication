@@ -3,10 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <ListView
+        android:id="@+id/listview_play_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:text="播放列表"/>
+        android:layout_height="wrap_content"></ListView>
 </LinearLayout>

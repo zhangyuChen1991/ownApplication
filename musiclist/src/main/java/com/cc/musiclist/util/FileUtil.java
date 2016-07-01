@@ -1,7 +1,5 @@
 package com.cc.musiclist.util;
 
-import android.util.Log;
-
 import java.io.File;
 import java.util.ArrayList;
 
@@ -28,14 +26,14 @@ public class FileUtil {
         else {
             for (int i = 0; i < files.length; i++) {
                 File file = files[i];
-                Log.i(TAG, "file：" + file.getAbsolutePath());
+                LogUtil.i(TAG, "file：" + file.getAbsolutePath());
                 if (file.isDirectory()) {
                     queryDirectory(file, fileTypes);
                 } else {
                     for (int m = 0; m < fileTypes.length; m++)
                         if (FileTypeUtil.getFileTypeByPostfix(file).equals(fileTypes[m])) {
                             fileList.add(file);
-                            Log.d(TAG, "-->add:" + file.getAbsolutePath());
+                            LogUtil.d(TAG, "-->add:" + file.getAbsolutePath());
                         }
 
                 }

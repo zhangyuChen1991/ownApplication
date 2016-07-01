@@ -2,10 +2,10 @@ package com.cc.musiclist.manager;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.cc.musiclist.constant.Constants;
+import com.cc.musiclist.util.LogUtil;
 import com.cc.musiclist.util.ToastUtil;
 
 import java.io.File;
@@ -106,8 +106,12 @@ public class MediaPlayManager {
     public void setPlayLists(List<File> playLists) {
         for (File file : playLists) {
             this.playLists.add(file);
-            Log.i(TAG,file.getName());
+            LogUtil.i(TAG,file.getName());
         }
+    }
+
+    public List<File> getPlayLists() {
+        return playLists;
     }
 
     public boolean prepare() {
@@ -126,7 +130,7 @@ public class MediaPlayManager {
     }
 
     public void start() {
-        Log.i(TAG, "start: " + nowPlayFile.getName());
+        LogUtil.i(TAG, "start: " + nowPlayFile.getName());
         ToastUtil.showToast("" + nowPlayFile.getName(), 0);
         mediaPlayer.start();
         nowFileDuration = mediaPlayer.getDuration();
@@ -137,13 +141,13 @@ public class MediaPlayManager {
     }
 
     public void pause() {
-        Log.i(TAG, "pause:");
+        LogUtil.i(TAG, "pause:");
         mediaPlayer.pause();
         playingState = Constants.STATE_PLAY_PAUSE;
     }
 
     public void stop() {
-        Log.i(TAG, "stop:");
+        LogUtil.i(TAG, "stop:");
         mediaPlayer.stop();
         playingState = Constants.STATE_PLAY_STOP;
 
@@ -180,7 +184,7 @@ public class MediaPlayManager {
 
         //debug
         for (File file:playLists)
-            Log.v(TAG,file.getName());
+            LogUtil.v(TAG,file.getName());
         //debug
     }
 
