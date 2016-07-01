@@ -1,7 +1,9 @@
 package com.cc.musiclist.util;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
 
 import com.cc.musiclist.application.BaseApplication;
@@ -43,6 +45,7 @@ public class SpUtil {
         editor.commit();
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static void put(String key, Set<String> value) {
         editor.putStringSet(key, value);
         editor.commit();
@@ -68,6 +71,7 @@ public class SpUtil {
         return sp.getString(key, defaultValue);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static Set<String> getStringSet(String key, Set<String> defaultValue) {
         return sp.getStringSet(key, defaultValue);
     }
