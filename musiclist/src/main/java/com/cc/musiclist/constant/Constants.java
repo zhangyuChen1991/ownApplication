@@ -14,4 +14,8 @@ public class Constants {
 
     public static final String lastPlayPosition = "lastPlayPosition";
     public static final String lastPlayModel = "lastPlayModel";
+
+    public static final int initFileStart = 0x25, initFileOver = 0x27, updateProgress = 0x31, updateAnimatior = 0x41,startNew = 0x33;
+
+    public static final int LEFT = 0x101,RIGHT = 0x103;
 }

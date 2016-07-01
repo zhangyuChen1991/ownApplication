@@ -1,10 +1,11 @@
 package com.cc.musiclist.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,6 +18,8 @@ import com.cc.musiclist.util.DisplayUtils;
 public class TitleView extends RelativeLayout {
     private View markView;
     private TextView title1, title2, title3;
+
+    private TitleViewCallBack callBack;
 
     private int nowChooseed = 2;    //初始化时默认位置在中间
 
@@ -65,25 +68,62 @@ public class TitleView extends RelativeLayout {
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(markView, "translationX", currX, currX + distance);
         objectAnimator.setDuration(300);
         objectAnimator.start();
+        objectAnimator.addListener(animatorListener);
     }
 
     OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.title1:
-                    translateTo(nowChooseed, 1);
-                    nowChooseed = 1;
-                    break;
-                case R.id.title2:
-                    translateTo(nowChooseed, 2);
-                    nowChooseed = 2;
-                    break;
-                case R.id.title3:
-                    translateTo(nowChooseed, 3);
-                    nowChooseed = 3;
-                    break;
+            if (!animationing) {        //动画过程中不允许点击
+                animationing = true;
+                switch (v.getId()) {
+                    case R.id.title1:
+                        translateTo(nowChooseed, 1);
+                        nowChooseed = 1;
+                        break;
+                    case R.id.title2:
+                        translateTo(nowChooseed, 2);
+                        nowChooseed = 2;
+                        break;
+                    case R.id.title3:
+                        translateTo(nowChooseed, 3);
+                        nowChooseed = 3;
+                        break;
+                }
+
+                if (null != callBack)
+                    callBack.onSelected(nowChooseed - 1);//从0计
             }
         }
     };
+
+    boolean animationing = false;
+    private Animator.AnimatorListener animatorListener = new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animation) {
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            animationing = false;
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+
+        }
+    };
+
+    public void setCallBack(TitleViewCallBack callBack) {
+        this.callBack = callBack;
+    }
+
+    public interface TitleViewCallBack {
+        public void onSelected(int position);
+    }
 }

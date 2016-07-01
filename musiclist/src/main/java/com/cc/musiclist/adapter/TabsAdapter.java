@@ -3,38 +3,29 @@ package com.cc.musiclist.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+
+import java.util.List;
 
 /**
  * Created by zhangyu on 2016-06-30 19:29.
  */
-public class TabsAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
-    public TabsAdapter(FragmentManager fm) {
+public class TabsAdapter extends FragmentPagerAdapter {
+    private static final String TAG = "TabsAdapter";
+    private List<Fragment> fragmentList;
+
+    public TabsAdapter(FragmentManager fm, List<Fragment> fragmentList) {
         super(fm);
+        this.fragmentList = fragmentList;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return null;
+
+        return fragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-        return 0;
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
+        return fragmentList.size();
     }
 }

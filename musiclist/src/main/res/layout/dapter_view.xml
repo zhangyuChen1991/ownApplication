@@ -62,8 +62,7 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:background="@color/dodgerblue"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/delete"
@@ -71,9 +70,19 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="删除"
+            android:text="删除\n文件"
             android:textColor="@color/whitesmoke"
-            android:textSize="15sp" />
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/add_to_my_love"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="添加到\n喜爱"
+            android:textColor="@color/whitesmoke"
+            android:textSize="13sp" />
     </LinearLayout>
 
 </LinearLayout>

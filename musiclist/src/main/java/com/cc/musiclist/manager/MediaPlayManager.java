@@ -31,6 +31,14 @@ public class MediaPlayManager {
     public static final int SEQUENTIA_LOOP_MODEL = 0x11, RANDOM_MODEL = 0X13, SINGLE_MODEL = 0X15;
     private PlayCallBack playCallBack;
 
+    public static MediaPlayManager getInstance(){
+        return SingletonHolder.instance;
+    }
+
+    private static class SingletonHolder{
+        private static final MediaPlayManager instance = new MediaPlayManager();
+    }
+
     public interface PlayCallBack {
         public void playNext(String newSongName);
 
@@ -39,7 +47,7 @@ public class MediaPlayManager {
         public void stop();
     }
 
-    public MediaPlayManager() {
+    private MediaPlayManager() {
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(mCompletionListener);
         playModel = SEQUENTIA_LOOP_MODEL;
