@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,7 +23,6 @@ import android.widget.TextView;
 import com.cc.musiclist.adapter.TabsAdapter;
 import com.cc.musiclist.constant.Constants;
 import com.cc.musiclist.fragment.AudioFileFragment;
-import com.cc.musiclist.fragment.MyLoveSongFragment;
 import com.cc.musiclist.fragment.PlayListFragment;
 import com.cc.musiclist.manager.MapManager;
 import com.cc.musiclist.manager.MediaPlayManager;
@@ -33,6 +33,7 @@ import com.cc.musiclist.util.LogUtil;
 import com.cc.musiclist.util.SpUtil;
 import com.cc.musiclist.util.StringUtil;
 import com.cc.musiclist.util.ToastUtil;
+import com.cc.musiclist.util.TranslateUtil;
 import com.cc.musiclist.view.TitleView;
 
 import java.io.File;
@@ -56,7 +57,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private TabsAdapter tabsAdapter;
     private List<Fragment> fragmentList;
     private AudioFileFragment audioFileFragment;
-    private MyLoveSongFragment myLoveSongFragment;
     private PlayListFragment playListFragment;
     private int currentPosition = -1;
 
@@ -148,14 +148,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         handler = new MHandler(this);
 
         audioFileFragment = new AudioFileFragment();
-        myLoveSongFragment = new MyLoveSongFragment();
         playListFragment = new PlayListFragment();
 
         fragmentList = new ArrayList<>();
 
         fragmentList.add(playListFragment);
         fragmentList.add(audioFileFragment);
-        fragmentList.add(myLoveSongFragment);
 
         tabsAdapter = new TabsAdapter(getSupportFragmentManager(), fragmentList);
     }
@@ -167,11 +165,28 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mediaPlayManager = MediaPlayManager.getInstance();
         mediaPlayManager.setPlayCallBack(playCallBack);
         if (null != audioFileFragment.files) {
-            mediaPlayManager.setPlayLists(audioFileFragment.files);
+            setPlayList();
             //设置上次退出时的状态
             mediaPlayManager.setNowPlayFile(preFile);
             mediaPlayManager.setPlayModel(SpUtil.getInt(Constants.lastPlayModel, MediaPlayManager.SEQUENTIA_LOOP_MODEL));
             mediaPlayManager.prepare();
+        }
+    }
+
+    /**
+     * 设置播放列表
+     * 有缓存则恢复缓存数据，没有缓存设置当前文件列表作为播放列表
+     */
+    private void setPlayList() {
+        String cache = SpUtil.getString(Constants.playListCache, "");
+        if (mediaPlayManager.getPlayLists().size() == 0) {
+            if (TextUtils.isEmpty(cache))
+                mediaPlayManager.setPlayLists(audioFileFragment.files);
+            else {
+                TranslateUtil tu = new TranslateUtil();
+                List<File> lsit = tu.StringsToFileList(tu.stringToStringArray(cache));
+                mediaPlayManager.setPlayLists(lsit);
+            }
         }
     }
 
@@ -250,6 +265,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 titleView.translateTo(currentPosition, position);
 
             currentPosition = position;
+            if (position == 0)
+                playListFragment.adapterNotifyDataChange();
         }
 
         @Override
@@ -308,27 +325,30 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         progressDiaLogUtil.dismiss();
     }
 
-    @Override
-    protected void onDestroy() {
-        LogUtil.d(TAG, "ondestory.");
-        SpUtil.put(Constants.lastPlayFilePath, mediaPlayManager.getNowPlayFile().getAbsolutePath());
-        SpUtil.put(Constants.lastPlayModel, mediaPlayManager.getPlayModel());
+    private void destoryResources() {
         audioFileFragment.files.clear();
         mediaPlayManager.stop();
         mediaPlayManager.destory();
-        super.onDestroy();
+    }
+
+    private void saveCache() {
+        SpUtil.put(Constants.lastPlayFilePath, mediaPlayManager.getNowPlayFile().getAbsolutePath());
+        SpUtil.put(Constants.lastPlayModel, mediaPlayManager.getPlayModel());
+        mediaPlayManager.savePlayList();
     }
 
     private MediaPlayManager.PlayCallBack playCallBack = new MediaPlayManager.PlayCallBack() {
         @Override
         public void playNext(String newSongName) {
             audioFileFragment.scrollToNowPlay();
+            playListFragment.scrollToNowPlay();
         }
 
         @Override
         public void startNew(String newSongName, final int duration) {
             updateViewState();
             audioFileFragment.adapterNotifyDataChange();
+            playListFragment.adapterNotifyDataChange();
             seekBar.setMax(duration / 1000);
             timeCountManager.restartCount();
         }
@@ -379,6 +399,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     mainActivity.initMediaPlayerManager();
                     mainActivity.updateViewState();
                     mainActivity.audioFileFragment.scrollToNowPlay();
+                    mainActivity.playListFragment.adapterNotifyDataChange();
+                    mainActivity.playListFragment.scrollToNowPlay();
                     mainActivity.dismissLoading();
                     break;
                 case Constants.updateProgress:
@@ -403,7 +425,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 ToastUtil.showToast("再按一次退出程序", 0);
                 firstClick = secondClick;
             } else {
+                saveCache();
+                destoryResources();
                 finish();
+                System.exit(0);
             }
             return true;
         }

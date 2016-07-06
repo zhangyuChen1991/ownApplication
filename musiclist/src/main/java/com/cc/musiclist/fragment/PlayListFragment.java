@@ -20,9 +20,13 @@ import android.widget.TextView;
 
 import com.cc.musiclist.MainActivity;
 import com.cc.musiclist.R;
+import com.cc.musiclist.constant.Constants;
 import com.cc.musiclist.manager.MapManager;
 import com.cc.musiclist.manager.MediaPlayManager;
+import com.cc.musiclist.util.LogUtil;
+import com.cc.musiclist.util.SpUtil;
 import com.cc.musiclist.util.StringUtil;
+import com.cc.musiclist.util.ToastUtil;
 import com.cc.musiclist.util.TranslateUtil;
 
 import java.io.File;
@@ -34,6 +38,7 @@ import java.util.List;
  * Created by zhangyu on 2016-07-01 10:51.
  */
 public class PlayListFragment extends Fragment {
+    private static final String TAG = "PlayListFragment";
     private View rootView;
     private ListView listView;
     private MAdapter adapter;
@@ -51,15 +56,17 @@ public class PlayListFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         initView();
         initResources();
         initViewState();
-        super.onStart();
+        super.onActivityCreated(savedInstanceState);
     }
 
+
     private void initView() {
-        listView = (ListView) rootView.findViewById(R.id.listview_audio_file);
+        listView = (ListView) rootView.findViewById(R.id.listview_play_list);
+        LogUtil.d(TAG, "listView = " + listView);
         listView.setDividerHeight(0);
         listView.setOnItemClickListener(onItemClickListener);
 
@@ -71,6 +78,10 @@ public class PlayListFragment extends Fragment {
         tu = new TranslateUtil();
         mediaPlayManager = MediaPlayManager.getInstance();
         handler = ((MainActivity) getActivity()).getHandler();
+    }
+
+    public void scrollToNowPlay() {
+        listView.setSelection(mediaPlayManager.getNowPlayPositionInList());
     }
 
     private void initViewState() {
@@ -100,13 +111,11 @@ public class PlayListFragment extends Fragment {
             View v = null;
             ViewHolder holder = null;
             if (convertView == null) {
-                v = View.inflate(getContext(), R.layout.dapter_view, null);
+                v = View.inflate(getContext(), R.layout.play_list_dapter, null);
                 holder = new ViewHolder();
-                holder.songName = (TextView) v.findViewById(R.id.song_name);
                 holder.itemContainer = (RelativeLayout) v.findViewById(R.id.container);
-                holder.itemMenuIvContainer = (RelativeLayout) v.findViewById(R.id.item_menu_iv_container);
-                holder.itemMenu = (LinearLayout) v.findViewById(R.id.menu_container);
-                holder.addToPlayListIvContainer = (RelativeLayout) v.findViewById(R.id.item_add_iv_container);
+                holder.songName = (TextView) v.findViewById(R.id.song_name);
+                holder.delete = (RelativeLayout) v.findViewById(R.id.item_delete_iv_container);
 
                 v.setTag(holder);
             } else {
@@ -114,31 +123,60 @@ public class PlayListFragment extends Fragment {
                 holder = (ViewHolder) v.getTag();
             }
 
+            if (position < list.size()) {
+                String sName = list.get(position).getName();
+                holder.songName.setText(StringUtil.subPostfix(sName));
+            }
 
+            if (position == mediaPlayManager.getNowPlayPositionInList()) {
+                holder.itemContainer.setBackgroundColor(getResources().getColor(R.color.mediumturquoise));
+            } else
+                holder.itemContainer.setBackgroundColor(getResources().getColor(R.color.whitesmoke));
+
+            onItemViewClick(position, holder.delete);
             return v;
         }
     }
 
     private class ViewHolder {
-        private RelativeLayout addToPlayListIvContainer, itemMenuIvContainer;
-        private TextView songName, delete;
-        private RelativeLayout itemContainer;
-        private LinearLayout itemMenu;
+        private RelativeLayout delete, itemContainer;
+        private TextView songName;
+
+    }
+
+    private void onItemViewClick(final int position, View v) {
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.item_delete_iv_container://条目菜单
+                        mediaPlayManager.deleteSong(position);
+                        adapter.notifyDataSetChanged();
+                        mediaPlayManager.savePlayList();
+                        ToastUtil.showToast("已删除歌曲", 0);
+                        break;
+                }
+            }
+        });
     }
 
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             switch (parent.getId()) {
-                case R.id.listview_audio_file:
+                case R.id.listview_play_list:
                     if (position < list.size()) {
                         mediaPlayManager.setNowPlayFile(list.get(position));
                         mediaPlayManager.prepare();
                         mediaPlayManager.start();
+                        adapter.notifyDataSetChanged();
                     }
                     break;
             }
         }
     };
 
+    public void adapterNotifyDataChange() {
+        adapter.notifyDataSetChanged();
+    }
 }

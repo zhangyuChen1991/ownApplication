@@ -1,12 +1,17 @@
 package com.cc.musiclist.manager;
 
+import android.annotation.TargetApi;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.widget.Toast;
 
 import com.cc.musiclist.constant.Constants;
 import com.cc.musiclist.util.LogUtil;
+import com.cc.musiclist.util.SpUtil;
 import com.cc.musiclist.util.ToastUtil;
+import com.cc.musiclist.util.TranslateUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +28,7 @@ public class MediaPlayManager {
     private MediaPlayer mediaPlayer;
     private List<File> playLists;
     private File nowPlayFile;
-    private int nowFilePosition;
+    private int nowPlayPositionInList;
     private int playModel;
     private int playingState;
     private int nowFileDuration;
@@ -31,29 +36,34 @@ public class MediaPlayManager {
     public static final int SEQUENTIA_LOOP_MODEL = 0x11, RANDOM_MODEL = 0X13, SINGLE_MODEL = 0X15;
     private PlayCallBack playCallBack;
 
-    public static MediaPlayManager getInstance(){
+    public static MediaPlayManager getInstance() {
+        LogUtil.d(TAG, "getInstance.  SingletonHolder.instance = " + SingletonHolder.instance);
+
         return SingletonHolder.instance;
     }
 
-    private static class SingletonHolder{
+    private static class SingletonHolder {
+
         private static final MediaPlayManager instance = new MediaPlayManager();
     }
 
     public interface PlayCallBack {
-        public void playNext(String newSongName);
 
         public void startNew(String newSongName, int duration);
+
+        public void playNext(String newSongName);
 
         public void stop();
     }
 
     private MediaPlayManager() {
+        LogUtil.d(TAG, "new MediaPlayManager.");
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(mCompletionListener);
         playModel = SEQUENTIA_LOOP_MODEL;
         playingState = Constants.STATE_PLAY_STOP;
         nowFileDuration = 0;
-        nowFilePosition = 0;
+        nowPlayPositionInList = 0;
         playLists = new LinkedList<>();
     }
 
@@ -78,9 +88,13 @@ public class MediaPlayManager {
         return nowPlayFile;
     }
 
+    public int getNowPlayPositionInList() {
+        return nowPlayPositionInList;
+    }
+
     public void setNowPlayFile(File nowPlayFile) {
         if (null != nowPlayFile) {
-            nowFilePosition = playLists.indexOf(nowPlayFile);
+            nowPlayPositionInList = playLists.indexOf(nowPlayFile);
             this.nowPlayFile = nowPlayFile;
         } else
             nowPlayFile = playLists.get(0);
@@ -103,11 +117,14 @@ public class MediaPlayManager {
      *
      * @param playLists
      */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void setPlayLists(List<File> playLists) {
+
         for (File file : playLists) {
             this.playLists.add(file);
-            LogUtil.i(TAG,file.getName());
+            LogUtil.i(TAG, file.getName());
         }
+
     }
 
     public List<File> getPlayLists() {
@@ -177,29 +194,28 @@ public class MediaPlayManager {
 
     public void insertSong(File insertFile) {
 
-        if(insertPosition == -1)
-            insertPosition = nowFilePosition + 1;
+        if (insertPosition < playLists.size() || insertPosition < 0)
+           insertPosition = 0;
 
         playLists.add(insertPosition++, insertFile);
+    }
 
-        //debug
-        for (File file:playLists)
-            LogUtil.v(TAG,file.getName());
-        //debug
+    public void deleteSong(int position) {
+        playLists.remove(position);
     }
 
     public void playNext() {
         switch (playModel) {
             case SEQUENTIA_LOOP_MODEL:
-                nowFilePosition++;
-                if (nowFilePosition >= playLists.size())
-                    nowFilePosition = 0;
-                setNowPlayFile(playLists.get(nowFilePosition));
+                nowPlayPositionInList++;
+                if (nowPlayPositionInList >= playLists.size())
+                    nowPlayPositionInList = 0;
+                setNowPlayFile(playLists.get(nowPlayPositionInList));
                 break;
             case RANDOM_MODEL:
                 Random r = new Random();
-                nowFilePosition = r.nextInt(playLists.size());
-                setNowPlayFile(playLists.get(nowFilePosition));
+                nowPlayPositionInList = r.nextInt(playLists.size());
+                setNowPlayFile(playLists.get(nowPlayPositionInList));
                 break;
             case SINGLE_MODEL:
                 break;
@@ -216,6 +232,11 @@ public class MediaPlayManager {
         mediaPlayer.release();
         mediaPlayer = null;
         playLists = null;
+    }
+
+    public void savePlayList() {
+        TranslateUtil tu = new TranslateUtil();
+        SpUtil.put(Constants.playListCache, tu.stringArrayToString(tu.fileListToStrings(playLists)));
     }
 
 }

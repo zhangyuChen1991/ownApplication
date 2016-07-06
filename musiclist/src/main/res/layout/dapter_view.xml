@@ -62,7 +62,8 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:background="@color/dodgerblue"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/delete"

@@ -11,7 +11,7 @@ import java.util.List;
 public class TranslateUtil {
 
     /**
-     * 字符串数组元素以都好分隔，拼成字符串 (一般与String[] stringToStringArray(String str)方法搭配使用，相互转换)
+     * 字符串数组元素以逗号分隔，拼成字符串 (一般与String[] stringToStringArray(String str)方法搭配使用，相互转换)
      * @param strArry
      * @return
      */

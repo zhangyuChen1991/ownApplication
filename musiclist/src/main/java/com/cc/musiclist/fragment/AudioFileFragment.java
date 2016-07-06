@@ -70,11 +70,11 @@ public class AudioFileFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         initView();
         initResources();
         initViewState();
-        super.onStart();
+        super.onActivityCreated(savedInstanceState);
     }
 
     private void initView() {
@@ -272,6 +272,7 @@ public class AudioFileFragment extends Fragment {
                         startAnimation(position, (ViewHolder) items.get(position).getTag());
                         File insertFile = files.get(position);
                         mediaPlayManager.insertSong(insertFile);
+                        mediaPlayManager.savePlayList();
                         ToastUtil.showToast(StringUtil.subPostfix(insertFile.getName()) + "  已插入播放队列", 0);
                         break;
                 }
@@ -315,12 +316,6 @@ public class AudioFileFragment extends Fragment {
                 e.printStackTrace();
             } finally {
             }
-
-            //debug
-//            for (int i = 0; i < files.size(); i++) {
-//                Log.d(TAG, files.get(i).getAbsolutePath());
-//            }
-            //debug
         }
     };
 

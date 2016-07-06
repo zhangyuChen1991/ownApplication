@@ -17,11 +17,11 @@ import com.cc.musiclist.util.DisplayUtils;
  */
 public class TitleView extends RelativeLayout {
     private View markView;
-    private TextView title1, title2, title3;
+    private TextView title1, title2;
 
     private TitleViewCallBack callBack;
 
-    private int nowChooseed = 2;    //初始化时默认位置在中间
+    private int nowChooseed = 2;
 
     public TitleView(Context context) {
         super(context);
@@ -45,14 +45,12 @@ public class TitleView extends RelativeLayout {
         markView = findViewById(R.id.mark_view);
         title1 = (TextView) findViewById(R.id.title1);
         title2 = (TextView) findViewById(R.id.title2);
-        title3 = (TextView) findViewById(R.id.title3);
 
         title1.setOnClickListener(onClickListener);
         title2.setOnClickListener(onClickListener);
-        title3.setOnClickListener(onClickListener);
 
         params = (RelativeLayout.LayoutParams) markView.getLayoutParams();
-        params.width = DisplayUtils.getWidth() / 3;
+        params.width = DisplayUtils.getWidth() / 2;
         markView.setLayoutParams(params);
     }
 
@@ -84,10 +82,6 @@ public class TitleView extends RelativeLayout {
                     case R.id.title2:
                         translateTo(nowChooseed, 2);
                         nowChooseed = 2;
-                        break;
-                    case R.id.title3:
-                        translateTo(nowChooseed, 3);
-                        nowChooseed = 3;
                         break;
                 }
 
