@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/javatest" />
             <option value="$PROJECT_DIR$/musiclist" />
             <option value="$PROJECT_DIR$/sqlDemo" />
+            <option value="$PROJECT_DIR$/testMoudule" />
           </set>
         </option>
         <option name="myModules">
@@ -25,6 +26,7 @@
             <option value="$PROJECT_DIR$/javatest" />
             <option value="$PROJECT_DIR$/musiclist" />
             <option value="$PROJECT_DIR$/sqlDemo" />
+            <option value="$PROJECT_DIR$/testMoudule" />
           </set>
         </option>
       </GradleProjectSettings>
