@@ -23,6 +23,7 @@ public class RoundImageView extends ImageView {
 
     private static final String TAG = "RoundImageView";
     private PorterDuffXfermode porterDuffXFermode;//颜色渲染模式
+    //控件宽、高
     private int viewWidth, viewHeight;
     private Paint paint;
 
@@ -45,7 +46,7 @@ public class RoundImageView extends ImageView {
         paint = new Paint();
         paint.setAntiAlias(true);
 
-        porterDuffXFermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);//取两层绘制交集,显示下层。
+        PorterDuffXfermode porterDuffXFermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);//取两层绘制交集,显示下层。
     }
 
     @Override

@@ -1,1 +1,1 @@
-include ':cLibrary', ':RecyclerViewDemo', ':sqlDemo', ':DesignPattern', ':javatest', ':musiclist', ':testMoudule'
+include ':cLibrary', ':RecyclerViewDemo', ':DesignPattern', ':javatest', ':musiclist', ':testMoudule'
