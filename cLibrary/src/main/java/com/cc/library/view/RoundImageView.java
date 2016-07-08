@@ -46,7 +46,7 @@ public class RoundImageView extends ImageView {
         paint = new Paint();
         paint.setAntiAlias(true);
 
-        PorterDuffXfermode porterDuffXFermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);//取两层绘制交集,显示下层。
+        porterDuffXFermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);//取两层绘制交集,显示下层。
     }
 
     @Override
@@ -77,7 +77,7 @@ public class RoundImageView extends ImageView {
         Canvas roundCanvas = new Canvas(bitmap);
 
         int raidus = Math.min(viewHeight, viewWidth) / 2;
-        roundCanvas.drawCircle(viewWidth / 2, viewHeight / 2, raidus, new Paint());
+        roundCanvas.drawCircle(viewWidth / 2, viewHeight / 2, raidus, new Paint(Color.WHITE));
 
         return bitmap;
     }
