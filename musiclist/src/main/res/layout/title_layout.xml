@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="播放列表"
+            android:text="我的歌单"
             android:textColor="@color/whitesmoke"
             android:textSize="15sp" />
 
