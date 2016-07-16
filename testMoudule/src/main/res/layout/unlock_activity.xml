@@ -5,6 +5,7 @@
     android:background="@drawable/bg1">
 
     <com.cc.library.view.UnlockView
+        android:id="@+id/unlock_view"
         android:layout_width="match_parent"
         android:layout_height="360dp"
         android:layout_alignParentBottom="true"/>
