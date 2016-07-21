@@ -19,7 +19,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * @author Jamin
+ * @author
  * @创建时间：2016-3-9下午5:06:06
  * @描述： dip/dp、sp 转换为 px 的工具类
  */

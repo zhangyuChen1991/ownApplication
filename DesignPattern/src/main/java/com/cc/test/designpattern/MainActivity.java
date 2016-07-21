@@ -21,7 +21,5 @@ public class MainActivity extends AppCompatActivity {
         instance.doSomething();
 
         SProduct product = new SFactory().create(SProduct.class);
-
-        GridView gridView = new GridView(this);
     }
 }
