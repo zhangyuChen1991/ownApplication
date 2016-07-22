@@ -19,23 +19,23 @@ public class TestUnlockViewActivity extends Activity {
 
         unlockView = (UnlockView) findViewById(R.id.unlock_view);
 
-        //设置回调监听
-        unlockView.setUnlockListener(new UnlockView.UnlockListener() {
-            @Override
-            public void drawOver(int[] pwd) {//绘制完成，获取绘制的密码
-                unlockView.getDrawedPwd();
-            }
-            @Override
-            public void isPwdRight(boolean isRight) {//密码是否校验正确
-                if(isRight)
-                    Toast.makeText(TestUnlockViewActivity.this,"密码正确",Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(TestUnlockViewActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        int[] pwd = {0,5,7,6};
-        unlockView.setRightPwd(pwd);    //设置密码
+//        //设置回调监听
+//        unlockView.setUnlockListener(new UnlockView.UnlockListener() {
+//            @Override
+//            public void drawOver(int[] pwd) {//绘制完成，获取绘制的密码
+//                unlockView.getDrawedPwd();
+//            }
+//            @Override
+//            public void isPwdRight(boolean isRight) {//密码是否校验正确
+//                if(isRight)
+//                    Toast.makeText(TestUnlockViewActivity.this,"密码正确",Toast.LENGTH_SHORT).show();
+//                else
+//                    Toast.makeText(TestUnlockViewActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        int[] pwd = {0,5,7,6};
+//        unlockView.setRightPwd(pwd);    //设置密码
 
     }
 }
