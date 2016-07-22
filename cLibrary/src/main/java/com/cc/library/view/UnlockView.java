@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 /**
+ * 图案解锁view
  * Created by zhangyu on 2016-07-15 15:05.
  */
 public class UnlockView extends View {
@@ -27,14 +28,21 @@ public class UnlockView extends View {
     private float radius;
     //绘制密码
     private int[] drawingPwd = new int[9];
+    //正确的密码
+    private int[] rightPwd;
     //画笔
     private Paint whitePaint, cyanPaint;
-    //绘制路径
-    private Path drawingPath = new Path();
     //已经绘制过了的点个数
     private int drawedNumber;
     //当前正被触摸的点
     private Location nowTouchedPosition = new Location();
+    //监听
+    private UnlockListener unlockListener;
+
+
+    public void setUnlockListener(UnlockListener unlockListener) {
+        this.unlockListener = unlockListener;
+    }
 
     public UnlockView(Context context) {
         super(context);
@@ -62,7 +70,7 @@ public class UnlockView extends View {
                 Log.d(TAG, "width = " + width + "  ,height = " + height);
                 averageWidth = width / 3f;
                 averageHeight = height / 3f;
-                radius = averageHeight > averageWidth ? averageWidth / 4f : averageHeight / 4f;
+                radius = averageHeight > averageWidth ? averageWidth / 5f : averageHeight / 5f;
 
                 initLocation();
                 invalidate();
@@ -82,17 +90,22 @@ public class UnlockView extends View {
         initDrawingPwd();
     }
 
-    private void drawStart(){
+    private void drawStart() {
         drawedNumber = 0;
     }
 
-    private void drawOver(){
+    private void drawOver() {
         //debug
         StringBuffer sb = new StringBuffer();
-        for(int i = 0;i < drawingPwd.length;i++){
-            sb.append(drawingPwd[i]+",");
+        for (int i = 0; i < drawingPwd.length; i++) {
+            sb.append(drawingPwd[i] + ",");
         }
-        Log.i(TAG,"drawingPwd:"+sb.toString());
+        Log.i(TAG, "drawingPwd:" + sb.toString());
+
+        initLocation();
+        initDrawingPwd();
+        drawedNumber = 0;
+        invalidate();
     }
 
     /**
@@ -143,8 +156,24 @@ public class UnlockView extends View {
             } else {//被画过了
                 cyanPaint.setStrokeWidth(8);
                 canvas.drawPoint(locations[i].x, locations[i].y, cyanPaint);
-                cyanPaint.setStrokeWidth(2f);
+                cyanPaint.setStrokeWidth(3f);
                 canvas.drawCircle(locations[i].x, locations[i].y, radius, cyanPaint);
+            }
+
+            int lastestDrawedPoint = -1;
+            if (drawedNumber > 0)
+                lastestDrawedPoint = drawingPwd[drawedNumber - 1];
+            if (lastestDrawedPoint != -1) {
+                Location lastestDrawedLocation = locations[lastestDrawedPoint];//最新一个被选中的点
+                cyanPaint.setStrokeWidth(3f);
+                canvas.drawLine(lastestDrawedLocation.x, lastestDrawedLocation.y, nowTouchedPosition.x, nowTouchedPosition.y, cyanPaint);
+            }
+
+            if (drawedNumber > 1) {
+                for (int j = 0; j < drawedNumber - 1; j++) {
+                    cyanPaint.setStrokeWidth(3f);
+                    canvas.drawLine(locations[drawingPwd[j]].x, locations[drawingPwd[j]].y, locations[drawingPwd[j + 1]].x, locations[drawingPwd[j + 1]].y, cyanPaint);
+                }
             }
         }
         super.onDraw(canvas);
@@ -161,9 +190,19 @@ public class UnlockView extends View {
             case MotionEvent.ACTION_MOVE:
                 moveX = event.getX();
                 moveY = event.getY();
+
                 dealPosition(moveX, moveY);
                 break;
             case MotionEvent.ACTION_UP:
+
+                if (unlockListener != null) {
+                    unlockListener.drawOver(drawingPwd);
+                    if (verificationPwd(rightPwd)) {
+                        unlockListener.isPwdRight(true);
+                    } else {
+                        unlockListener.isPwdRight(false);
+                    }
+                }
                 drawOver();
                 break;
         }
@@ -171,20 +210,21 @@ public class UnlockView extends View {
     }
 
     private void dealPosition(float nowX, float nowY) {
+        nowTouchedPosition.x = nowX;
+        nowTouchedPosition.y = nowY;
+
         int nowTouched = getWhichOneBeTouched(nowX, nowY);
         if (nowTouched != -1) {//触摸到了点上
 
-            if(!locations[nowTouched].deawed){//如果这点没被触摸过
-                drawingPath.lineTo(locations[nowTouched].x,locations[nowTouched].y);
+            if (!locations[nowTouched].deawed) {//如果这点没被触摸过
                 drawingPwd[drawedNumber] = nowTouched;      //记录密码
                 drawedNumber++;     //被触摸点数+1
-                Log.v(TAG, "nowTouched " + nowTouched + "  ,drawedNumber = "+drawedNumber);
+                Log.v(TAG, "nowTouched " + nowTouched + "  ,drawedNumber = " + drawedNumber);
 
             }
             locations[nowTouched].deawed = true;
-
-            invalidate();
         }
+        invalidate();
     }
 
     private class Location {
@@ -218,14 +258,13 @@ public class UnlockView extends View {
      * @return 正确返回true 否则返回false
      */
     public boolean verificationPwd(int[] rightPwd) {
+        if (rightPwd == null)
+            return false;
+
         for (int i = 0; i < rightPwd.length; i++) {
             if (rightPwd[i] != drawingPwd[i])
                 return false;
         }
-
-        //所绘制的密码位数比正确的密码位数长
-        if (drawingPwd[rightPwd.length] != -1)
-            return false;
 
         return true;
     }
@@ -237,5 +276,20 @@ public class UnlockView extends View {
      */
     public int[] getDrawedPwd() {
         return drawingPwd;
+    }
+
+    /**
+     * 设置正确的密码
+     *
+     * @param rightPwd
+     */
+    public void setRightPwd(int[] rightPwd) {
+        this.rightPwd = rightPwd;
+    }
+
+    //监听接口
+    public interface UnlockListener {
+        public void drawOver(int[] pwd);
+        public void isPwdRight(boolean isRight);
     }
 }
