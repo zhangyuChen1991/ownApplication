@@ -8,8 +8,8 @@
       <module fileurl="file://$PROJECT_DIR$/clibrary/cLibrary.iml" filepath="$PROJECT_DIR$/clibrary/cLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/javatest/javatest.iml" filepath="$PROJECT_DIR$/javatest/javatest.iml" />
       <module fileurl="file://$PROJECT_DIR$/musiclist/musiclist.iml" filepath="$PROJECT_DIR$/musiclist/musiclist.iml" />
-      <module fileurl="file://$PROJECT_DIR$/testMoudule/testMoudule.iml" filepath="$PROJECT_DIR$/testMoudule/testMoudule.iml" />
-      <module fileurl="file://$PROJECT_DIR$/testScan/testScan.iml" filepath="$PROJECT_DIR$/testScan/testScan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testModule/testModule.iml" filepath="$PROJECT_DIR$/testModule/testModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zxing-lib/zxing-lib.iml" filepath="$PROJECT_DIR$/zxing-lib/zxing-lib.iml" />
     </modules>
   </component>
 </project>

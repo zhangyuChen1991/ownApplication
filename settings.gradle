@@ -1,1 +1,1 @@
-include ':cLibrary', ':RecyclerViewDemo', ':DesignPattern', ':javatest', ':musiclist', ':testMoudule', ':testScan'
+include ':cLibrary', ':RecyclerViewDemo', ':DesignPattern', ':javatest', ':musiclist', ':testModule', ':zxing-lib'
