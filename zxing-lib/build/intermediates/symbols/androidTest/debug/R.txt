@@ -16,7 +16,7 @@ int id return_scan_result 0x7f070005
 int id status_view 0x7f070008
 int id viewfinder_view 0x7f070007
 int layout activity_zxing_capture 0x7f030000
-int raw beep 0x7f040000
+int raw qrcode_completed 0x7f040000
 int string app_name 0x7f050001
 int string zxing_msg_default_status 0x7f050000
 int style CaptureTheme 0x7f080000

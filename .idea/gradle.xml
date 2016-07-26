@@ -9,6 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/DesignPattern" />
+            <option value="$PROJECT_DIR$/Library_PullToRefreshSwipeMenuListView" />
             <option value="$PROJECT_DIR$/RecyclerViewDemo" />
             <option value="$PROJECT_DIR$/cLibrary" />
             <option value="$PROJECT_DIR$/javatest" />
@@ -21,6 +22,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/DesignPattern" />
+            <option value="$PROJECT_DIR$/Library_PullToRefreshSwipeMenuListView" />
             <option value="$PROJECT_DIR$/RecyclerViewDemo" />
             <option value="$PROJECT_DIR$/cLibrary" />
             <option value="$PROJECT_DIR$/javatest" />

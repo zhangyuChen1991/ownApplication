@@ -55,13 +55,13 @@ public final class ViewfinderView extends View {
 	private CameraManager cameraManager;
 	private final Paint paint;
 	private Bitmap resultBitmap;
-	//ËÄÖÜ»Ò±ß´øÑÕÉ«
+	//å››å‘¨ç°è¾¹å¸¦é¢œè‰²
 	public int maskColor;
-	//É¨ÃèÍê±Ï±³¾°É«
+	//æ‰«æå®Œæ¯•èƒŒæ™¯è‰²
 	public int resultColor;
-	//É¨ÃèÏßÑÕÉ«
+	//æ‰«æçº¿é¢œè‰²
 	public int laserColor;
-	//É¨Ãè°ßµãÑÕÉ«
+	//æ‰«ææ–‘ç‚¹é¢œè‰²
 	public int resultPointColor;
 	private int scannerAlpha;
 	private List<ResultPoint> possibleResultPoints;
@@ -103,12 +103,12 @@ public final class ViewfinderView extends View {
 		int height = canvas.getHeight();
 
 		// Draw the exterior (i.e. outside the framing rect) darkened
-		// ¾ØĞÎËÄÖÜµÄ»ÒÉ«´ø±ß
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÜµÄ»ï¿½É«ï¿½ï¿½ï¿½ï¿½
 		paint.setColor(resultBitmap != null ? resultColor : maskColor);
-		canvas.drawRect(0, 0, width, frame.top, paint);// ÉÏ·½»ÒÉ«
-		canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, paint);// ×ó·½»ÒÉ«
-		canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1, paint);// ÓÒ·½»ÒÉ«
-		canvas.drawRect(0, frame.bottom + 1, width, height, paint);// ÏÂ·½»ÒÉ«
+		canvas.drawRect(0, 0, width, frame.top, paint);// ï¿½Ï·ï¿½ï¿½ï¿½É«
+		canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, paint);// ï¿½ó·½»ï¿½É«
+		canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1, paint);// ï¿½Ò·ï¿½ï¿½ï¿½É«
+		canvas.drawRect(0, frame.bottom + 1, width, height, paint);// ï¿½Â·ï¿½ï¿½ï¿½É«
 
 		if (resultBitmap != null) {
 			// Draw the opaque result bitmap over the scanning rectangle

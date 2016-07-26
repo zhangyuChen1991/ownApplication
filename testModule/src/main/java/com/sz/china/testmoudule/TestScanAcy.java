@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.google.zxing.client.android.CaptureActivity;
 import com.google.zxing.client.android.Intents;
-import com.google.zxing.client.android.ViewfinderView;
+
+import edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView;
 
 
 /**
@@ -16,6 +19,7 @@ import com.google.zxing.client.android.ViewfinderView;
  */
 public class TestScanAcy extends Activity implements View.OnClickListener{
 
+    private PullToRefreshSwipeMenuListView listView;
     private static final int REQUEST_CODE = 220;
     private TextView result;
     @Override
@@ -23,6 +27,8 @@ public class TestScanAcy extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.empty_layout);
 
+        listView = (PullToRefreshSwipeMenuListView) findViewById(R.id.listView);
+        listView.setAdapter(new MyAdapter());
         result = (TextView) findViewById(R.id.tv);
         findViewById(R.id.parent).setOnClickListener(this);
     }
@@ -66,5 +72,30 @@ public class TestScanAcy extends Activity implements View.OnClickListener{
          intent.putExtra(ViewfinderView.ResultPointColor, R.color.red);
          intent.putExtra(ViewfinderView.LaserColor, R.color.yellow);
          **/
+    }
+
+    private class MyAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return 10;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            TextView tv = new TextView(TestScanAcy.this);
+            tv.setText("test房间都是浪费");
+            return tv;
+        }
     }
 }

@@ -166,7 +166,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     }
 
     /**
-     * 设置扫描控件相关颜色
+     * 璁剧疆鎵弿椤甸潰鎺т欢棰滆壊
      */
     private void setScanViewColors() {
     	Intent intent = getIntent();

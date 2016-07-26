@@ -37,7 +37,7 @@ public final class R {
         public static final int activity_zxing_capture=0x7f030000;
     }
     public static final class raw {
-        public static final int beep=0x7f040000;
+        public static final int qrcode_completed=0x7f040000;
     }
     public static final class string {
         public static final int app_name=0x7f050001;
