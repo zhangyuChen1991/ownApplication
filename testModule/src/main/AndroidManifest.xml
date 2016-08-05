@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sz.china.testmoudule">
 
+    <permission android:name="android.permission.INTERNET"></permission>
     <application
         android:name=".application.BaseApplication"
         android:allowBackup="true"

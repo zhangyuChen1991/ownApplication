@@ -216,7 +216,7 @@ public class PullToRefreshSwipeMenuListView extends ListView implements OnScroll
 					// the first item is showing, header has shown or pull down.
 					updateHeaderHeight(deltaY / OFFSET_RADIO);
 					invokeOnScrolling();
-				} else if ((mFooterView.getBottomMargin() > 0 || deltaY < 0)) {
+				} else if (getLastVisiblePosition() == (mTotalItemCount - 1)) {//mark 修改源码，改变判断条件 mFooterView.getBottomMargin() > 0 || deltaY < 0)
 					// last item, already pulled up or want to pull up.
 					updateFooterHeight(-deltaY / OFFSET_RADIO);
 				}

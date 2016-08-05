@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId "com.sz.china.testmoudule"
-        minSdkVersion 8
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -26,4 +26,5 @@ dependencies {
     compile project(':cLibrary')
     compile project(':zxing-lib')
     compile project(':Library_PullToRefreshSwipeMenuListView')
+    // From node_modules
 }
