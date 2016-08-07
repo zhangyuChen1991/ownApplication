@@ -2,7 +2,6 @@ package com.sz.china.testmoudule;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
@@ -10,9 +9,9 @@ import android.widget.ImageView;
 import com.cc.library.anim.ActivityRotateAnimationUtil;
 import com.cc.library.annotation.ViewInject;
 import com.cc.library.annotation.ViewInjectUtil;
-import com.sz.china.testmoudule.R;
 
 /**
+ * 测试旋转activity翻页工具:ActivityRotateAnimationUtil
  * Created by zhangyu on 2016-07-13 14:22.
  */
 public class TestRotateAnimationActivity extends Activity{
@@ -25,7 +24,7 @@ public class TestRotateAnimationActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//无actionbar
-        setContentView(R.layout.immersion_activity);
+        setContentView(R.layout.activity_immersion);
 
         ViewInjectUtil.injectView(this);
 

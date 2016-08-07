@@ -12,24 +12,35 @@ import com.google.zxing.client.android.CaptureActivity;
 import com.google.zxing.client.android.Intents;
 
 import edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView;
+import edu.swu.pulltorefreshswipemenulistview.library.pulltorefresh.interfaces.IXListViewListener;
 
 
 /**
+ * 测试二维码扫描框架 以及上下拉刷新侧滑菜单listview：PullToRefreshSwipeMenuListView
  * Created by zhangyu on 2016/7/23 09:28.
  */
-public class TestScanAcy extends Activity implements View.OnClickListener{
+public class TestScanAcy extends Activity implements View.OnClickListener, IXListViewListener {
 
     private PullToRefreshSwipeMenuListView listView;
     private static final int REQUEST_CODE = 220;
     private TextView result;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.empty_layout);
+        setContentView(R.layout.activity_test_scan);
 
+        initView();
+    }
+
+    private void initView() {
         listView = (PullToRefreshSwipeMenuListView) findViewById(R.id.listView);
         listView.setAdapter(new MyAdapter());
+        listView.setPullRefreshEnable(true);
+        listView.setPullLoadEnable(true);
+        listView.setXListViewListener(this);
         result = (TextView) findViewById(R.id.tv);
+        result.setText("点我扫码.");
         findViewById(R.id.parent).setOnClickListener(this);
     }
 
@@ -38,7 +49,7 @@ public class TestScanAcy extends Activity implements View.OnClickListener{
 
         if (null != data && requestCode == REQUEST_CODE) {
             switch (resultCode) {
-                case Activity.RESULT_OK:
+                case Activity.RESULT_OK:    //扫码结果
                     result.setText(data.getStringExtra(Intents.Scan.RESULT));
                     break;
                 default:
@@ -52,6 +63,11 @@ public class TestScanAcy extends Activity implements View.OnClickListener{
         callCapture(null);
     }
 
+    /**
+     * 设置相关参数，调起扫码页面
+     *
+     * @param characterSet
+     */
     private void callCapture(String characterSet) {
 
         Intent intent = new Intent();
@@ -74,11 +90,43 @@ public class TestScanAcy extends Activity implements View.OnClickListener{
          **/
     }
 
-    private class MyAdapter extends BaseAdapter{
+    @Override
+    public void onRefresh() {
+        new Thread(loading).start();
+    }
+
+    @Override
+    public void onLoadMore() {
+        new Thread(loading).start();
+    }
+
+    private void onLoadOver() {
+        listView.stopRefresh();
+        listView.stopLoadMore();
+    }
+
+    private Runnable loading = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1500);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onLoadOver();
+                    }
+                });
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    private class MyAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return 10;
+            return 30;
         }
 
         @Override

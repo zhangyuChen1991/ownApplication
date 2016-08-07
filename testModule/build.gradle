@@ -27,4 +27,5 @@ dependencies {
     compile project(':zxing-lib')
     compile project(':Library_PullToRefreshSwipeMenuListView')
     // From node_modules
+    compile project(':pulltorefresh_library')
 }

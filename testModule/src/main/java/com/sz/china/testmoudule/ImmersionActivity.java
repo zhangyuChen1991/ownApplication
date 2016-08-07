@@ -3,27 +3,19 @@ package com.sz.china.testmoudule;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.media.MediaBrowserCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.cc.library.annotation.ViewInject;
 import com.cc.library.annotation.ViewInjectUtil;
-import com.sz.china.testmoudule.util.DisplayUtils;
 
 /**
  * Created by zhangyu on 2016/7/10 08:25.
@@ -41,13 +33,27 @@ public class ImmersionActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//无actionbar
-        setContentView(R.layout.immersion_activity);
+        setContentView(R.layout.activity_immersion);
         ViewInjectUtil.injectView(this);
+        setImmersionStatus();
 
     }
 
     private float touchStartX, touchStartY, touchMoveX, touchMoveY;
     private boolean rotateOpen = false;
+
+    /**
+     * 设置屏幕顶部的时间、电量等图标显示在界面上
+     */
+    private void setImmersionStatus() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // 透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // 透明导航栏 即下方的虚拟按键
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
+        }
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
