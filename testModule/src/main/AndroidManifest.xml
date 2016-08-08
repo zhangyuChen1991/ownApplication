@@ -28,7 +28,7 @@
         <activity android:name=".TestScanAcy"></activity>
         <activity android:name=".TestActivity1"></activity>
         <activity android:name=".TestUnlockViewActivity"></activity>
-        <activity android:name=".PullToRefreshScrollViewActivity"></activity>
+        <activity android:name=".RecycleViewDemoActivity"></activity>
     </application>
 
 </manifest>

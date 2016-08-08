@@ -1,4 +1,4 @@
-package com.cczy.test.divider;
+package com.sz.china.testmoudule.recycleview.divider;
 
 import android.content.Context;
 import android.content.res.TypedArray;

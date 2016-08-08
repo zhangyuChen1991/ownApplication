@@ -28,4 +28,5 @@ dependencies {
     compile project(':Library_PullToRefreshSwipeMenuListView')
     // From node_modules
     compile project(':pulltorefresh_library')
+    compile 'com.android.support:recyclerview-v7:23.2.1'
 }

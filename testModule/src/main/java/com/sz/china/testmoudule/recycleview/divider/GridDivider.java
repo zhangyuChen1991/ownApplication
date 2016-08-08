@@ -1,4 +1,4 @@
-package com.cczy.test.divider;
+package com.sz.china.testmoudule.recycleview.divider;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.support.v7.widget.RecyclerView.State;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+
 /**
  * Created by zhangyu on 2016-06-03 18:29.
  */

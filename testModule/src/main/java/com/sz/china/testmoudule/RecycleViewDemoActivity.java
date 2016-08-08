@@ -1,6 +1,5 @@
-package com.cczy.test;
+package com.sz.china.testmoudule;
 
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cczy.test.divider.GridDivider;
+
+import com.sz.china.testmoudule.recycleview.divider.GridDivider;
 
 import java.util.ArrayList;
 
-public class DemoActivity extends AppCompatActivity {
+public class RecycleViewDemoActivity extends AppCompatActivity {
 
     private ArrayList<String> data;
     private RecyclerView recyclerView;
@@ -84,7 +84,7 @@ public class DemoActivity extends AppCompatActivity {
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            MyViewHolder viewHolder = new MyViewHolder(View.inflate(DemoActivity.this, R.layout.adpter, null));
+            MyViewHolder viewHolder = new MyViewHolder(View.inflate(RecycleViewDemoActivity.this, R.layout.adpter, null));
             return viewHolder;
         }
 
