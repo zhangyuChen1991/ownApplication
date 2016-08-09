@@ -3,6 +3,7 @@ package com.sz.china.testmoudule;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,7 +25,8 @@ public class MenuListActivity extends Activity {
             "旋转activity翻页工具类:ActivityRotateAnimationUtil",
             "测试二维码扫描框架 以及上下拉刷新侧滑菜单listview：PullToRefreshSwipeMenuListView",
             "测试九宫格解锁view",
-            "RecycleViewDemo"};
+            "RecycleViewDemo",
+    "SwipeRefreshLayout"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +60,8 @@ public class MenuListActivity extends Activity {
                         startActivity(intent1);
                         break;
                     case 2:
-//                        Intent intent2 = new Intent(MenuListActivity.this,PullToRefreshScrollViewActivity.class);
-//                        startActivity(intent2);
+                        Intent intent2 = new Intent(MenuListActivity.this,PullToRefreshScrollViewActivity.class);
+                        startActivity(intent2);
                         break;
                     case 3:
                         Intent intent3 = new Intent(MenuListActivity.this, TestRotateAnimationActivity.class);
@@ -76,6 +78,10 @@ public class MenuListActivity extends Activity {
                     case 6:
                         Intent intent6 = new Intent(MenuListActivity.this, RecycleViewDemoActivity.class);
                         startActivity(intent6);
+                        break;
+                    case 7:
+                        Intent intent7 = new Intent(MenuListActivity.this, SwipeRefreshLayoutActivity.class);
+                        startActivity(intent7);
                         break;
                 }
             }

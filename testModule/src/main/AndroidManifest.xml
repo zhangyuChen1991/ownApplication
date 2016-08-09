@@ -29,6 +29,8 @@
         <activity android:name=".TestActivity1"></activity>
         <activity android:name=".TestUnlockViewActivity"></activity>
         <activity android:name=".RecycleViewDemoActivity"></activity>
+        <activity android:name=".PullToRefreshScrollViewActivity"></activity>
+        <activity android:name=".SwipeRefreshLayoutActivity"></activity>
     </application>
 
 </manifest>
