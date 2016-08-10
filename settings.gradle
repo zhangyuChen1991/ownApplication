@@ -1,1 +1,1 @@
-include ':cLibrary', ':DesignPattern', ':javatest', ':musiclist', ':testModule', ':zxing-lib', ':Library_PullToRefreshSwipeMenuListView',':pulltorefresh_library'
+include ':cLibrary', ':DesignPattern', ':musiclist', ':testModule', ':zxing-lib', ':Library_PullToRefreshSwipeMenuListView',':pulltorefresh_library'

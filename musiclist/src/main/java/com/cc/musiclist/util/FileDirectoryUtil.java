@@ -1,9 +1,6 @@
 package com.cc.musiclist.util;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.nfc.Tag;
-import android.os.Build;
 import android.os.Environment;
 
 import com.cc.musiclist.application.BaseApplication;
@@ -28,7 +25,7 @@ public class FileDirectoryUtil {
      */
     public static File getSdCardDirectory() {
         File directory = Environment.getExternalStorageDirectory();
-        LogUtil.d(TAG, "RootDirectory:" + directory.getAbsolutePath());
+        MLog.d(TAG, "RootDirectory:" + directory.getAbsolutePath());
         return directory;
     }
 
@@ -40,7 +37,7 @@ public class FileDirectoryUtil {
         String sdcard_path = null;
         String sd_default = Environment.getExternalStorageDirectory()
                 .getAbsolutePath();
-        LogUtil.d(TAG, "sd_default = " + sd_default);
+        MLog.d(TAG, "sd_default = " + sd_default);
         if (sd_default.endsWith("/")) {
             sd_default = sd_default.substring(0, sd_default.length() - 1);
         }
@@ -78,7 +75,7 @@ public class FileDirectoryUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        LogUtil.d(TAG, "sdcard_path = " + (sdcard_path == null ? "null" : sdcard_path));
+        MLog.d(TAG, "sdcard_path = " + (sdcard_path == null ? "null" : sdcard_path));
         return sdcard_path;
     }
 

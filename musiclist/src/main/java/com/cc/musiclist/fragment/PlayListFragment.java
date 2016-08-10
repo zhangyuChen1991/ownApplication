@@ -9,29 +9,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cc.musiclist.MainActivity;
 import com.cc.musiclist.R;
-import com.cc.musiclist.constant.Constants;
-import com.cc.musiclist.manager.MapManager;
 import com.cc.musiclist.manager.MediaPlayManager;
-import com.cc.musiclist.util.LogUtil;
-import com.cc.musiclist.util.SpUtil;
+import com.cc.musiclist.util.MLog;
 import com.cc.musiclist.util.StringUtil;
 import com.cc.musiclist.util.ToastUtil;
 import com.cc.musiclist.util.TranslateUtil;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -66,7 +58,7 @@ public class PlayListFragment extends Fragment {
 
     private void initView() {
         listView = (ListView) rootView.findViewById(R.id.listview_play_list);
-        LogUtil.d(TAG, "listView = " + listView);
+        MLog.d(TAG, "listView = " + listView);
         listView.setDividerHeight(0);
         listView.setOnItemClickListener(onItemClickListener);
 

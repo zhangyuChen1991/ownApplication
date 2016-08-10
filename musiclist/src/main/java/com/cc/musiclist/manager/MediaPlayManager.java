@@ -1,14 +1,12 @@
 package com.cc.musiclist.manager;
 
 import android.annotation.TargetApi;
-import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
-import android.widget.Toast;
 
 import com.cc.musiclist.constant.Constants;
-import com.cc.musiclist.util.LogUtil;
+import com.cc.musiclist.util.MLog;
 import com.cc.musiclist.util.SpUtil;
 import com.cc.musiclist.util.ToastUtil;
 import com.cc.musiclist.util.TranslateUtil;
@@ -37,7 +35,7 @@ public class MediaPlayManager {
     private PlayCallBack playCallBack;
 
     public static MediaPlayManager getInstance() {
-        LogUtil.d(TAG, "getInstance.  SingletonHolder.instance = " + SingletonHolder.instance);
+        MLog.d(TAG, "getInstance.  SingletonHolder.instance = " + SingletonHolder.instance);
 
         return SingletonHolder.instance;
     }
@@ -57,7 +55,7 @@ public class MediaPlayManager {
     }
 
     private MediaPlayManager() {
-        LogUtil.d(TAG, "new MediaPlayManager.");
+        MLog.d(TAG, "new MediaPlayManager.");
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(mCompletionListener);
         playModel = SEQUENTIA_LOOP_MODEL;
@@ -122,7 +120,7 @@ public class MediaPlayManager {
 
         for (File file : playLists) {
             this.playLists.add(file);
-            LogUtil.i(TAG, file.getName());
+            MLog.i(TAG, file.getName());
         }
 
     }
@@ -147,7 +145,7 @@ public class MediaPlayManager {
     }
 
     public void start() {
-        LogUtil.i(TAG, "start: " + nowPlayFile.getName());
+        MLog.i(TAG, "start: " + nowPlayFile.getName());
         ToastUtil.showToast("" + nowPlayFile.getName(), 0);
         mediaPlayer.start();
         nowFileDuration = mediaPlayer.getDuration();
@@ -158,13 +156,13 @@ public class MediaPlayManager {
     }
 
     public void pause() {
-        LogUtil.i(TAG, "pause:");
+        MLog.i(TAG, "pause:");
         mediaPlayer.pause();
         playingState = Constants.STATE_PLAY_PAUSE;
     }
 
     public void stop() {
-        LogUtil.i(TAG, "stop:");
+        MLog.i(TAG, "stop:");
         mediaPlayer.stop();
         playingState = Constants.STATE_PLAY_STOP;
 

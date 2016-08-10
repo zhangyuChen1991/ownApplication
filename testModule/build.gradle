@@ -29,4 +29,5 @@ dependencies {
     // From node_modules
     compile project(':pulltorefresh_library')
     compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.google.code.gson:gson:2.2.4'
 }

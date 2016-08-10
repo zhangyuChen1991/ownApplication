@@ -129,7 +129,7 @@ public class FileTypeUtil {
             e.printStackTrace();
         }
 
-        LogUtil.v(TAG,"getFileType--> return : "+res);
+        MLog.v(TAG,"getFileType--> return : "+res);
         return res;
     }
 
@@ -141,7 +141,7 @@ public class FileTypeUtil {
         indexOfPoint = indexOfPoint == -1 ? 0 : indexOfPoint;
         String postFix = filePath.substring(indexOfPoint + 1);
 
-        LogUtil.v(TAG, "getFileType--> return : " + postFix);
+        MLog.v(TAG, "getFileType--> return : " + postFix);
         return postFix;
     }
 }

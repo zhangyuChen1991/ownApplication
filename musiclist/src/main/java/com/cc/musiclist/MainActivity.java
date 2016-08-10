@@ -29,7 +29,7 @@ import com.cc.musiclist.manager.MediaPlayManager;
 import com.cc.musiclist.manager.SystemBarTintManager;
 import com.cc.musiclist.manager.TimeCountManager;
 import com.cc.musiclist.util.DisplayUtils;
-import com.cc.musiclist.util.LogUtil;
+import com.cc.musiclist.util.MLog;
 import com.cc.musiclist.util.SpUtil;
 import com.cc.musiclist.util.StringUtil;
 import com.cc.musiclist.util.ToastUtil;
@@ -160,7 +160,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void initMediaPlayerManager() {
         String prePath = SpUtil.getString(Constants.lastPlayFilePath, "");
-        LogUtil.i(TAG, "prePath = " + prePath);
+        MLog.i(TAG, "prePath = " + prePath);
         File preFile = new File(prePath);
         mediaPlayManager = MediaPlayManager.getInstance();
         mediaPlayManager.setPlayCallBack(playCallBack);
@@ -246,7 +246,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         } else {
             pauseOrPlay.setText("播放");
         }
-        LogUtil.d(TAG, "initViewState  playState = " + playState + "，playModel = " + playModel);
+        MLog.d(TAG, "initViewState  playState = " + playState + "，playModel = " + playModel);
     }
 
     private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -254,13 +254,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            LogUtil.d(TAG, "onPageScrolled  position = " + position + "  ,positionOffset = " + positionOffset + "  ,positionOffsetPixels = " + positionOffsetPixels + "  ,currX = " + currX);
+            MLog.d(TAG, "onPageScrolled  position = " + position + "  ,positionOffset = " + positionOffset + "  ,positionOffsetPixels = " + positionOffsetPixels + "  ,currX = " + currX);
 
         }
 
         @Override
         public void onPageSelected(int position) {
-            LogUtil.i(TAG, "onPageSelected  currX = " + currX);
+            MLog.i(TAG, "onPageSelected  currX = " + currX);
             if (currentPosition != position)
                 titleView.translateTo(currentPosition, position);
 
@@ -363,7 +363,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private TimeCountManager timeCountManager = new TimeCountManager() {
         @Override
         public void onCount() {
-            LogUtil.d(TAG, "sendEmptyMessage(updateProgress)");
+            MLog.d(TAG, "sendEmptyMessage(updateProgress)");
             handler.sendEmptyMessage(Constants.updateProgress);
         }
     };

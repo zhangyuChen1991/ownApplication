@@ -1,8 +1,6 @@
-package com.cc.musiclist.util;
+package com.sz.china.testmoudule.util;
 
 import android.text.TextUtils;
-
-import java.io.File;
 
 /**
  * Created by zhangyu on 2016-06-21 10:53.
@@ -31,14 +29,6 @@ public class StringUtil {
         else
             sb.append(s);
         return sb.toString();
-    }
-
-    public static String subPostfix(String str){
-        if(!TextUtils.isEmpty(str) && str.contains(".")) {
-            int index = str.lastIndexOf(".");
-            return str.substring(0, index);
-        }else
-            return str;
     }
 
     public static boolean isMobileNO(String mobiles) {
