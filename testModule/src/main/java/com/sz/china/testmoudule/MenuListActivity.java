@@ -3,15 +3,12 @@ package com.sz.china.testmoudule;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 /**
  * Created by zhangyu on 2016/8/7 14:01.
@@ -26,7 +23,8 @@ public class MenuListActivity extends Activity {
             "测试二维码扫描框架 以及上下拉刷新侧滑菜单listview：PullToRefreshSwipeMenuListView",
             "测试九宫格解锁view",
             "RecycleViewDemo",
-    "SwipeRefreshLayout"};
+            "SwipeRefreshLayout",
+            "滑动删除item listview"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +58,7 @@ public class MenuListActivity extends Activity {
                         startActivity(intent1);
                         break;
                     case 2:
-                        Intent intent2 = new Intent(MenuListActivity.this,PullToRefreshScrollViewActivity.class);
+                        Intent intent2 = new Intent(MenuListActivity.this, PullToRefreshScrollViewActivity.class);
                         startActivity(intent2);
                         break;
                     case 3:
@@ -82,6 +80,10 @@ public class MenuListActivity extends Activity {
                     case 7:
                         Intent intent7 = new Intent(MenuListActivity.this, SwipeRefreshLayoutActivity.class);
                         startActivity(intent7);
+                        break;
+                    case 8:
+                        Intent intent8 = new Intent(MenuListActivity.this, ScrollRemoveItemActivity.class);
+                        startActivity(intent8);
                         break;
                 }
             }

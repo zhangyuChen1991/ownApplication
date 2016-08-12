@@ -31,6 +31,7 @@
         <activity android:name=".RecycleViewDemoActivity"></activity>
         <activity android:name=".PullToRefreshScrollViewActivity"></activity>
         <activity android:name=".SwipeRefreshLayoutActivity"></activity>
+        <activity android:name=".ScrollRemoveItemActivity"></activity>
     </application>
 
 </manifest>
