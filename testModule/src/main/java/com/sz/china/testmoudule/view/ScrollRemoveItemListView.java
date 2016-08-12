@@ -42,6 +42,7 @@ public class ScrollRemoveItemListView extends ListView {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 isVerticalScroll = true;
+                thisTouchHadDeal = false;
                 startX = (int) ev.getX();
                 startY = (int) ev.getY();
                 Log.w(TAG, "ACTION_DOWN..  startX = " + startX + "  ,startY = " + startY);
