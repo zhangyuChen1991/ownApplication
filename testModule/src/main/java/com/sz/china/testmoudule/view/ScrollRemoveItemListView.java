@@ -29,6 +29,16 @@ public class ScrollRemoveItemListView extends ListView {
     }
 
     private void init() {
+        getChildCount();
+        ScrollRemoveItemView v = (ScrollRemoveItemView) getChildAt(0);
+        v.setRemoveListener(new ScrollRemoveItemView.RemoveListener() {
+            @Override
+            public void beRemoved() {
+
+            }
+        });
+
+
     }
 
     boolean thisTouchHadDeal = false;
@@ -89,7 +99,11 @@ public class ScrollRemoveItemListView extends ListView {
         Log.e(TAG, "startX = " + startX + "  ,startY = " + startY + "  ,secondX = " + secondX + "  ,secondY = " + secondY + "  ,distanceX = " + distanceX + "  ,distanceY = " + distanceY);
         if (distanceX > distanceY)
             ret = true;
-
         return ret;
+    }
+
+
+    private interface itemChangeListener{
+        public void beRemovedAt(int position);
     }
 }

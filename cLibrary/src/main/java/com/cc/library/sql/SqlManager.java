@@ -7,13 +7,14 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
+ * 一个Manager对应一个数据库，对库内的表进行管理操作
  * Created by zhangyu on 2016-06-07 11:08.
  */
 public class SqlManager {
     SqlHelper sqlHelper;
 
-    public SqlManager(Context context, String name, String createTableOrder) {
-        sqlHelper = new SqlHelper(context, name, null, 1, createTableOrder);
+    public SqlManager(Context context, String name) {
+        sqlHelper = new SqlHelper(context, name, null, 1);
     }
 
     /**

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * Created by zhangyu on 2016-06-07 10:28.
@@ -13,9 +14,8 @@ public class SqlHelper extends SQLiteOpenHelper {
     private  String dbName;     //数据库名
     private  Context context;
 
-    public SqlHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, String createTableOrder) {
+    public SqlHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
-        this.createTableOrder = createTableOrder;
         this.context = context;
         this.dbName = name;
     }
@@ -23,7 +23,7 @@ public class SqlHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         if (TextUtils.isEmpty(createTableOrder))
-            throw new IllegalArgumentException("SqlHelper createTableOrder建表命令为空");
+            Log.e("SqlHelper","SqlHelper createTableOrder建表命令为空");
         else
             db.execSQL(createTableOrder);
     }

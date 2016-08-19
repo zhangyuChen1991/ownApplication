@@ -42,6 +42,8 @@ public class MenuListActivity extends Activity {
         listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(onItemClickListener);
+
+        adapter.notifyDataSetChanged();;
     }
 
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
