@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.widget.ListView;
 
 /**
- * Created by Administrator on 2016/8/10.
+ * Created by zhangyu on 2016/8/10.
  */
 public class ScrollRemoveItemListView extends ListView {
     private static final String TAG = "SRIListView";

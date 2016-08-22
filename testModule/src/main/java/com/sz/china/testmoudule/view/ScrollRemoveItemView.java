@@ -11,7 +11,7 @@ import android.widget.Scroller;
 /**
  * 水平滑动可删除的item View
  * 用于listview
- * Created by Administrator on 2016/8/10.
+ * Created by zhangyu on 2016/8/10.
  */
 public class ScrollRemoveItemView extends LinearLayout {
     private static final String TAG = "ScrollRemoveItemView";
