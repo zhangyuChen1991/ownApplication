@@ -25,7 +25,7 @@
         <activity
             android:name=".TestRotateAnimationActivity"
             android:theme="@android:style/Theme.Translucent"></activity>
-        <activity android:name=".TestScanAcy"></activity>
+        <activity android:name=".TestScanActivity"></activity>
         <activity android:name=".TestActivity1"></activity>
         <activity android:name=".TestUnlockViewActivity"></activity>
         <activity android:name=".RecycleViewDemoActivity"></activity>

@@ -19,7 +19,7 @@ import edu.swu.pulltorefreshswipemenulistview.library.pulltorefresh.interfaces.I
  * 测试二维码扫描框架 以及上下拉刷新侧滑菜单listview：PullToRefreshSwipeMenuListView
  * Created by zhangyu on 2016/7/23 09:28.
  */
-public class TestScanAcy extends Activity implements View.OnClickListener, IXListViewListener {
+public class TestScanActivity extends Activity implements View.OnClickListener, IXListViewListener {
 
     private PullToRefreshSwipeMenuListView listView;
     private static final int REQUEST_CODE = 220;
@@ -141,7 +141,7 @@ public class TestScanAcy extends Activity implements View.OnClickListener, IXLis
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            TextView tv = new TextView(TestScanAcy.this);
+            TextView tv = new TextView(TestScanActivity.this);
             tv.setText("test房间都是浪费");
             return tv;
         }

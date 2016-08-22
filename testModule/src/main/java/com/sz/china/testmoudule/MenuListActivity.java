@@ -68,7 +68,7 @@ public class MenuListActivity extends Activity {
                         startActivity(intent3);
                         break;
                     case 4:
-                        Intent intent4 = new Intent(MenuListActivity.this, TestScanAcy.class);
+                        Intent intent4 = new Intent(MenuListActivity.this, TestScanActivity.class);
                         startActivity(intent4);
                         break;
                     case 5:
