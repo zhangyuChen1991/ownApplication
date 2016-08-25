@@ -46,7 +46,6 @@
         android:layout_width="120dp"
         android:layout_height="3dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:background="@drawable/recentage_corner"></View>
 
 </RelativeLayout>

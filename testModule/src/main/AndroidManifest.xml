@@ -32,6 +32,8 @@
         <activity android:name=".PullToRefreshScrollViewActivity"></activity>
         <activity android:name=".SwipeRefreshLayoutActivity"></activity>
         <activity android:name=".ScrollRemoveItemActivity"></activity>
+        <activity android:name=".HorizontalScrollPageMenuAct"></activity>
+        <activity android:name=".TestFt"></activity>
     </application>
 
 </manifest>

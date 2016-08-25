@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -249,30 +250,51 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         MLog.d(TAG, "initViewState  playState = " + playState + "，playModel = " + playModel);
     }
 
+    boolean dragLeft = false;//是否向左拖动
     private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         float currX = 0;
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             MLog.d(TAG, "onPageScrolled  position = " + position + "  ,positionOffset = " + positionOffset + "  ,positionOffsetPixels = " + positionOffsetPixels + "  ,currX = " + currX);
-
+            setMarkViewLeftMargin(position, positionOffset);
         }
 
         @Override
         public void onPageSelected(int position) {
             MLog.i(TAG, "onPageSelected  currX = " + currX);
-            if (currentPosition != position)
-                titleView.translateTo(currentPosition, position);
+            if (currentPosition != position) {
+                setMarkViewLeftMargin(position, 0);
+            }
 
-            currentPosition = position;
+                currentPosition = position;
             if (position == 0)
                 playListFragment.adapterNotifyDataChange();
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
+            MLog.v(TAG, "state = " + state + "  ,ViewPager.SCROLL_STATE_DRAGGING = " + ViewPager.SCROLL_STATE_DRAGGING
+                    + "  ,ViewPager.SCROLL_STATE_IDLE = " + ViewPager.SCROLL_STATE_IDLE
+                    + "  ,ViewPager.SCROLL_STATE_SETTLING = " + ViewPager.SCROLL_STATE_SETTLING
+            );
+
         }
     };
+
+    /**
+     * 设置标记位view距离左端距离
+     * @param position
+     * @param positionOffset
+     */
+    private void setMarkViewLeftMargin(int position, float positionOffset) {
+        int width = titleView.markView.getWidth();
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) titleView.markView.getLayoutParams();
+        params.leftMargin = (int) ((position + positionOffset) * width);
+        MLog.i(TAG, "params.leftMargin = " + params.leftMargin);
+        titleView.markView.setLayoutParams(params);
+        titleView.invalidate();
+    }
 
     private TitleView.TitleViewCallBack titleViewCallBack = new TitleView.TitleViewCallBack() {
         @Override

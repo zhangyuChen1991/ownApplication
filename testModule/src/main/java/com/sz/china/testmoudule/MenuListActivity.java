@@ -24,7 +24,9 @@ public class MenuListActivity extends Activity {
             "测试九宫格解锁view",
             "RecycleViewDemo",
             "SwipeRefreshLayout",
-            "滑动删除item listview"};
+            "滑动删除item listview",
+            "测试，横向滑动页面菜单",
+            "viewpager滑动指示器"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,8 @@ public class MenuListActivity extends Activity {
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(onItemClickListener);
 
-        adapter.notifyDataSetChanged();;
+        adapter.notifyDataSetChanged();
+        ;
     }
 
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
@@ -86,6 +89,14 @@ public class MenuListActivity extends Activity {
                     case 8:
                         Intent intent8 = new Intent(MenuListActivity.this, ScrollRemoveItemActivity.class);
                         startActivity(intent8);
+                        break;
+                    case 9:
+                        Intent intent9 = new Intent(MenuListActivity.this, HorizontalScrollPageMenuAct.class);
+                        startActivity(intent9);
+                        break;
+                    case 10:
+                        Intent intent10 = new Intent(MenuListActivity.this, TestFt.class);
+                        startActivity(intent10);
                         break;
                 }
             }
