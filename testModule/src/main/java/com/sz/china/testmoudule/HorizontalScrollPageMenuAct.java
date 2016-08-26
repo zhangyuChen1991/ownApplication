@@ -30,41 +30,9 @@ public class HorizontalScrollPageMenuAct extends Activity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv:
+            case 0:
                 break;
         }
     }
 
-//    /**
-//     * 开始缩放及平移动画
-//     *
-//     * @param zoomOut 放大或缩小，  true 放大；false缩小
-//     */
-//    private void startAnimation(boolean zoomOut) {
-//        ObjectAnimator zoomOutX;
-//        ObjectAnimator zoomOutY;
-//        ObjectAnimator translateLeft;//左侧image平移动画
-//        ObjectAnimator translateRight;//右侧image平移动画
-//
-//        if (zoomOut) {
-//            zoomOutX = ObjectAnimator.ofFloat(iv2, "scaleX", 1f, 2f);
-//            zoomOutY = ObjectAnimator.ofFloat(iv2, "scaleY", 1f, 2f);
-//            float curTranslationXL = iv1.getTranslationX();
-//            translateLeft = ObjectAnimator.ofFloat(iv1, "translationX", curTranslationXL, curTranslationXL - 200f);
-//            float curTranslationXR = iv3.getTranslationX();
-//            translateRight = ObjectAnimator.ofFloat(iv3, "translationX", curTranslationXR, curTranslationXR + 200f);
-//        } else {
-//            zoomOutX = ObjectAnimator.ofFloat(iv2, "scaleX", 2f, 1f);
-//            zoomOutY = ObjectAnimator.ofFloat(iv2, "scaleY", 2f, 1f);
-//            float curTranslationXL = iv1.getTranslationX();
-//            translateLeft = ObjectAnimator.ofFloat(iv1, "translationX", curTranslationXL, curTranslationXL + 200f);
-//            float curTranslationXR = iv3.getTranslationX();
-//            translateRight = ObjectAnimator.ofFloat(iv3, "translationX", curTranslationXR, curTranslationXR - 200f);
-//        }
-//
-//        AnimatorSet animSet = new AnimatorSet();
-//        animSet.play(zoomOutX).with(zoomOutY).with(translateLeft).with(translateRight);
-//        animSet.setDuration(500);
-//        animSet.start();
-//    }
 }

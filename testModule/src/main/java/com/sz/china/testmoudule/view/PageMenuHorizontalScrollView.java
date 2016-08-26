@@ -4,6 +4,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,7 +32,8 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
     private List<ImageView> images = new ArrayList<>();
     private LinearLayout container;//子容器
     private float[] nodeXs;
-    private int initPosition = 1;
+    private int initPosition = 2;
+    private final int animDurtion = 500;
 
     public PageMenuHorizontalScrollView(Context context) throws Exception {
         super(context);
@@ -60,7 +62,7 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
         this.context = context;
     }
 
-    private void initView() {
+    public void initView() {
 
         imgWidth = DisplayUtils.getWidth() * 0.6f;
         imgHeight = DisplayUtils.getHeight() * 0.6f;
@@ -73,11 +75,13 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
 
             images.clear();
             container.removeAllViews();
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 7; i++) {
                 ImageView iv;
                 if (i == 0) {
                     iv = createImageView(getResources().getDrawable(R.drawable.t_img3), true, false);
-                } else if (i == 4) {
+                } else if (i == 2) {
+                    iv = createImageView(getResources().getDrawable(R.drawable.img_menu), false, false);
+                } else if (i == 6) {
                     iv = createImageView(getResources().getDrawable(R.drawable.t_img3), false, true);
                 } else {
                     iv = createImageView(getResources().getDrawable(R.drawable.t_img3), false, false);
@@ -92,53 +96,48 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
         nodeXs = new float[images.size()];
         for (int i = 0; i < nodeXs.length; i++) {
             float width = DisplayUtils.getWidth();
-            nodeXs[i] = i * 0.6f * width;
+            if (initPosition != 0) {
+                nodeXs[i] = i * 0.7f * width;
+            }
         }
+
+        initTargetPageSize(initPosition);
+        setChildPosition(initPosition);
+        invalidate();
+
         if (initPosition < nodeXs.length) {
-            scrollTo((int) nodeXs[initPosition], 0);
-            invalidate();
-//            startZoomInAnimation(initPosition);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    scrollTo((int) nodeXs[initPosition], 0);
+                    startAnimation(initPosition, false);//缩小动画
+                }
+            }, 10);
+
         }
+    }
+
+    private void initTargetPageSize(int position){
+        images.get(position).setScaleX(DisplayUtils.getWidth() / imgWidth);
+        images.get(position).setScaleX(DisplayUtils.getHeight() / imgHeight);
     }
 
     /**
-     * 缩小动画
-     *
-     * @param initPosition
+     * 设置目标page两边子view的位置，配合缩小动画作平移(先预设位置，然后由远靠近平移到合适的位置)
+     * @param position
      */
-    private void startZoomInAnimation(int initPosition) {
-        ObjectAnimator zoomOutX;
-        ObjectAnimator zoomOutY;
-        ObjectAnimator translateLeft = null;//左侧image平移动画
-        ObjectAnimator translateRight = null;//右侧image平移动画
-        zoomOutX = ObjectAnimator.ofFloat(images.get(initPosition), "scaleX", DisplayUtils.getWidth() / imgWidth, 1f);
-        zoomOutY = ObjectAnimator.ofFloat(images.get(initPosition), "scaleY", DisplayUtils.getHeight() / imgHeight, 1f);
-
-        if (initPosition > 0) {
-            float curTranslationXL = images.get(initPosition - 1).getTranslationX();
-            translateLeft = ObjectAnimator.ofFloat(images.get(initPosition - 1), "translationX", curTranslationXL, curTranslationXL + DisplayUtils.getWidth() * 0.15f);
+    private void setChildPosition(int position) {
+        if (position > 0) {
+            float curTranslationXL = images.get(position - 1).getTranslationX();
+            images.get(position - 1).setTranslationX(curTranslationXL - DisplayUtils.getWidth() * 0.2f);
         }
 
-        if (initPosition < images.size() - 1) {
-            float curTranslationXR = images.get(initPosition + 1).getTranslationX();
-            translateRight = ObjectAnimator.ofFloat(images.get(initPosition + 1), "translationX", curTranslationXR, curTranslationXR - DisplayUtils.getWidth() * 0.15f);
-        }
-
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.play(zoomOutX).with(zoomOutY);
-        animSet.setDuration(400);
-        animSet.start();
-
-        if (null != translateLeft) {
-            translateLeft.setDuration(400);
-            translateLeft.start();
-        }
-
-        if (null != translateRight) {
-            translateRight.setDuration(400);
-            translateRight.start();
+        if (position < images.size() - 1) {
+            float curTranslationXR = images.get(position + 1).getTranslationX();
+            images.get(position + 1).setTranslationX(curTranslationXR + DisplayUtils.getWidth() * 0.2f);
         }
     }
+
 
     private void pageSetOnclickListener(final int position, View v) {
         v.setOnClickListener(new OnClickListener() {
@@ -156,17 +155,19 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
      */
     private ImageView createImageView(Drawable drawable, boolean isFirst, boolean isLast) {
         ImageView imageView = new ImageView(context);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) imgWidth, (int) imgHeight);//(LinearLayout.LayoutParams) imageView.getLayoutParams();
+        LinearLayout.LayoutParams params;
+        params = new LinearLayout.LayoutParams((int) imgWidth, (int) imgHeight);
+
         params.gravity = Gravity.CENTER_VERTICAL;
         if (isFirst)
             params.leftMargin = (int) (DisplayUtils.getWidth() * 0.2f);
         else
-            params.leftMargin = (int) (DisplayUtils.getWidth() * 5f / 100);
+            params.leftMargin = (int) (DisplayUtils.getWidth() * 0.05f);
 
         if (isLast)
             params.rightMargin = (int) (DisplayUtils.getWidth() * 0.2f);
         else
-            params.rightMargin = (int) (DisplayUtils.getWidth() * 5f / 100);
+            params.rightMargin = (int) (DisplayUtils.getWidth() * 0.05f);
         imageView.setLayoutParams(params);
 
         imageView.setImageDrawable(drawable);
@@ -187,15 +188,16 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
 
         if (position < images.size()) {
             if (zoomOut) {
-                zoomOutX = ObjectAnimator.ofFloat(images.get(position), "scaleX", 1f, ((float) DisplayUtils.getWidth() / imgWidth));
-                zoomOutY = ObjectAnimator.ofFloat(images.get(position), "scaleY", 1f, (float) DisplayUtils.getHeight() / imgHeight);
+                zoomOutX = ObjectAnimator.ofFloat(images.get(position), "scaleX", 1f, DisplayUtils.getWidth() / imgWidth);
+                zoomOutY = ObjectAnimator.ofFloat(images.get(position), "scaleY", 1f, DisplayUtils.getHeight() / imgHeight);
+
                 if (position > 0) {
                     float curTranslationXL = images.get(position - 1).getTranslationX();
-                    translateLeft = ObjectAnimator.ofFloat(images.get(position - 1), "translationX", curTranslationXL, curTranslationXL - DisplayUtils.getWidth() * 0.15f);
+                    translateLeft = ObjectAnimator.ofFloat(images.get(position - 1), "translationX", curTranslationXL, curTranslationXL - DisplayUtils.getWidth() * 0.2f);
                 }
                 if (position < images.size() - 1) {
                     float curTranslationXR = images.get(position + 1).getTranslationX();
-                    translateRight = ObjectAnimator.ofFloat(images.get(position + 1), "translationX", curTranslationXR, curTranslationXR + DisplayUtils.getWidth() * 0.15f);
+                    translateRight = ObjectAnimator.ofFloat(images.get(position + 1), "translationX", curTranslationXR, curTranslationXR + DisplayUtils.getWidth() * 0.2f);
                 }
             } else {
                 zoomOutX = ObjectAnimator.ofFloat(images.get(position), "scaleX", DisplayUtils.getWidth() / imgWidth, 1f);
@@ -203,27 +205,27 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
 
                 if (position > 0) {
                     float curTranslationXL = images.get(position - 1).getTranslationX();
-                    translateLeft = ObjectAnimator.ofFloat(images.get(position - 1), "translationX", curTranslationXL, curTranslationXL + DisplayUtils.getWidth() * 0.15f);
+                    translateLeft = ObjectAnimator.ofFloat(images.get(position - 1), "translationX", curTranslationXL, curTranslationXL + DisplayUtils.getWidth() * 0.2f);
                 }
 
                 if (position < images.size() - 1) {
                     float curTranslationXR = images.get(position + 1).getTranslationX();
-                    translateRight = ObjectAnimator.ofFloat(images.get(position + 1), "translationX", curTranslationXR, curTranslationXR - DisplayUtils.getWidth() * 0.15f);
+                    translateRight = ObjectAnimator.ofFloat(images.get(position + 1), "translationX", curTranslationXR, curTranslationXR - DisplayUtils.getWidth() * 0.2f);
                 }
             }
 
             AnimatorSet animSet = new AnimatorSet();
             animSet.play(zoomOutX).with(zoomOutY);
-            animSet.setDuration(400);
+            animSet.setDuration(animDurtion);
             animSet.start();
 
             if (null != translateLeft) {
-                translateLeft.setDuration(400);
+                translateLeft.setDuration(animDurtion);
                 translateLeft.start();
             }
 
             if (null != translateRight) {
-                translateRight.setDuration(400);
+                translateRight.setDuration(animDurtion);
                 translateRight.start();
             }
         }
