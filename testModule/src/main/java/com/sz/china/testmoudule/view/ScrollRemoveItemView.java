@@ -47,6 +47,11 @@ public class ScrollRemoveItemView extends LinearLayout {
 
     public void setRemoveListener(RemoveListener removeListener) {
         this.removeListener = removeListener;
+
+        new A(){}.doit();
+    }
+    class A{
+        void doit(){}
     }
 
     @Override

@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sz.china.testmoudule.view.PageMenuHorizontalScrollView;
+
 /**
  * Created by zhangyu on 2016/8/7 14:01.
  */
@@ -27,6 +29,8 @@ public class MenuListActivity extends Activity {
             "滑动删除item listview",
             "测试，横向滑动页面菜单",
             "viewpager滑动指示器"};
+
+    private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,9 @@ public class MenuListActivity extends Activity {
         listView.setOnItemClickListener(onItemClickListener);
 
         adapter.notifyDataSetChanged();
-        ;
+
+        pageMenuHorizontalScrollView = (PageMenuHorizontalScrollView) findViewById(R.id.page_menu_scrollview);
+
     }
 
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
@@ -91,12 +97,17 @@ public class MenuListActivity extends Activity {
                         startActivity(intent8);
                         break;
                     case 9:
-                        Intent intent9 = new Intent(MenuListActivity.this, HorizontalScrollPageMenuAct.class);
-                        startActivity(intent9);
+//                        Intent intent9 = new Intent(MenuListActivity.this, HorizontalScrollPageMenuAct.class);
+//                        startActivity(intent9);
+
+                        pageMenuHorizontalScrollView.setVisibility(View.VISIBLE);
+                        listView.setVisibility(View.GONE);
+                        pageMenuHorizontalScrollView.initView();
                         break;
                     case 10:
                         Intent intent10 = new Intent(MenuListActivity.this, TestFt.class);
                         startActivity(intent10);
+
                         break;
                 }
             }
