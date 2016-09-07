@@ -4,7 +4,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -32,8 +31,8 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
     private List<ImageView> images = new ArrayList<>();
     private LinearLayout container;//子容器
     private float[] nodeXs;
-    private int initPosition = 2;
-    private final int animDurtion = 500;
+    private int initPosition = 2, nowClickPosition;
+    private final int animDuration = 500;
 
     public PageMenuHorizontalScrollView(Context context) throws Exception {
         super(context);
@@ -101,29 +100,20 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
             }
         }
 
-        initTargetPageSize(initPosition);
         setChildPosition(initPosition);
         invalidate();
-
-        if (initPosition < nodeXs.length) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    scrollTo((int) nodeXs[initPosition], 0);
-                    startAnimation(initPosition, false);//缩小动画
-                }
-            }, 10);
-
-        }
     }
 
-    private void initTargetPageSize(int position){
-        images.get(position).setScaleX(DisplayUtils.getWidth() / imgWidth);
-        images.get(position).setScaleX(DisplayUtils.getHeight() / imgHeight);
+    /**
+     * 滚动到目标位置(一般初始进入时用)
+     */
+    public void scrollToPst() {
+        scrollTo((int) nodeXs[initPosition], 0);
     }
 
     /**
      * 设置目标page两边子view的位置，配合缩小动画作平移(先预设位置，然后由远靠近平移到合适的位置)
+     *
      * @param position
      */
     private void setChildPosition(int position) {
@@ -139,6 +129,12 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
     }
 
 
+    /**
+     * 点击回调接口
+     *
+     * @param position
+     * @param v
+     */
     private void pageSetOnclickListener(final int position, View v) {
         v.setOnClickListener(new OnClickListener() {
             @Override
@@ -170,26 +166,31 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
             params.rightMargin = (int) (DisplayUtils.getWidth() * 0.05f);
         imageView.setLayoutParams(params);
 
-        imageView.setImageDrawable(drawable);
+        imageView.setBackground(drawable);
+//        imageView.setImageDrawable(drawable);
 
         return imageView;
     }
 
+
     /**
-     * 开始缩放及平移动画
+     * 开始放大/缩小动画
      *
-     * @param zoomOut 放大或缩小，  true 放大；false缩小
+     * @param position 目标image位置
+     * @param zoomOut  true 放大；false 缩小
      */
     private void startAnimation(int position, boolean zoomOut) {
-        ObjectAnimator zoomOutX;
-        ObjectAnimator zoomOutY;
+        ObjectAnimator zoomX;
+        ObjectAnimator zoomY;
+
         ObjectAnimator translateLeft = null;//左侧image平移动画
         ObjectAnimator translateRight = null;//右侧image平移动画
 
         if (position < images.size()) {
+
             if (zoomOut) {
-                zoomOutX = ObjectAnimator.ofFloat(images.get(position), "scaleX", 1f, DisplayUtils.getWidth() / imgWidth);
-                zoomOutY = ObjectAnimator.ofFloat(images.get(position), "scaleY", 1f, DisplayUtils.getHeight() / imgHeight);
+                zoomX = ObjectAnimator.ofFloat(images.get(position), "scaleX", 1f, DisplayUtils.getWidth() / imgWidth);
+                zoomY = ObjectAnimator.ofFloat(images.get(position), "scaleY", 1f, DisplayUtils.getHeight() / imgHeight);
 
                 if (position > 0) {
                     float curTranslationXL = images.get(position - 1).getTranslationX();
@@ -200,8 +201,8 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
                     translateRight = ObjectAnimator.ofFloat(images.get(position + 1), "translationX", curTranslationXR, curTranslationXR + DisplayUtils.getWidth() * 0.2f);
                 }
             } else {
-                zoomOutX = ObjectAnimator.ofFloat(images.get(position), "scaleX", DisplayUtils.getWidth() / imgWidth, 1f);
-                zoomOutY = ObjectAnimator.ofFloat(images.get(position), "scaleY", DisplayUtils.getHeight() / imgHeight, 1f);
+                zoomX = ObjectAnimator.ofFloat(images.get(position), "scaleX", DisplayUtils.getWidth() / imgWidth, 1f);
+                zoomY = ObjectAnimator.ofFloat(images.get(position), "scaleY", DisplayUtils.getHeight() / imgHeight, 1f);
 
                 if (position > 0) {
                     float curTranslationXL = images.get(position - 1).getTranslationX();
@@ -215,20 +216,32 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
             }
 
             AnimatorSet animSet = new AnimatorSet();
-            animSet.play(zoomOutX).with(zoomOutY);
-            animSet.setDuration(animDurtion);
+            if (null != translateLeft && null != translateRight) {
+                translateLeft.setDuration(animDuration);
+                translateRight.setDuration(animDuration);
+                animSet.play(zoomX).with(zoomY).with(translateLeft).with(translateRight);
+            } else if (null != translateLeft) {
+                translateLeft.setDuration(animDuration);
+                animSet.play(zoomX).with(zoomY).with(translateLeft);
+            } else if (null != translateRight) {
+                translateRight.setDuration(animDuration);
+                animSet.play(zoomX).with(zoomY).with(translateRight);
+            } else
+                animSet.play(zoomX).with(zoomY);
+
+
+            animSet.setDuration(animDuration);
             animSet.start();
 
-            if (null != translateLeft) {
-                translateLeft.setDuration(animDurtion);
-                translateLeft.start();
-            }
 
-            if (null != translateRight) {
-                translateRight.setDuration(animDurtion);
-                translateRight.start();
-            }
         }
+    }
+
+    /**
+     * 开始缩小动画
+     */
+    public void startZoomInAnim() {
+        startAnimation(initPosition, false);
     }
 
     @Override

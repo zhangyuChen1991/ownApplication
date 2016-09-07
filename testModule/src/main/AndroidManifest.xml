@@ -34,6 +34,7 @@
         <activity android:name=".ScrollRemoveItemActivity"></activity>
         <activity android:name=".HorizontalScrollPageMenuAct"></activity>
         <activity android:name=".TestFt"></activity>
+        <activity android:name=".MagicLineActivity"></activity>
     </application>
 
 </manifest>
