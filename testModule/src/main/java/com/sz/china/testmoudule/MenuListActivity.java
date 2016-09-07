@@ -28,7 +28,8 @@ public class MenuListActivity extends Activity {
             "SwipeRefreshLayout",
             "滑动删除item listview",
             "测试，横向滑动页面菜单",
-            "viewpager滑动指示器"};
+            "viewpager滑动指示器",
+            "magic line view"};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
@@ -48,8 +49,6 @@ public class MenuListActivity extends Activity {
         listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(onItemClickListener);
-
-        adapter.notifyDataSetChanged();
 
         pageMenuHorizontalScrollView = (PageMenuHorizontalScrollView) findViewById(R.id.page_menu_scrollview);
 
@@ -100,15 +99,24 @@ public class MenuListActivity extends Activity {
 //                        Intent intent9 = new Intent(MenuListActivity.this, HorizontalScrollPageMenuAct.class);
 //                        startActivity(intent9);
 
-                        pageMenuHorizontalScrollView.setVisibility(View.VISIBLE);
-                        listView.setVisibility(View.GONE);
                         pageMenuHorizontalScrollView.initView();
+                        pageMenuHorizontalScrollView.scrollToPst();
+                        pageMenuHorizontalScrollView.setVisibility(View.VISIBLE);
+
+                        listView.setVisibility(View.GONE);
+                        pageMenuHorizontalScrollView.startZoomInAnim();
+
                         break;
                     case 10:
                         Intent intent10 = new Intent(MenuListActivity.this, TestFt.class);
                         startActivity(intent10);
 
                         break;
+                    case 11:
+                        Intent intent11 = new Intent(MenuListActivity.this, MagicLineActivity.class);
+                        startActivity(intent11);
+                        break;
+
                 }
             }
         }

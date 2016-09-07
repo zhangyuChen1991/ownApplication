@@ -181,7 +181,7 @@ public class ScrollRemoveItemView extends LinearLayout {
     public void computeScroll() {
         Log.d(TAG, "computeScroll..");
         if (mScroller.computeScrollOffset() && isHorizontalScroll) {
-            Log.d(TAG, "start to scroll  mScroller.getCurrX() = " + mScroller.getCurrX() + "  ,mScroller.getCurrY() = " + mScroller.getCurrY());
+            Log.d(TAG, "valueStart to scroll  mScroller.getCurrX() = " + mScroller.getCurrX() + "  ,mScroller.getCurrY() = " + mScroller.getCurrY());
             scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
             postInvalidate();
         }

@@ -60,7 +60,7 @@ public class ScrollRemoveItemListView extends ListView {
                 thisTouchHadDeal = false;
                 startX = (int) ev.getX();
                 startY = (int) ev.getY();
-                Log.w(TAG, "ACTION_DOWN..  startX = " + startX + "  ,startY = " + startY);
+                Log.w(TAG, "ACTION_DOWN..  p1X = " + startX + "  ,p1Y = " + startY);
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.v(TAG, "ACTION_MOVE.. isVerticalScroll = " + isVerticalScroll);
@@ -101,7 +101,7 @@ public class ScrollRemoveItemListView extends ListView {
         int distanceX = Math.abs(startX - secondX);
         int distanceY = Math.abs(startY - secondY);
 
-        Log.e(TAG, "startX = " + startX + "  ,startY = " + startY + "  ,secondX = " + secondX + "  ,secondY = " + secondY + "  ,distanceX = " + distanceX + "  ,distanceY = " + distanceY);
+        Log.e(TAG, "p1X = " + startX + "  ,p1Y = " + startY + "  ,secondX = " + secondX + "  ,secondY = " + secondY + "  ,distanceX = " + distanceX + "  ,distanceY = " + distanceY);
         if (distanceX > distanceY)
             ret = true;
         return ret;
