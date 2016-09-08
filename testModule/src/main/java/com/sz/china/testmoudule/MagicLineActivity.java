@@ -1,6 +1,7 @@
 package com.sz.china.testmoudule;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,20 +38,20 @@ public class MagicLineActivity extends Activity implements View.OnClickListener 
     @ViewInject(R.id.p2_speed)
     private EditText p2Speed;
     @ViewInject(R.id.start)
-    private Button start;
+    private Button startBtn;
     @ViewInject(R.id.selete_draw_spinner)
     private Spinner seleteDraw;
+    private boolean firstIn = true;
 
     private float[] data1 = {400, 400, 200, 200, 0.05f, 0.35f};
     private float[] data2 = {200, 500, 500, 200, 0.4f, 0.4f};
     private float[] data3 = {450, 450, 450, 450, 0.35f, 0.05f};
-    private float[] data4 = {450, 5, 450, 5, 0.35f, 0.35f};
+    private float[] data4 = {450, 150, 150, 450, 0.1f, 0.05f};
     private float[] data5 = {450, 450, 450, 450, 0.5f, 0.15f};
     private float[] data6 = {90, 90, 450, 450, 0.5f, 0.15f};
     private float[] data7 = {200, 200, 450, 450, 0.55f, 0.15f};
-    private float[] data8 = {80, 450, 450, 80, 0.04f, 0.05f};
-    private float[] data9 = {450, 50, 50, 450, 0.35f, 0.05f};
-
+    private float[] data8 = {450, 150, 150, 450, 0.15f, 0.05f};
+    private float[] data9 = {450, 450, 150, 150, 1f, 0.15f};
 
     private List<String> spinnerMenu;
     private List<float[]> drawMenu;
@@ -91,32 +92,58 @@ public class MagicLineActivity extends Activity implements View.OnClickListener 
     }
 
     private void initView() {
-        start.setOnClickListener(this);
+        startBtn.setOnClickListener(this);
         SpinnerAdapter adapter = new ArrayAdapter(this, R.layout.adapter_simple_spinner, spinnerMenu);
         seleteDraw.setAdapter(adapter);
+        seleteDraw.setSelection(7);
         seleteDraw.setOnItemSelectedListener(itemSelectedListener);
+        magicLineView.setDrawingListener(drawingListener);
+
     }
 
-    AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
+    private AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            Log.d("MagicLineActivity","onItemSelected");
-            float[] data = drawMenu.get(position);
+            Log.d("MagicLineActivity", "onItemSelected");
+            if (parent.getId() == R.id.selete_draw_spinner) {
+                if (position < 0 || position >= drawMenu.size())
+                    return;
 
-            p1xLength.setText(data[0] + "");
-            p1yLength.setText(data[1] + "");
-            p2xLength.setText(data[2] + "");
-            p2yLength.setText(data[3] + "");
-            p1Speed.setText(data[4] + "");
-            p2Speed.setText(data[5] + "");
-            magicLineView.setParam(data[0], data[1], data[2], data[3], data[4], data[5]);
-            magicLineView.startDraw();
-
+                if (firstIn) {
+                    firstIn = false;
+                } else {
+                    float[] data = drawMenu.get(position);
+                    p1xLength.setText(data[0] + "");
+                    p1yLength.setText(data[1] + "");
+                    p2xLength.setText(data[2] + "");
+                    p2yLength.setText(data[3] + "");
+                    p1Speed.setText(data[4] + "");
+                    p2Speed.setText(data[5] + "");
+                    magicLineView.setParam(data[0], data[1], data[2], data[3], data[4], data[5]);
+                    magicLineView.startDraw();
+                }
+            }
         }
 
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
+            Log.d("MagicLineActivity", "onNothingSelected");
+        }
+    };
 
+    private MagicLineView.DrawingListener drawingListener = new MagicLineView.DrawingListener() {
+        @Override
+        public void drawStart() {
+            seleteDraw.setClickable(false);
+            startBtn.setTextColor(Color.GRAY);
+            startBtn.setClickable(false);
+        }
+
+        @Override
+        public void drawOver() {
+            startBtn.setTextColor(Color.BLACK);
+            startBtn.setClickable(true);
+            seleteDraw.setClickable(true);
         }
     };
 
