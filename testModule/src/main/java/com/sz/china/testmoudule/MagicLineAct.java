@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by zhangyu on 2016/9/7.
  */
-public class MagicLineActivity extends Activity implements View.OnClickListener {
+public class MagicLineAct extends Activity implements View.OnClickListener {
     @ViewInject(R.id.magic_line)
     private MagicLineView magicLineView;
     @ViewInject(R.id.p1x_length)
@@ -104,7 +104,7 @@ public class MagicLineActivity extends Activity implements View.OnClickListener 
     private AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            Log.d("MagicLineActivity", "onItemSelected");
+            Log.d("MagicLineAct", "onItemSelected");
             if (parent.getId() == R.id.selete_draw_spinner) {
                 if (position < 0 || position >= drawMenu.size())
                     return;
@@ -127,7 +127,7 @@ public class MagicLineActivity extends Activity implements View.OnClickListener 
 
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
-            Log.d("MagicLineActivity", "onNothingSelected");
+            Log.d("MagicLineAct", "onNothingSelected");
         }
     };
 

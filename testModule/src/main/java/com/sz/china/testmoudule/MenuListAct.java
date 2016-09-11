@@ -15,7 +15,7 @@ import com.sz.china.testmoudule.view.PageMenuHorizontalScrollView;
 /**
  * Created by zhangyu on 2016/8/7 14:01.
  */
-public class MenuListActivity extends Activity {
+public class MenuListAct extends Activity {
     private ListView listView;
     private MyAdapter adapter;
     private String[] menu = {"图片沉浸状态栏及activity翻页效果初始实现(仅作参考，未抽离成工具类)",
@@ -60,44 +60,42 @@ public class MenuListActivity extends Activity {
             if (parent.getId() == R.id.listview) {
                 switch (position) {
                     case 0:
-                        Intent intent = new Intent(MenuListActivity.this, ImmersionActivity.class);
+                        Intent intent = new Intent(MenuListAct.this, ImmersionAct.class);
                         startActivity(intent);
                         break;
                     case 1:
-                        Intent intent1 = new Intent(MenuListActivity.this, TestActivity1.class);
+                        Intent intent1 = new Intent(MenuListAct.this, TestAct1.class);
                         startActivity(intent1);
                         break;
                     case 2:
-                        Intent intent2 = new Intent(MenuListActivity.this, PullToRefreshScrollViewActivity.class);
+                        Intent intent2 = new Intent(MenuListAct.this, PullToRefreshScrollViewAct.class);
                         startActivity(intent2);
                         break;
                     case 3:
-                        Intent intent3 = new Intent(MenuListActivity.this, TestRotateAnimationActivity.class);
+                        Intent intent3 = new Intent(MenuListAct.this, TestRotateAnimationAct.class);
                         startActivity(intent3);
                         break;
                     case 4:
-                        Intent intent4 = new Intent(MenuListActivity.this, TestScanActivity.class);
+                        Intent intent4 = new Intent(MenuListAct.this, TestScanAct.class);
                         startActivity(intent4);
                         break;
                     case 5:
-                        Intent intent5 = new Intent(MenuListActivity.this, TestUnlockViewActivity.class);
+                        Intent intent5 = new Intent(MenuListAct.this, TestUnlockViewAct.class);
                         startActivity(intent5);
                         break;
                     case 6:
-                        Intent intent6 = new Intent(MenuListActivity.this, RecycleViewDemoActivity.class);
+                        Intent intent6 = new Intent(MenuListAct.this, RecycleViewDemoAct.class);
                         startActivity(intent6);
                         break;
                     case 7:
-                        Intent intent7 = new Intent(MenuListActivity.this, SwipeRefreshLayoutActivity.class);
+                        Intent intent7 = new Intent(MenuListAct.this, SwipeRefreshLayoutAct.class);
                         startActivity(intent7);
                         break;
                     case 8:
-                        Intent intent8 = new Intent(MenuListActivity.this, ScrollRemoveItemActivity.class);
+                        Intent intent8 = new Intent(MenuListAct.this, ScrollRemoveItemAct.class);
                         startActivity(intent8);
                         break;
                     case 9:
-//                        Intent intent9 = new Intent(MenuListActivity.this, HorizontalScrollPageMenuAct.class);
-//                        startActivity(intent9);
 
                         pageMenuHorizontalScrollView.initView();
                         pageMenuHorizontalScrollView.scrollToPst();
@@ -108,12 +106,12 @@ public class MenuListActivity extends Activity {
 
                         break;
                     case 10:
-                        Intent intent10 = new Intent(MenuListActivity.this, TestFt.class);
+                        Intent intent10 = new Intent(MenuListAct.this, TestFt.class);
                         startActivity(intent10);
 
                         break;
                     case 11:
-                        Intent intent11 = new Intent(MenuListActivity.this, MagicLineActivity.class);
+                        Intent intent11 = new Intent(MenuListAct.this, MagicLineAct.class);
                         startActivity(intent11);
                         break;
 
@@ -143,7 +141,7 @@ public class MenuListActivity extends Activity {
             View v = null;
             TextView tv;
             if (convertView == null) {
-                v = View.inflate(MenuListActivity.this, R.layout.adapter_view_menu, null);
+                v = View.inflate(MenuListAct.this, R.layout.adapter_view_menu, null);
             } else {
                 v = convertView;
             }

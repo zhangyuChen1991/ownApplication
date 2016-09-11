@@ -16,7 +16,7 @@ import com.sz.china.testmoudule.recycleview.divider.GridDivider;
 
 import java.util.ArrayList;
 
-public class RecycleViewDemoActivity extends AppCompatActivity {
+public class RecycleViewDemoAct extends AppCompatActivity {
 
     private ArrayList<String> data;
     private RecyclerView recyclerView;
@@ -84,7 +84,7 @@ public class RecycleViewDemoActivity extends AppCompatActivity {
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            MyViewHolder viewHolder = new MyViewHolder(View.inflate(RecycleViewDemoActivity.this, R.layout.adpter, null));
+            MyViewHolder viewHolder = new MyViewHolder(View.inflate(RecycleViewDemoAct.this, R.layout.adpter, null));
             return viewHolder;
         }
 

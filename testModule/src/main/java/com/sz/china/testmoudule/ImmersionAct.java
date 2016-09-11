@@ -20,8 +20,8 @@ import com.cc.library.annotation.ViewInjectUtil;
 /**
  * Created by zhangyu on 2016/7/10 08:25.
  */
-public class ImmersionActivity extends Activity {
-    private static final String TAG = "ImmersionActivity";
+public class ImmersionAct extends Activity {
+    private static final String TAG = "ImmersionAct";
     private View rootView;
 
     @ViewInject(R.id.bg_img)

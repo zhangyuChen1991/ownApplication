@@ -10,7 +10,7 @@ import com.cc.library.view.UnlockView;
  * 测试九宫格解锁view
  * Created by zhangyu on 2016-07-15 14:55.
  */
-public class TestUnlockViewActivity extends Activity {
+public class TestUnlockViewAct extends Activity {
 
     private UnlockView unlockView;
     @Override
@@ -29,11 +29,11 @@ public class TestUnlockViewActivity extends Activity {
             @Override
             public void isPwdRight(boolean isRight) {//密码是否校验正确
                 if(isRight) {
-                    Toast.makeText(TestUnlockViewActivity.this, "密码正确", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TestUnlockViewAct.this, "密码正确", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else
-                    Toast.makeText(TestUnlockViewActivity.this,"密码错误",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TestUnlockViewAct.this,"密码错误",Toast.LENGTH_SHORT).show();
             }
         });
 
