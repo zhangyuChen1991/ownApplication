@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whitesmoke"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <RelativeLayout
+            android:id="@+id/item_add_iv_container"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/add_blue" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/song_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/item_menu_iv_container"
+            android:layout_toRightOf="@id/item_add_iv_container"
+            android:text="我是一首歌"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/item_menu_iv_container"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/item_menu_selector" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:background="@color/dodgerblue"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="删除\n文件"
+            android:textColor="@color/whitesmoke"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/add_to_my_love"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="添加到\n喜爱"
+            android:textColor="@color/whitesmoke"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+</LinearLayout>
