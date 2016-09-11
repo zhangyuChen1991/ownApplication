@@ -14,7 +14,7 @@ import com.cc.library.annotation.ViewInjectUtil;
  * 测试旋转activity翻页工具:ActivityRotateAnimationUtil
  * Created by zhangyu on 2016-07-13 14:22.
  */
-public class TestRotateAnimationActivity extends Activity{
+public class TestRotateAnimationAct extends Activity{
     private static final String TAG = "TestRotateActivity";
     @ViewInject(R.id.bg_img)
     private ImageView bgImage;

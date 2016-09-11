@@ -24,7 +24,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
-public final class PullToRefreshScrollViewActivity extends Activity {
+public final class PullToRefreshScrollViewAct extends Activity {
 
 	PullToRefreshScrollView mPullRefreshScrollView;
 	ScrollView mScrollView;

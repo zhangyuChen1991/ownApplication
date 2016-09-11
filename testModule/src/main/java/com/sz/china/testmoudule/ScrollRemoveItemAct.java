@@ -14,7 +14,7 @@ import com.cc.library.annotation.ViewInjectUtil;
 /**
  * Created by Administrator on 2016/8/10.
  */
-public class ScrollRemoveItemActivity extends Activity {
+public class ScrollRemoveItemAct extends Activity {
     @ViewInject(R.id.listview3)
     private ListView listView;
 
@@ -51,7 +51,7 @@ public class ScrollRemoveItemActivity extends Activity {
             View v = null;
             TextView tv;
             if (convertView == null) {
-                v = View.inflate(ScrollRemoveItemActivity.this, R.layout.adapter_scroll_remove_item, null);
+                v = View.inflate(ScrollRemoveItemAct.this, R.layout.adapter_scroll_remove_item, null);
             } else {
                 v = convertView;
             }

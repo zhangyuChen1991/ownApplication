@@ -8,7 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
  * SwipeRefreshLayout Demo
  * Created by Administrator on 2016/8/9.
  */
-public class SwipeRefreshLayoutActivity extends Activity {
+public class SwipeRefreshLayoutAct extends Activity {
     private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

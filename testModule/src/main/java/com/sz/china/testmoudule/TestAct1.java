@@ -19,10 +19,10 @@ import com.cc.library.annotation.ViewInjectUtil;
 /**
  * 测试注解 页面进、出旋转动画 测试自定义圆形imageview
  */
-public class TestActivity1 extends AppCompatActivity implements View.OnClickListener {
+public class TestAct1 extends AppCompatActivity implements View.OnClickListener {
 
 
-    private static final String TAG = "TestActivity1";
+    private static final String TAG = "TestAct1";
     @ViewInject(R.id.round_image)
     private ImageView roundImage;
 
@@ -74,7 +74,7 @@ public class TestActivity1 extends AppCompatActivity implements View.OnClickList
                 ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1, 0, 1, loc[0] + roundImage.getWidth() / 2, loc[1]);
                 AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
 
-                AnimationSet animationSet = new AnimationSet(TestActivity1.this, null);
+                AnimationSet animationSet = new AnimationSet(TestAct1.this, null);
                 animationSet.addAnimation(scaleAnimation);
                 animationSet.addAnimation(alphaAnimation);
                 animationSet.setDuration(300);
@@ -90,7 +90,7 @@ public class TestActivity1 extends AppCompatActivity implements View.OnClickList
                 ScaleAnimation scaleAnimation1 = new ScaleAnimation(1, 0, 1, 0, loc[0] + roundImage.getWidth() / 2, loc[1]);
                 AlphaAnimation alphaAnimation1 = new AlphaAnimation(1, 0);
 
-                AnimationSet animationSet1 = new AnimationSet(TestActivity1.this, null);
+                AnimationSet animationSet1 = new AnimationSet(TestAct1.this, null);
                 animationSet1.addAnimation(scaleAnimation1);
                 animationSet1.addAnimation(alphaAnimation1);
                 animationSet1.setDuration(300);
@@ -103,7 +103,7 @@ public class TestActivity1 extends AppCompatActivity implements View.OnClickList
 
             case R.id.rotate_tv:
 
-                Intent intent = new Intent(TestActivity1.this, ImmersionActivity.class);
+                Intent intent = new Intent(TestAct1.this, ImmersionAct.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.rotate_left_in, R.anim.rotate_right_out);
                 Log.d(TAG, "add ..10:34");
