@@ -4,7 +4,7 @@
 
 2.DesignPattern是自己学习设计模式时敲的一些简单demo，价值不大。
 
-3.musiclist是一个简单的音乐播放器。我只是讨厌大多数音乐app启动logo页等待
+3.musicList是一个简单的音乐播放器。我只是讨厌大多数音乐app启动logo页等待
 
 4.testModule 测试各种我要测试的效果，包括cLibrary、第三方library、各种demo集合
 
