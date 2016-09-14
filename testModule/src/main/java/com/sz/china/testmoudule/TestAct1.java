@@ -70,7 +70,7 @@ public class TestAct1 extends AppCompatActivity implements View.OnClickListener 
         roundImage.getLocationInWindow(loc);
 
         switch (v.getId()) {
-            case R.id.round_image:
+            case R.id.round_image://放大动画
                 ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1, 0, 1, loc[0] + roundImage.getWidth() / 2, loc[1]);
                 AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
 
@@ -101,7 +101,7 @@ public class TestAct1 extends AppCompatActivity implements View.OnClickListener 
 
                 break;
 
-            case R.id.rotate_tv:
+            case R.id.rotate_tv://旋转动画跳转页面
 
                 Intent intent = new Intent(TestAct1.this, ImmersionAct.class);
                 startActivity(intent);
