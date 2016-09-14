@@ -7,11 +7,11 @@
 
     <TextView
         android:id="@+id/rotate_tv"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="roatate" />
+        android:layout_centerInParent="true"
+        android:text="roatate"
+        android:textSize="18sp" />
 
     <com.cc.library.view.RoundImageView
         android:id="@+id/round_image"
@@ -34,4 +34,12 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
     </RelativeLayout>
+
+    <com.sz.china.testmoudule.view.ForkedTailStarView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/rotate_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/rr942"></com.sz.china.testmoudule.view.ForkedTailStarView>
 </RelativeLayout>
