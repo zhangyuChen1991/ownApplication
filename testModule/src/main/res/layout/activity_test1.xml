@@ -41,5 +41,5 @@
         android:layout_below="@id/rotate_tv"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:background="@drawable/rr942"></com.sz.china.testmoudule.view.ForkedTailStarView>
+        android:src="@drawable/img1"></com.sz.china.testmoudule.view.ForkedTailStarView>
 </RelativeLayout>

@@ -53,7 +53,6 @@ public class RoundImageView extends ImageView {
     protected void onDraw(Canvas canvas) {
         Drawable drawable = getDrawable();
         Bitmap bitmap = Bitmap.createBitmap(viewWidth, viewHeight, Bitmap.Config.ARGB_8888);//创建一个与控件尺寸相同的基本位图
-        Bitmap roundBitmap = getRoundBitmap();//圆形位图
 
         Canvas drawCanvas = new Canvas(bitmap);//创建一个用于绘制内容的画布
 
@@ -62,6 +61,7 @@ public class RoundImageView extends ImageView {
 
         paint.setFilterBitmap(false);
         paint.setXfermode(porterDuffXFermode);
+        Bitmap roundBitmap = getRoundBitmap();//圆形位图
         drawCanvas.drawBitmap(roundBitmap, 0, 0, paint);//将圆形位图绘制到画布上(第二层)
 
         paint.setXfermode(null);
