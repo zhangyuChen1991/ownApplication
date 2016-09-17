@@ -54,14 +54,12 @@ public class ForkedTailStarView extends ImageView {
         porterDuffXFermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);//取两层绘制交集,显示下层。
         paint = new Paint();
         paint.setAntiAlias(true);
-        paint.setXfermode(porterDuffXFermode);
         paint.setColor(Color.parseColor("#a9a9a9"));//深灰色
     }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
-//        super.onDraw(canvas);
         Bitmap bitmap = Bitmap.createBitmap(viewWidth, viewHeight, Bitmap.Config.ARGB_8888);//创建一个与view尺寸相同的bitmap
         Canvas drawCanvas = new Canvas(bitmap);//创建绑定bitmap的画布
 
