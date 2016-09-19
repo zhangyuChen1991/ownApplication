@@ -29,7 +29,8 @@ public class MenuListAct extends Activity {
             "滑动删除item listview",
             "测试，横向滑动页面菜单",
             "viewpager滑动指示器",
-            "magic line view"};
+            "magic line view",
+            "GreenDao测试"};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
@@ -113,6 +114,10 @@ public class MenuListAct extends Activity {
                     case 11:
                         Intent intent11 = new Intent(MenuListAct.this, MagicLineAct.class);
                         startActivity(intent11);
+                        break;
+                    case 12:
+                        Intent intent12 = new Intent(MenuListAct.this, GreenDaoAct.class);
+                        startActivity(intent12);
                         break;
 
                 }
