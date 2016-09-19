@@ -20,6 +20,17 @@ android {
     }
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.1.1'
+    }
+}
+
+apply plugin: 'org.greenrobot.greendao'
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -30,4 +41,5 @@ dependencies {
     compile project(':pulltorefresh_library')
     compile 'com.android.support:recyclerview-v7:23.2.1'
     compile 'com.google.code.gson:gson:2.2.4'
+    compile 'org.greenrobot:greendao:3.1.1'
 }

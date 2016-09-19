@@ -35,6 +35,7 @@
         <activity android:name=".HorizontalScrollPageMenuAct"></activity>
         <activity android:name=".TestFt"></activity>
         <activity android:name=".MagicLineAct"></activity>
+        <activity android:name=".GreenDaoAct"></activity>
     </application>
 
 </manifest>
