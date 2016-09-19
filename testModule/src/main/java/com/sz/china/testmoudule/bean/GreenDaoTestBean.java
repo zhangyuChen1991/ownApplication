@@ -8,13 +8,13 @@ import org.greenrobot.greendao.annotation.Generated;
 /**
  * Created by zhangyu on 2016/9/19.
  */
-@Entity
+@Entity //建好文件后记得添加这个注解，然后编译一下，生成相应的dao、session文件
 public class GreenDaoTestBean {
     private String value1;
     private String value2;
     private String value3;
     private long number;
-    @Id
+    @Id //主键
     private Long Id;
 
     @Keep
