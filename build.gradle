@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath "io.realm:realm-gradle-plugin:1.2.0"//realm
     }
 }
 
@@ -18,3 +19,4 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+

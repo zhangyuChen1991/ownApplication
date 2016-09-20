@@ -35,4 +35,5 @@ public class GreenDaoAct extends Activity {
         dbManager.delete(greenDaoTestBean);//删除数据
         dbManager.queryAll();
     }
+
 }
