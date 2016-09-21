@@ -6,6 +6,6 @@
 
 3.musicList是一个简单的音乐播放器。我只是讨厌大多数音乐app启动logo页等待
 
-4.testModule 测试各种我要测试的效果，包括cLibrary、各种第三方library、各种demo集合。包含zxing二维码框架、下拉刷新、listview侧滑菜单与上下拉刷新、realm、greendao、注解、RecyleView、SwipeRefreshLayout等等等等
+4.testModule 测试各种我要测试的效果，包括cLibrary、各种第三方library、各种demo集合。包含zxing二维码框架、下拉刷新、RecyleView、listview侧滑菜单与上下拉刷新、OkHttp、realm、greendao、注解、SwipeRefreshLayout等等等等
 
 5.其余基本是一些第三方框架了，比如下拉刷新，zxing二维码之类。需要放到testmodule去写demo测验一下。调试好之后亦可以之间拿去做别的项目的library，当然也需要时常更新维护。
