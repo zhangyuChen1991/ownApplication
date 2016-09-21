@@ -41,7 +41,7 @@ public class RealmAct extends Activity{
 
         realm.beginTransaction();
 
-        TestRealmBean trBean = realm.createObject(TestRealmBean.class);//注意：采用这种方式创建对象，如果设置主键，会挂掉，主键应该自动生成了.
+        TestRealmBean trBean = realm.createObject(TestRealmBean.class);//注意：采用这种方式创建对象，如果设置主键，会挂掉，主键应该自动生成了.创建后就直接添加到数据库  realm.copyToRealm()同样
         trBean.setValue1("anything2");
         trBean.setNumber(System.currentTimeMillis());
 

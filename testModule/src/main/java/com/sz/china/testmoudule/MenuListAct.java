@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.sz.china.testmoudule.view.OkHttpAct;
 import com.sz.china.testmoudule.view.PageMenuHorizontalScrollView;
 
 /**
@@ -30,7 +31,8 @@ public class MenuListAct extends Activity {
             "测试，横向滑动页面菜单",
             "viewpager滑动指示器",
             "magic line view",
-            "GreenDao测试"};
+            "GreenDao测试",
+            "okhttp"};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
@@ -118,6 +120,10 @@ public class MenuListAct extends Activity {
                     case 12:
                         Intent intent12 = new Intent(MenuListAct.this, GreenDaoAct.class);
                         startActivity(intent12);
+                        break;
+                    case 13:
+                        Intent intent13 = new Intent(MenuListAct.this, OkHttpAct.class);
+                        startActivity(intent13);
                         break;
 
                 }

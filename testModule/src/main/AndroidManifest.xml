@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sz.china.testmoudule">
 
-    <permission android:name="android.permission.INTERNET"></permission>
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:name=".application.BaseApplication"
         android:allowBackup="true"
@@ -36,6 +37,7 @@
         <activity android:name=".TestFt"></activity>
         <activity android:name=".MagicLineAct"></activity>
         <activity android:name=".GreenDaoAct"></activity>
+        <activity android:name=".view.OkHttpAct"></activity>
     </application>
 
 </manifest>
