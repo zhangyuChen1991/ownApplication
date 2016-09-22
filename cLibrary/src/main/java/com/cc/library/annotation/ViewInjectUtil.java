@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
  * View注解工具
  * Created by zhangyu on 2016-07-11 15:15.
  */
-public class ViewInjectUtil {
+public class  ViewInjectUtil {
 
     private static final String TAG = "ViewInjectUtil";
     public static void injectView(Activity activity){

@@ -37,7 +37,7 @@
         <activity android:name=".TestFt"></activity>
         <activity android:name=".MagicLineAct"></activity>
         <activity android:name=".GreenDaoAct"></activity>
-        <activity android:name=".view.OkHttpAct"></activity>
+        <activity android:name=".OkHttpAct"></activity>
     </application>
 
 </manifest>

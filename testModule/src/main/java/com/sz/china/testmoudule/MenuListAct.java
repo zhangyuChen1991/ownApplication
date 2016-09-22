@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.sz.china.testmoudule.view.OkHttpAct;
 import com.sz.china.testmoudule.view.PageMenuHorizontalScrollView;
 
 /**
