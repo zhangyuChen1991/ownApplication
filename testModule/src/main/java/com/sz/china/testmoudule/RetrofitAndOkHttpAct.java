@@ -16,10 +16,12 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
+ * 包含学习okhttp时的一些demo代码(现在已经没用了，retrofit2对其作了非常好的封装)
+ * retrofit的demo代码
  * Created by zhangyu on 2016/9/21.
  */
-public class OkHttpAct extends Activity {
-    private static final String TAG = "OkHttpAct";
+public class RetrofitAndOkHttpAct extends Activity {
+    private static final String TAG = "RetrofitAndOkHttpAct";
     @ViewInject(R.id.tv)
     private TextView tv;
 
@@ -49,7 +51,7 @@ public class OkHttpAct extends Activity {
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 final String str = response.body().string();//除了string 还有byte、bytestream(支持下载)等
-                OkHttpAct.this.runOnUiThread(new Runnable() {
+                RetrofitAndOkHttpAct.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         tv.setText(response.headers().toString() + "\n\n" + str);
@@ -76,5 +78,7 @@ public class OkHttpAct extends Activity {
             }
         }, this);
     }
+
+    //TODO retrofit demo 特么的好好学吧！
 
 }

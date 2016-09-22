@@ -28,12 +28,13 @@ public class OkHttpUtil {
         private static OkHttpUtil okHttpUtil = new OkHttpUtil();
     }
 
+    //单例
     public static OkHttpUtil getInstances() {
         return SingleHolder.okHttpUtil;
     }
 
     /**
-     * 获取okhttp实例
+     * 获取OkHttpClient实例
      *
      * @return
      */
