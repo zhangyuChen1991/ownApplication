@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="debug"><source path="E:\ownApplication\zxing-lib\build\intermediates\bundles\debug\assets"/></dataSet><dataSet config="main"><source path="E:\ownApplication\zxing-lib\src\androidTest\assets"/><source path="E:\ownApplication\zxing-lib\build\generated\assets\shaders\androidTest\debug"/></dataSet></merger>
