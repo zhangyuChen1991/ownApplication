@@ -16,7 +16,7 @@ import android.widget.ImageView;
  * 圆形imageview
  * 基本原理，图层上第一层放矩形图片，往上第二层放一个圆形的位图(bitmap)，
  * 利用PorterDuffXfermode设置渲染模式，只绘制两图层的交集并显示下一图层的内容
- * 最终的效果就是一个被切出一个圆形的imageview效果
+ * 最终的效果就是一个被切出一个圆形的imageview效果.
  * Created by zhangyu on 2016-07-07 14:17.
  */
 public class RoundImageView extends ImageView {
