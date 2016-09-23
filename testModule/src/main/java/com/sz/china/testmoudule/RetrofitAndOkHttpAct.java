@@ -51,7 +51,6 @@ public class RetrofitAndOkHttpAct extends Activity {
 
     /**
      * 异步get请求
-     *
      * @param url
      */
     public void getAsyn(final String url) {
