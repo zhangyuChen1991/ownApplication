@@ -31,7 +31,7 @@ public class MenuListAct extends Activity {
             "viewpager滑动指示器",
             "magic line view",
             "GreenDao测试",
-            "okhttp"};
+            "retrofit、okhttp"};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
