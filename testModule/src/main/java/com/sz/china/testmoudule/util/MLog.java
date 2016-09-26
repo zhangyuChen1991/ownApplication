@@ -8,6 +8,7 @@ import android.util.Log;
  */
 public class MLog {
     public static boolean openLog = true;
+    static final String defaultTag = "DefaultTag";
 
     public static void v(String TAG, String message) {
         if (openLog)
@@ -32,5 +33,9 @@ public class MLog {
     public static void e(String TAG, String message) {
         if (openLog)
             Log.e(TAG, message);
+    }
+
+    public static void detaultTag(String message){
+        i(defaultTag,message);
     }
 }
