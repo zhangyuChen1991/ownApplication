@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:gravity="center"
         android:textSize="18sp"
         android:text="1"/>
+
+    <com.sz.china.testmoudule.view.SweepGridentView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@color/darkturquoise"
+        android:layout_gravity="center_horizontal"></com.sz.china.testmoudule.view.SweepGridentView>
 </LinearLayout>
