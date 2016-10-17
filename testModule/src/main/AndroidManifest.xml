@@ -4,6 +4,7 @@
 
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
     <application
         android:name=".application.BaseApplication"
         android:allowBackup="true"
@@ -38,6 +39,8 @@
         <activity android:name=".MagicLineAct"></activity>
         <activity android:name=".GreenDaoAct"></activity>
         <activity android:name=".RetrofitAndOkHttpAct"></activity>
+        <activity android:name=".WifiInfoAct"></activity>
+        <activity android:name=".ScanViewDemoAct"></activity>
     </application>
 
 </manifest>

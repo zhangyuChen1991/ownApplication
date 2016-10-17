@@ -31,7 +31,9 @@ public class MenuListAct extends Activity {
             "viewpager滑动指示器",
             "magic line view",
             "GreenDao测试",
-            "retrofit、okhttp"};
+            "retrofit、okhttp",
+            "wifi info",
+    "ScanView Demo"};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
@@ -124,6 +126,16 @@ public class MenuListAct extends Activity {
                         Intent intent13 = new Intent(MenuListAct.this, RetrofitAndOkHttpAct.class);
                         startActivity(intent13);
                         break;
+                    case 14:
+                        Intent intent14 = new Intent(MenuListAct.this, WifiInfoAct.class);
+                        startActivity(intent14);
+                        break;
+                    case 15:
+                        Intent intent15 = new Intent(MenuListAct.this, ScanViewDemoAct.class);
+                        startActivity(intent15);
+                        break;
+
+
 
                 }
             }
