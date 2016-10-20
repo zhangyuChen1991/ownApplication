@@ -33,7 +33,7 @@ public class MenuListAct extends Activity {
             "GreenDao测试",
             "retrofit、okhttp",
             "wifi info",
-    "ScanView Demo"};
+            "ScanView Demo"};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
@@ -134,7 +134,6 @@ public class MenuListAct extends Activity {
                         Intent intent15 = new Intent(MenuListAct.this, ScanViewDemoAct.class);
                         startActivity(intent15);
                         break;
-
 
 
                 }

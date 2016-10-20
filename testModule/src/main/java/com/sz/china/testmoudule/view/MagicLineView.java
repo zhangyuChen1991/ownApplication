@@ -169,7 +169,7 @@ public class MagicLineView extends View {
     }
 
     public interface DrawingListener {
-        public void drawStart();
-        public void drawOver();
+        void drawStart();
+        void drawOver();
     }
 }

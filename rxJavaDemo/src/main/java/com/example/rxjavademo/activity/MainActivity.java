@@ -21,12 +21,15 @@ public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
     @ViewInject(R.id.main_listview)
     private ListView listView;
-    
+
     private MyAdapter adapter;
-    private String[] menu = {"简单demo",
-    "发布者(Observable)不同的创建方式",
-    "转换",
-    "结合retrofit"};
+    private String[] menu = {
+            "简单demo",
+            "发布者(Observable)不同的创建方式",
+            "转换",
+            "过滤",
+            "综合",
+            "结合retrofit"};
 
     @Override
     protected void initView() {
@@ -46,6 +49,7 @@ public class MainActivity extends BaseActivity {
     protected void initViewState() {
 
     }
+
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -59,10 +63,10 @@ public class MainActivity extends BaseActivity {
                         Intent intent1 = new Intent(MainActivity.this, ObservableCreateAct.class);
                         startActivity(intent1);
                         break;
-//                    case 2:
-//                        Intent intent2 = new Intent(MainActivity.this, PullToRefreshScrollViewAct.class);
-//                        startActivity(intent2);
-//                        break;
+                    case 2:
+                        Intent intent2 = new Intent(MainActivity.this, TranslateAct.class);
+                        startActivity(intent2);
+                        break;
 //                    case 3:
 //                        Intent intent3 = new Intent(MainActivity.this, TestRotateAnimationAct.class);
 //                        startActivity(intent3);
