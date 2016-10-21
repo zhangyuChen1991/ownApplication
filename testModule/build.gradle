@@ -26,7 +26,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.1.1'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
     }
 }
 
@@ -42,7 +42,7 @@ dependencies {
     compile project(':pulltorefresh_library')
     compile 'com.android.support:recyclerview-v7:23.2.1'
     compile 'com.google.code.gson:gson:2.2.4'
-    compile 'org.greenrobot:greendao:3.1.1'
+    compile 'org.greenrobot:greendao:3.2.0'
     //compile 'com.squareup.okhttp3:okhttp:3.4.1'//retrofit已经添加了对OkHttp的依赖，不用再单独配置OkHttp
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
