@@ -72,7 +72,8 @@ public class SimpleDemoAct extends BaseActivity {
     }
 
     //创建一个被观察者(发布者)
-    //除了.create 还有.from .just .range .timer等方法创建发布者,详见文档https://mcxiaoke.gitbooks.io/rxdocs/content/operators/Create.html
+    //除了.create 还有.from .just .range .timer等方法创建发布者,更多创建方式可参见ObservableCreactAct页面的demo
+    //相关文档https://mcxiaoke.gitbooks.io/rxdocs/content/operators/Create.html
     //参数还可以有AsyncOnSubscribe SyncOnSubscribe
     Observable observable = Observable.create(new Observable.OnSubscribe<Integer>() {
         @Override
@@ -104,7 +105,4 @@ public class SimpleDemoAct extends BaseActivity {
             tvStr += "执行onNext:" + integer + "\n";
         }
     };
-
-
-
 }

@@ -29,7 +29,6 @@ public class ObservableCreateAct extends BaseActivity {
     @Override
     protected void initView() {
         setContentView(R.layout.act_simple_demo);
-
         tv = (TextView) findViewById(R.id.asd_tv);
 
     }

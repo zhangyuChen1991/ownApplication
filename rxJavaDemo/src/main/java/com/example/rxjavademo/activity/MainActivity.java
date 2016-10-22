@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity {
             "发布者(Observable)不同的创建方式",
             "转换",
             "过滤",
-            "综合",
+            "结合",
             "结合retrofit"};
 
     @Override
@@ -67,14 +67,14 @@ public class MainActivity extends BaseActivity {
                         Intent intent2 = new Intent(MainActivity.this, TranslateAct.class);
                         startActivity(intent2);
                         break;
-//                    case 3:
-//                        Intent intent3 = new Intent(MainActivity.this, TestRotateAnimationAct.class);
-//                        startActivity(intent3);
-//                        break;
-//                    case 4:
-//                        Intent intent4 = new Intent(MainActivity.this, TestScanAct.class);
-//                        startActivity(intent4);
-//                        break;
+                    case 3:
+                        Intent intent3 = new Intent(MainActivity.this, FilterAct.class);
+                        startActivity(intent3);
+                        break;
+                    case 4:
+                        Intent intent4 = new Intent(MainActivity.this, MerageAct.class);
+                        startActivity(intent4);
+                        break;
 //                    case 5:
 //                        Intent intent5 = new Intent(MainActivity.this, TestUnlockViewAct.class);
 //                        startActivity(intent5);

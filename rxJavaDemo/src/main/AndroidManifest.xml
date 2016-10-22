@@ -19,6 +19,8 @@
         <activity android:name=".activity.SimpleDemoAct"></activity>
         <activity android:name=".activity.ObservableCreateAct"></activity>
         <activity android:name=".activity.TranslateAct"></activity>
+        <activity android:name=".activity.FilterAct"></activity>
+        <activity android:name=".activity.MerageAct"></activity>
     </application>
 
 </manifest>

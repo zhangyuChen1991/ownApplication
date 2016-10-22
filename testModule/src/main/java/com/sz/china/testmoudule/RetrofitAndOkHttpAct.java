@@ -12,6 +12,7 @@ import com.sz.china.testmoudule.util.SystemUtil;
 import com.sz.china.testmoudule.util.ToastUtil;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -20,6 +21,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -128,6 +131,13 @@ public class RetrofitAndOkHttpAct extends Activity {
                            @Query("appSecret") String appSecret,
                            @Query("username") String user,
                            @Query("password") String pasword);
+
+        @GET("")
+        Call<Result> test(@FieldMap HashMap map );
+
+
+        @GET("")
+        Call<Result> test1(@Field("") String map );
 
     }
 
