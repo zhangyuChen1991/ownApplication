@@ -7,12 +7,9 @@ import com.cc.library.annotation.ViewInject;
 import com.example.rxjavademo.R;
 import com.example.rxjavademo.base.BaseActivity;
 
-import java.util.concurrent.TimeUnit;
-
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
-import rx.functions.Func2;
 
 /**
  * Created by zhangyu on 2016/10/22 16:24.
@@ -32,7 +29,7 @@ public class FilterAct extends BaseActivity {
     @Override
     protected void initResources() {
         doElementAt();
-        doFiliter();
+        doFilter();
         doSkip();
         doTake();
     }
@@ -67,7 +64,7 @@ public class FilterAct extends BaseActivity {
     }
 
 
-    private void doFiliter() {
+    private void doFilter() {
         Observable.just(1,2,3,4,5).filter(new Func1<Integer, Boolean>() {
             @Override
             public Boolean call(Integer integer) {

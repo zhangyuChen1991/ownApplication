@@ -112,7 +112,7 @@ public class ObservableCreateAct extends BaseActivity {
     }
 
     private void doJust1() {
-        //Just类似于From，但是From会将数组或Iterable的素具取出然后逐个发射，而Just只是简单的原样发射，将数组或Iterable当做单个数据。
+        //Just类似于From，但是From会将数组或Iterable的元素具取出然后逐个发射，而Just只是简单的原样发射，将数组或Iterable当做单个数据。
         //Just接受一至九个参数，返回一个按参数列表顺序发射这些数据的Observable
         Observable justObservable = Observable.just(1, "someThing", false, 3.256f, new Teacher("Jhon", 25, "NewYork"));
         justObservable.subscribe(new Subscriber() {

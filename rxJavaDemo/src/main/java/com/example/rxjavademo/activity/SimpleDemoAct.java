@@ -7,6 +7,7 @@ import com.example.rxjavademo.R;
 import com.example.rxjavademo.base.BaseActivity;
 
 import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -71,38 +72,40 @@ public class SimpleDemoAct extends BaseActivity {
 
     }
 
-    //创建一个被观察者(发布者)
-    //除了.create 还有.from .just .range .timer等方法创建发布者,更多创建方式可参见ObservableCreactAct页面的demo
-    //相关文档https://mcxiaoke.gitbooks.io/rxdocs/content/operators/Create.html
-    //参数还可以有AsyncOnSubscribe SyncOnSubscribe
-    Observable observable = Observable.create(new Observable.OnSubscribe<Integer>() {
-        @Override
-        public void call(Subscriber<? super Integer> subscriber) {
-            subscriber.onNext(1001);
-            subscriber.onNext(1002);
-            subscriber.onNext(1003);
-            subscriber.onCompleted();
-        }
-    });
+        //创建一个被观察者(发布者)
+        //除了.create 还有.from .just .range .timer等方法创建发布者,更多创建方式可参见ObservableCreactAct页面的demo
+        //相关文档https://mcxiaoke.gitbooks.io/rxdocs/content/operators/Create.html
+        //参数还可以有AsyncOnSubscribe SyncOnSubscribe
+        Observable observable = Observable.create(new Observable.OnSubscribe<Integer>() {
+            @Override
+            public void call(Subscriber<? super Integer> subscriber) {
+                subscriber.onNext(1001);
+                subscriber.onNext(1002);
+                subscriber.onNext(1003);
+                subscriber.onCompleted();
+            }
+        });
 
-    //创建一个观察者
-    Subscriber<Integer> subscriber = new Subscriber<Integer>() {
-        @Override
-        public void onCompleted() {
-            Log.d(TAG, "onCompleted.. ");
-            tvStr += "执行onCompleted()";
-            tv.setText(tvStr);
-        }
+        //创建一个观察者
+        Subscriber<Integer> subscriber = new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "onCompleted.. ");
+                tvStr += "执行onCompleted()";
+                tv.setText(tvStr);
+            }
 
-        @Override
-        public void onError(Throwable e) {
-            Log.d(TAG, "subscriber onError.. ");
-        }
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG, "subscriber onError.. ");
+            }
 
-        @Override
-        public void onNext(Integer integer) {
-            Log.d(TAG, "onNext.. integer:" + integer);
-            tvStr += "执行onNext:" + integer + "\n";
-        }
-    };
+            @Override
+            public void onNext(Integer integer) {
+                Log.d(TAG, "onNext.. integer:" + integer);
+                tvStr += "执行onNext:" + integer + "\n";
+            }
+        };
+
+
 }
