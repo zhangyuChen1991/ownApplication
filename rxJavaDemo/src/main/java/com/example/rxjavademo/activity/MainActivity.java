@@ -75,10 +75,10 @@ public class MainActivity extends BaseActivity {
                         Intent intent4 = new Intent(MainActivity.this, MerageAct.class);
                         startActivity(intent4);
                         break;
-//                    case 5:
-//                        Intent intent5 = new Intent(MainActivity.this, TestUnlockViewAct.class);
-//                        startActivity(intent5);
-//                        break;
+                    case 5:
+                        Intent intent5 = new Intent(MainActivity.this, RetrofitAndRxJavaAct.class);
+                        startActivity(intent5);
+                        break;
 //                    case 6:
 //                        Intent intent6 = new Intent(MainActivity.this, RecycleViewDemoAct.class);
 //                        startActivity(intent6);

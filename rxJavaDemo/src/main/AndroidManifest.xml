@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rxjavademo">
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -21,6 +21,7 @@
         <activity android:name=".activity.TranslateAct"></activity>
         <activity android:name=".activity.FilterAct"></activity>
         <activity android:name=".activity.MerageAct"></activity>
+        <activity android:name=".activity.RetrofitAndRxJavaAct"></activity>
     </application>
 
 </manifest>

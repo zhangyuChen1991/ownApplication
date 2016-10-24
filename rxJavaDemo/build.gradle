@@ -28,5 +28,7 @@ dependencies {
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:+'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile project(':cLibrary')
 }

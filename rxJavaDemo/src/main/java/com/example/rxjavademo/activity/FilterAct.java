@@ -68,7 +68,7 @@ public class FilterAct extends BaseActivity {
         Observable.just(1,2,3,4,5).filter(new Func1<Integer, Boolean>() {
             @Override
             public Boolean call(Integer integer) {
-                //true 则返回 false则被过滤掉
+                //true 则返回，false则被过滤掉
                 // 这里返回小于4的值
                 return (integer < 4);
             }
