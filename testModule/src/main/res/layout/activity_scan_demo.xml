@@ -3,10 +3,8 @@
     xmlns:percent="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/add_device_bg"
+    android:background="@drawable/line_gradient"
     >
-
     <ImageView
         percent:layout_widthPercent="85%w"
         percent:layout_heightPercent="85%w"

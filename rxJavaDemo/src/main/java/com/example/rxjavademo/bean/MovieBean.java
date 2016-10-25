@@ -8,6 +8,7 @@ package com.example.rxjavademo.bean;
 public class MovieBean {
     public String title;//电影名
     public ImgUrls images;//电影海报
+    //海报url，服务器数据分为大中小三个图片地址
     public class ImgUrls{
         public String small;
         public String large;

@@ -1,12 +1,20 @@
 package com.example.rxjavademo.net;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.example.rxjavademo.bean.MoviePoster;
 import com.example.rxjavademo.constants.Urls;
 
+import java.io.InputStream;
+
+import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -50,10 +58,16 @@ public class RequestTask {
                 .subscribe(subscriber);
     }
 
-    public void getImage(Subscriber subscriber, String url) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://img3.doubanio.com/view/movie_poster_cover/ipst/public/").addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build();
-        CallService callService = retrofit.create(CallService.class);
+    public void getImage(Subscriber subscriber, final String url) {
         callService.getImage(url)
+                .map(new Func1<ResponseBody, Object>() {
+                    @Override
+                    public Object call(ResponseBody responseBody) {
+                        InputStream is = responseBody.byteStream();
+                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+                        return new MoviePoster(bitmap,url);
+                    }
+                })
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);

@@ -2,7 +2,6 @@ package com.sz.china.testmoudule;
 
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -61,8 +60,22 @@ public class ScanViewDemoAct extends Activity {
         animator.setInterpolator(new DecelerateAccelerateInterpolator());
         animator.setDuration(2500);
         animator.setRepeatCount(-1);
-        animator.setRepeatMode(ValueAnimator.RESTART);
         animator.start();
+
+//        DecelerateAccelerateInterpolator itp = new DecelerateAccelerateInterpolator();
+//        ValueAnimator oa = ObjectAnimator.ofFloat(360f, 0f);
+//        oa.setInterpolator(itp);
+//        oa.setDuration(2500);
+//        oa.setRepeatCount(-1);
+//        oa.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                float value = (float) animation.getAnimatedValue();
+//                scanBgIv.setRotation(value);
+//                scanBgIv.invalidate();
+//            }
+//        });
+//        oa.start();
     }
 
     public class DecelerateAccelerateInterpolator implements TimeInterpolator {
