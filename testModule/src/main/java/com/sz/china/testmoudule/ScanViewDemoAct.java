@@ -62,20 +62,6 @@ public class ScanViewDemoAct extends Activity {
         animator.setRepeatCount(-1);
         animator.start();
 
-//        DecelerateAccelerateInterpolator itp = new DecelerateAccelerateInterpolator();
-//        ValueAnimator oa = ObjectAnimator.ofFloat(360f, 0f);
-//        oa.setInterpolator(itp);
-//        oa.setDuration(2500);
-//        oa.setRepeatCount(-1);
-//        oa.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                float value = (float) animation.getAnimatedValue();
-//                scanBgIv.setRotation(value);
-//                scanBgIv.invalidate();
-//            }
-//        });
-//        oa.start();
     }
 
     public class DecelerateAccelerateInterpolator implements TimeInterpolator {
@@ -85,6 +71,5 @@ public class ScanViewDemoAct extends Activity {
             //匀速变化，不做计算
             return input;
         }
-
     }
 }

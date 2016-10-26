@@ -20,4 +20,5 @@ public interface CallService {
 
     @GET
     Observable<ResponseBody> getImage(@Url String url);//获取图片 url不定
+
 }

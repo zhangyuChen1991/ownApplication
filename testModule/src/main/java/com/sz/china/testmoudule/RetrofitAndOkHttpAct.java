@@ -23,6 +23,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -54,6 +55,7 @@ public class RetrofitAndOkHttpAct extends Activity {
 
     /**
      * 异步get请求
+     *
      * @param url
      */
     public void getAsyn(final String url) {
@@ -133,11 +135,12 @@ public class RetrofitAndOkHttpAct extends Activity {
                            @Query("password") String pasword);
 
         @GET("")
-        Call<Result> test(@FieldMap HashMap map );
+        Call<Result> test(@FieldMap HashMap map);
 
+        @FormUrlEncoded
+        @POST("")
+        Call<Result> test1(@Field("") String map);
 
-        @GET("")
-        Call<Result> test1(@Field("") String map );
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.rxjavademo.activity;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -10,8 +11,12 @@ import android.widget.TextView;
 
 import com.cc.library.annotation.ViewInject;
 import com.cc.library.annotation.ViewInjectUtil;
+import com.example.rxjavademo.Bus.RxBus;
 import com.example.rxjavademo.R;
 import com.example.rxjavademo.base.BaseActivity;
+
+import rx.Subscriber;
+import rx.Subscription;
 
 /**
  * 主页面
@@ -42,6 +47,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initResources() {
+
 
     }
 

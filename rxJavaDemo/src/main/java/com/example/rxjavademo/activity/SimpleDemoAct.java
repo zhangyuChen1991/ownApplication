@@ -7,7 +7,6 @@ import com.example.rxjavademo.R;
 import com.example.rxjavademo.base.BaseActivity;
 
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -35,8 +34,6 @@ public class SimpleDemoAct extends BaseActivity {
     protected void initViewState() {
         doTest();
     }
-
-
 
     private void doTest() {
 
