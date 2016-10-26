@@ -13,9 +13,10 @@
         android:id="@+id/asm_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:textSize="13sp"
         android:textColor="@color/black"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="8dp"
-        android:text=""/>
+        android:text="机器人总动员\n 9.6"/>
 </LinearLayout>

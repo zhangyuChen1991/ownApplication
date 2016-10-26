@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.example.rxjavademo.R;
 import com.example.rxjavademo.bean.MovieBean;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by zhangyu on 2016/10/25.
@@ -22,8 +22,8 @@ public class MovieShowAdapter extends BaseAdapter {
 
     private Context context;
 
-    private HashMap<String,Bitmap> posterBitmaps;
-    private List<MovieBean> movieList;
+    private HashMap<String, Bitmap> posterBitmaps;
+    private ArrayList<MovieBean> movieList;
 
 
     public void setPosterBitmaps(HashMap<String, Bitmap> posterBitmaps) {
@@ -34,7 +34,7 @@ public class MovieShowAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    public void setMovieList(List<MovieBean> movieList) {
+    public void setMovieList(ArrayList<MovieBean> movieList) {
         this.movieList = movieList;
     }
 
@@ -70,7 +70,8 @@ public class MovieShowAdapter extends BaseAdapter {
         holder.tv = (TextView) v.findViewById(R.id.asm_tv);
 
         if (movieList != null && position < movieList.size()) {
-            holder.tv.setText(movieList.get(position).title);
+            MovieBean move = movieList.get(position);
+            holder.tv.setText(move.title + "\n" + move.rating.average);
             //通过图片的url来对应从Map中寻找图片的bitmap
             if (posterBitmaps != null)
                 holder.iv.setImageBitmap(posterBitmaps.get(movieList.get(position).images.large));

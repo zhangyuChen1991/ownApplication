@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
             "转换",
             "过滤",
             "结合",
-            "结合retrofit"};
+            "RxJava结合retrofit"};
 
     @Override
     protected void initView() {

@@ -9,9 +9,12 @@ import android.widget.TextView;
 import com.cc.library.annotation.ViewInject;
 import com.example.rxjavademo.R;
 import com.example.rxjavademo.base.BaseActivity;
+import com.example.rxjavademo.bean.Teacher;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -43,6 +46,7 @@ public class TranslateAct extends BaseActivity {
         sb = new StringBuffer();
         doMap();
         doFloatMap();
+        doFloatMap1();
         doScan();
     }
 
@@ -122,6 +126,45 @@ public class TranslateAct extends BaseActivity {
             @Override
             public Observable<?> call(Integer[] ints) {
                 Observable observable = Observable.from(ints);
+                return observable;
+            }
+        }).subscribe(subscriber);
+    }
+
+    private void doFloatMap1() {
+
+        Subscriber subscriber = new Subscriber<Teacher>() {
+            @Override
+            public void onCompleted() {
+                Log.i(TAG,"Observable.just(teachers).flatMap  onCompleted\n\n");
+                sb.append("Observable.just(teachers).flatMap  onCompleted\n\n");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG,"Observable.just(teachers).flatMap   onError  "+e.getMessage());
+            }
+
+            @Override
+            public void onNext(Teacher teacher) {
+                Log.d(TAG,"Observable.just(teachers).flatMap  teacher = "+teacher.toString());
+                sb.append("Observable.just(teachers).flatMap\n  teacher = "+teacher.toString()+"\n");
+            }
+        };
+
+        List<Teacher> teachers = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            teachers.add(new Teacher("name" + i, i, "place" + i));
+        }
+        //flatMap可以实现一个双重转换，在它的回调方法中会返回一个observable对象，但它并不会直接发射这个对象
+        //而是将这个observable对象要发射的值 集中到一个新的observable对象中依次发射
+        //如本例，第一层Observable依次发射两个数组，经过flatmap转换之后，变成变成两个依次发射数组元素的observable
+        // 最后在subscriber中接收到的直接是整型数，等于将两个数组"铺开"了，直接发射整数，这就是大概地"flat"的含义吧
+        // flatMap方法可以很灵活的使用，实现双重变换，满足很多不同情况下的需求,比如处理嵌套的异步代码等，非常棒!
+        Observable.just(teachers).flatMap(new Func1<List<Teacher>, Observable<?>>() {
+            @Override
+            public Observable<?> call(List<Teacher> teachers) {
+                Observable observable = Observable.from(teachers);
                 return observable;
             }
         }).subscribe(subscriber);
