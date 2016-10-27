@@ -1,7 +1,6 @@
 package com.example.rxjavademo.activity;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,12 +10,8 @@ import android.widget.TextView;
 
 import com.cc.library.annotation.ViewInject;
 import com.cc.library.annotation.ViewInjectUtil;
-import com.example.rxjavademo.Bus.RxBus;
 import com.example.rxjavademo.R;
 import com.example.rxjavademo.base.BaseActivity;
-
-import rx.Subscriber;
-import rx.Subscription;
 
 /**
  * 主页面
@@ -34,7 +29,8 @@ public class MainActivity extends BaseActivity {
             "转换",
             "过滤",
             "结合",
-            "RxJava结合retrofit"};
+            "RxJava结合retrofit",
+            "RxBus"};
 
     @Override
     protected void initView() {
@@ -85,10 +81,10 @@ public class MainActivity extends BaseActivity {
                         Intent intent5 = new Intent(MainActivity.this, RetrofitAndRxJavaAct.class);
                         startActivity(intent5);
                         break;
-//                    case 6:
-//                        Intent intent6 = new Intent(MainActivity.this, RecycleViewDemoAct.class);
-//                        startActivity(intent6);
-//                        break;
+                    case 6:
+                        Intent intent6 = new Intent(MainActivity.this, RxBusAct.class);
+                        startActivity(intent6);
+                        break;
 //                    case 7:
 //                        Intent intent7 = new Intent(MainActivity.this, SwipeRefreshLayoutAct.class);
 //                        startActivity(intent7);

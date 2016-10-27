@@ -22,6 +22,7 @@
         <activity android:name=".activity.FilterAct"></activity>
         <activity android:name=".activity.MerageAct"></activity>
         <activity android:name=".activity.RetrofitAndRxJavaAct"></activity>
+        <activity android:name=".activity.RxBusAct"></activity>
     </application>
 
 </manifest>
