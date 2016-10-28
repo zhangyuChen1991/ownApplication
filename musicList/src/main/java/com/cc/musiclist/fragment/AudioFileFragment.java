@@ -155,7 +155,7 @@ public class AudioFileFragment extends Fragment {
                 holder.itemMenu.setVisibility(View.GONE);
             }
 
-            onItemViewClick(position, holder.itemMenuIvContainer);
+//            onItemViewClick(position, holder.itemMenuIvContainer);
             onItemViewClick(position, holder.addToPlayListIvContainer);
             items.put(position, v);
             return v;

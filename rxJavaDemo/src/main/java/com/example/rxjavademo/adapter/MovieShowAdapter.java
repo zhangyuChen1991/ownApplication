@@ -74,9 +74,8 @@ public class MovieShowAdapter extends BaseAdapter {
             holder.tv.setText(move.title + "\n" + move.rating.average);
             //通过图片的url来对应从Map中寻找图片的bitmap
             if (posterBitmaps != null)
-                holder.iv.setImageBitmap(posterBitmaps.get(movieList.get(position).images.large));
+                holder.iv.setImageBitmap(posterBitmaps.get(move.images.large));
         }
-
 
         return v;
     }

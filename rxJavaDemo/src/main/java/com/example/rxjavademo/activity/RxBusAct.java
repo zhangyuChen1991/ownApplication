@@ -23,7 +23,7 @@ public class RxBusAct extends BaseActivity {
 
     @Override
     protected void initView() {
-        ToastUtils.showLongToast(this,"页面没有内容，看代码去");
+        ToastUtils.showLongToast(this,"页面没有内容，去看代码吧");
     }
 
     @Override
