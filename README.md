@@ -12,7 +12,7 @@
 >一个简单的音乐播放器，简洁快速。我只是讨厌大多数音乐app启动logo页等待
 
 **4. testModule**
->测试各种我要测试的效果，包括cLibrary、各种第三方library、各种demo集合。包含zxing二维码框架、下拉刷新、百分比控件、RecyleView、listview侧滑菜
+>测试各种我要测试的效果，包括cLibrary、各种第三方library、各种demo集合。包含zxing二维码框架、下拉刷新、百分比控件、RecylerView、listview侧滑菜
 单与上下拉刷新、retrofit、OkHttp、realm、greendao、注解、SwipeRefreshLayout等等等等
 
 **5. rxJavaDemo**
