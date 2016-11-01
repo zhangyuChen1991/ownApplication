@@ -53,7 +53,6 @@ public class LinearDivider extends RecyclerView.ItemDecoration {
         } else {
             drawHorizontal(c, parent);
         }
-
     }
 
     public void drawVertical(Canvas c, RecyclerView parent) {

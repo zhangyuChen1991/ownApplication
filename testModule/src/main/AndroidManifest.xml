@@ -41,6 +41,8 @@
         <activity android:name=".RetrofitAndOkHttpAct"></activity>
         <activity android:name=".WifiInfoAct"></activity>
         <activity android:name=".ScanViewDemoAct"></activity>
+        <activity android:name=".RecyclerViewDemoAct1"></activity>
+        <activity android:name=".RecyclerViewDemoMenuAct"></activity>
     </application>
 
 </manifest>

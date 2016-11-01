@@ -7,7 +7,6 @@ public class WifiInfoBean {
     private String ssid;
     private String password;
     private int ip;
-    private int netSpeed;
 
     public int getIp() {
         return ip;
@@ -15,14 +14,6 @@ public class WifiInfoBean {
 
     public void setIp(int ip) {
         this.ip = ip;
-    }
-
-    public int getNetSpeed() {
-        return netSpeed;
-    }
-
-    public void setNetSpeed(int netSpeed) {
-        this.netSpeed = netSpeed;
     }
 
     public String getSsid() {
@@ -47,7 +38,6 @@ public class WifiInfoBean {
                 "ssid='" + ssid + '\'' +
                 ", password='" + password + '\'' +
                 ", ip=" + ip +
-                ", netSpeed=" + netSpeed +
                 '}';
     }
 }

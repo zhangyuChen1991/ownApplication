@@ -62,7 +62,6 @@ public class WifiInfoAct extends Activity {
         }
 
         info.setIp(currentWifiInfo.getIpAddress());
-        info.setNetSpeed(currentWifiInfo.getLinkSpeed());
     }
 
 
@@ -75,10 +74,6 @@ public class WifiInfoAct extends Activity {
         sb.append("\n");
         sb.append("ip地址:");
         sb.append(WifiUtil.formatIp(info.getIp()));
-        sb.append("\n");
-        sb.append("网速:");
-        sb.append(info.getNetSpeed());
-        sb.append(" Mbps");
         infoText = sb.toString();
     }
 }

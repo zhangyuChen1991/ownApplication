@@ -24,7 +24,7 @@ public class MenuListAct extends Activity {
             "旋转activity翻页工具类:ActivityRotateAnimationUtil",
             "测试二维码扫描框架 以及上下拉刷新侧滑菜单listview：PullToRefreshSwipeMenuListView",
             "测试九宫格解锁view",
-            "RecycleViewDemo",
+            "RecyclerViewDemo",
             "SwipeRefreshLayout",
             "滑动删除item listview",
             "测试，横向滑动页面菜单",
@@ -88,7 +88,7 @@ public class MenuListAct extends Activity {
                         startActivity(intent5);
                         break;
                     case 6:
-                        Intent intent6 = new Intent(MenuListAct.this, RecycleViewDemoAct.class);
+                        Intent intent6 = new Intent(MenuListAct.this, RecyclerViewDemoMenuAct.class);
                         startActivity(intent6);
                         break;
                     case 7:
@@ -134,7 +134,10 @@ public class MenuListAct extends Activity {
                         Intent intent15 = new Intent(MenuListAct.this, ScanViewDemoAct.class);
                         startActivity(intent15);
                         break;
-
+//                    case 16:
+//                        Intent intent16 = new Intent(MenuListAct.this, RecyclerViewDemoAct1.class);
+//                        startActivity(intent16);
+//                        break;
 
                 }
             }
