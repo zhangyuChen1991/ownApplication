@@ -2,7 +2,9 @@ package com.example.rxjavademo.activity;
 
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 
 import com.cc.library.annotation.ViewInject;
 import com.example.rxjavademo.R;
@@ -25,6 +27,8 @@ public class RetrofitAndRxJavaAct extends BaseActivity {
 
     @ViewInject(R.id.arar_gridview)
     private GridView gridView;
+    @ViewInject(R.id.arar_loading_container)
+    private RelativeLayout loadingContainer;
     private HashMap<String, Bitmap> posterBitmaps;
     private ArrayList<MovieBean> movieList;
     private MovieShowAdapter adapter;
@@ -51,6 +55,7 @@ public class RetrofitAndRxJavaAct extends BaseActivity {
     private Subscriber getMovieTop250Subscriber = new Subscriber<MovieBean>() {
         @Override
         public void onCompleted() {
+            loadingContainer.setVisibility(View.GONE);
             Log.i(TAG, "getMovieTop250Subscriber   onCompleted");
         }
 
@@ -79,7 +84,7 @@ public class RetrofitAndRxJavaAct extends BaseActivity {
 
                 @Override
                 public void onNext(MoviePoster moviePoster) {
-                    Log.d(TAG,"getImageSubscriber onNext.." + moviePoster.url);
+                    Log.d(TAG, "getImageSubscriber onNext.." + moviePoster.url);
                     posterBitmaps.put(moviePoster.url, moviePoster.bitmap);
                     adapter.setPosterBitmaps(posterBitmaps);
                     adapter.notifyDataSetChanged();

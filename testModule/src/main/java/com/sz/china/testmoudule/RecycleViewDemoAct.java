@@ -53,14 +53,9 @@ public class RecycleViewDemoAct extends AppCompatActivity {
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
 
+
     }
 
-    private class MyLayoutManager extends RecyclerView.LayoutManager {
-        @Override
-        public RecyclerView.LayoutParams generateDefaultLayoutParams() {
-            return null;
-        }
-    }
 
     /**
      * 继承抽象类ViewHolder完成自定义布局数据的容器类，构造方法中要实现itemView模板，作为参数传入
@@ -76,11 +71,7 @@ public class RecycleViewDemoAct extends AppCompatActivity {
         }
     }
 
-    /**
-     * 继承抽象类RecyclerView.Adapter实现方法完成布局模板的设置和内容的填充
-     */
     private class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
-
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

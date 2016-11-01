@@ -8,13 +8,29 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:gravity="center"
+        android:text="Retrofit+RxJava:获取豆瓣前10位电影"
         android:textColor="@color/blue"
-        android:textSize="18sp"
-        android:text="Retrofit+RxJava:获取豆瓣前10位电影"/>
+        android:textSize="18sp" />
+
     <GridView
         android:id="@+id/arar_gridview"
-        android:numColumns="2"
-        android:paddingTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></GridView>
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:paddingTop="10dp"></GridView>
+
+
+    <RelativeLayout
+        android:id="@+id/arar_loading_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            style="@style/loading_style"
+            android:indeterminateDuration="1000"/>
+    </RelativeLayout>
 </LinearLayout>

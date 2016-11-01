@@ -94,5 +94,4 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         void onItemClick(int position);
         void onTextOnclick(int position);
     }
-
 }

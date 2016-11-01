@@ -8,7 +8,7 @@
         android:id="@+id/adapter_container"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/lightsteelblue">
+        android:background="@color/papayawhip">
 
         <TextView
             android:id="@+id/adapter_tv"

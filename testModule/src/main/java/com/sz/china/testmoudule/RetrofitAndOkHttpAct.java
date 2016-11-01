@@ -1,12 +1,14 @@
 package com.sz.china.testmoudule;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.cc.library.annotation.ViewInject;
 import com.cc.library.annotation.ViewInjectUtil;
+import com.sz.china.testmoudule.util.DialogUtils;
 import com.sz.china.testmoudule.util.OkHttpUtil;
 import com.sz.china.testmoudule.util.SystemUtil;
 import com.sz.china.testmoudule.util.ToastUtil;
@@ -39,11 +41,14 @@ public class RetrofitAndOkHttpAct extends Activity {
     @ViewInject(R.id.tv)
     private TextView tv;
 
+    private Dialog loadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_okhttp);
         ViewInjectUtil.injectView(this);
+        loadingDialog = DialogUtils.createLoadingDialog(this,"加载中..");
 
         String url = "https://www.baidu.com/";
 //        getAsyn(url);
@@ -177,6 +182,7 @@ public class RetrofitAndOkHttpAct extends Activity {
     }
 
     private void doRetrofitCall() {
+        loadingDialog.show();
         // Create a very simple REST adapter which points the GitHub API.
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)
@@ -203,11 +209,13 @@ public class RetrofitAndOkHttpAct extends Activity {
                     sb.append(contributor.login + " (" + contributor.contributions + ")\n");
                 }
                 tv.setText(sb.toString());
+                loadingDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<Contributor>> call, Throwable t) {
-
+                loadingDialog.dismiss();
+                ToastUtil.showToast("网络错误",0);
             }
         });
     }
