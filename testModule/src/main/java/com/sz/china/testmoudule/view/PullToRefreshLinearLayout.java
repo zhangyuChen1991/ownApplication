@@ -201,6 +201,5 @@ public class PullToRefreshLinearLayout extends LinearLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         setPadding(0, -headerView.getHeight(), 0, -headerView.getHeight() * 2);//设置padding，把headerView“挤到”页面外边去
-        Log.d(TAG, "onMeasure    headerView.getHeight() = " + headerView.getHeight());
     }
 }
