@@ -7,23 +7,24 @@
     <com.sz.china.testmoudule.view.ScrollRemoveItemView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="some things of one" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:text="some things of two" />
-
+            android:layout_height="match_parent"
+            android:text="可被滑动移除的item"
+            android:gravity="center"
+            android:textColor="@color/royalblue"
+            android:textSize="15sp"/>
     </com.sz.china.testmoudule.view.ScrollRemoveItemView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/royalblue"></View>
 
     <com.sz.china.testmoudule.view.ScrollRemoveItemListView
         android:id="@+id/listview3"

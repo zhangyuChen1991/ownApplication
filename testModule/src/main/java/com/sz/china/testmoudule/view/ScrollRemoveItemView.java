@@ -48,10 +48,13 @@ public class ScrollRemoveItemView extends LinearLayout {
     public void setRemoveListener(RemoveListener removeListener) {
         this.removeListener = removeListener;
 
-        new A(){}.doit();
+        new A() {
+        }.doit();
     }
-    class A{
-        void doit(){}
+
+    class A {
+        void doit() {
+        }
     }
 
     @Override
@@ -93,7 +96,6 @@ public class ScrollRemoveItemView extends LinearLayout {
      * 开始自动滚动
      */
     private void startAutoScroll() {
-        //TODO
         int scrollX = getScrollX();
 
         if (Math.abs(scrollX) > viewWidth) {
@@ -104,7 +106,7 @@ public class ScrollRemoveItemView extends LinearLayout {
         Log.w(TAG, "mark3 startAutoScroll.. ratio = " + ratio + "  ,scrollX = " + scrollX + "  ,viewWidth = " + viewWidth);
         if (Math.abs(scrollX) < (viewWidth / 3)) {//滚回，复原
             autoScrollAnimator = ValueAnimator.ofFloat((float) scrollX, 0f);
-            autoScrollAnimator.setDuration((long)200); //根据已移动的距离设置自动滚动的时间 (ratio) * 6
+            autoScrollAnimator.setDuration((long) 200); //根据已移动的距离设置自动滚动的时间 (ratio) * 6
         } else {//滑出，消失
             if (scrollX > 0) {//向左滑
                 autoScrollAnimator = ValueAnimator.ofFloat((float) scrollX, (float) viewWidth);
@@ -123,12 +125,13 @@ public class ScrollRemoveItemView extends LinearLayout {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
             float nowSetScrollPosition = (float) animation.getAnimatedValue();
-            Log.d(TAG, "addUpdateListener  nowSetScrollPosition = " + nowSetScrollPosition);
+            Log.i(TAG, "addUpdateListener  nowSetScrollPosition = " + nowSetScrollPosition);
             mScroller.setFinalX((int) nowSetScrollPosition);
             setViewAlpha();
             invalidate();
-            if(nowSetScrollPosition == viewWidth || nowSetScrollPosition == 0){
-                if(null != removeListener)
+            if (Math.abs(nowSetScrollPosition) == viewWidth) {
+                Log.w(TAG, "be removed   removeListener = " + removeListener);
+                if (null != removeListener)
                     removeListener.beRemoved();
             }
         }
@@ -139,7 +142,7 @@ public class ScrollRemoveItemView extends LinearLayout {
      */
     private void setViewAlpha() {
         float scrollX = getScrollX();
-        float ratio = Math.abs(scrollX) / (viewWidth * 0.8f);
+        float ratio = viewWidth == 0 ? 0 : Math.abs(scrollX) / (viewWidth * 0.8f);
         if (ratio > 1)
             ratio = 1;
         Log.v(TAG, "setViewAlpha.. scrollX = " + scrollX + "  ,setAlpha : " + (1 - ratio));
@@ -194,7 +197,13 @@ public class ScrollRemoveItemView extends LinearLayout {
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
     }
 
-    public interface RemoveListener{
-        public void beRemoved();
+    public interface RemoveListener {
+        void beRemoved();
+    }
+
+    public void resume() {
+        mScroller.setFinalX(0);
+        setAlpha(1);
+        invalidate();
     }
 }

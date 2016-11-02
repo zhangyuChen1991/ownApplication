@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <com.sz.china.testmoudule.view.ScrollRemoveItemView
+        android:id="@+id/scroll_remove_item"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
@@ -14,13 +15,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="some things of one" />
+            android:text="some things of one some things of two" />
 
         <TextView
+            android:id="@+id/asri_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:text="some things of two" />
+            android:text="" />
 
     </com.sz.china.testmoudule.view.ScrollRemoveItemView>
 </LinearLayout>
