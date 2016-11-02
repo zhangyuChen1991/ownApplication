@@ -23,17 +23,22 @@ import android.widget.ScrollView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
+import com.sz.china.testmoudule.view.PullToRefreshLinearLayout;
 
 public final class PullToRefreshScrollViewAct extends Activity {
 
 	PullToRefreshScrollView mPullRefreshScrollView;
 	ScrollView mScrollView;
+	PullToRefreshLinearLayout pullToRefreshLinearLayout;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ptr_scrollview);
+
+		pullToRefreshLinearLayout = (PullToRefreshLinearLayout) findViewById(R.id.aps_pull_linearLayout);
+		pullToRefreshLinearLayout.setListener(pullToRefreashListener);
 
 		mPullRefreshScrollView = (PullToRefreshScrollView) findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
@@ -47,13 +52,25 @@ public final class PullToRefreshScrollViewAct extends Activity {
 		mScrollView = mPullRefreshScrollView.getRefreshableView();
 	}
 
+	private PullToRefreshLinearLayout.PullToRefreashListener pullToRefreashListener = new PullToRefreshLinearLayout.PullToRefreashListener() {
+		@Override
+		public void onReeash() {
+			new GetDataTask().execute();
+		}
+
+		@Override
+		public void refreshOver() {
+
+		}
+	};
+
 	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
 
 		@Override
 		protected String[] doInBackground(Void... params) {
 			// Simulates a background job.
 			try {
-				Thread.sleep(4000);
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 			}
 			return null;
@@ -66,8 +83,9 @@ public final class PullToRefreshScrollViewAct extends Activity {
 			// Call onRefreshComplete when the list has been refreshed.
 			mPullRefreshScrollView.onRefreshComplete();
 
+			pullToRefreshLinearLayout.refreshOver();
+
 			super.onPostExecute(result);
 		}
 	}
-
 }

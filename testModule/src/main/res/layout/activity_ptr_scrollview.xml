@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.sz.china.testmoudule.view.PullToRefreshLinearLayout
+        android:id="@+id/aps_pull_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:text="自己的下拉刷新"></TextView>
+
+    </com.sz.china.testmoudule.view.PullToRefreshLinearLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/pull_refresh_scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,6 +37,7 @@
                 android:text="something"
                 android:textColor="@color/black"
                 android:textSize="18sp"></TextView>
+
         </RelativeLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 

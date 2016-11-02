@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
@@ -31,20 +30,6 @@ public class ScrollRemoveItemListView extends ListView {
 
     private void init() {
     }
-
-    @Override
-    public void setAdapter(ListAdapter adapter) {
-        super.setAdapter(adapter);
-        getChildCount();
-//        ScrollRemoveItemView v = (ScrollRemoveItemView) getChildAt(0);
-//        v.setRemoveListener(new ScrollRemoveItemView.RemoveListener() {
-//            @Override
-//            public void beRemoved() {
-//
-//            }
-//        });
-    }
-
 
     boolean thisTouchHadDeal = false;
 
