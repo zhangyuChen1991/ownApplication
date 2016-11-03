@@ -21,6 +21,7 @@ public class PullToRefreshLinearLayout extends LinearLayout {
     private int startY;
     private int nowTouchY;
     private int preTouchY;
+    private boolean refreshing = false;
 
     private PullToRefreashListener listener;
 
@@ -66,6 +67,8 @@ public class PullToRefreshLinearLayout extends LinearLayout {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
+                if(refreshing)//正在刷新
+                    return false;
                 if (!mScroller.computeScrollOffset()) { // 滚动已结束
                     nowTouchY = (int) event.getY();
 
@@ -101,8 +104,10 @@ public class PullToRefreshLinearLayout extends LinearLayout {
             //滚到刷新状态的位置
             smoothScrollTo(0, -(headerView.getHeight()));
             headerView.setNowState(HeaderView.STATE.REFRESHING);
-            if (null != listener)
-                listener.onReeash();
+            if (null != listener) {
+                refreshing = true;
+                listener.onRefresh();
+            }
         }
     }
 
@@ -188,12 +193,14 @@ public class PullToRefreshLinearLayout extends LinearLayout {
 
     public void refreshOver() {
         scrollBack();
-        if (null != listener)
+        if (null != listener) {
+            refreshing = false;
             listener.refreshOver();
+        }
     }
 
     public interface PullToRefreashListener {
-        void onReeash();
+        void onRefresh();
         void refreshOver();
     }
 

@@ -54,7 +54,7 @@ public final class PullToRefreshScrollViewAct extends Activity {
 
 	private PullToRefreshLinearLayout.PullToRefreashListener pullToRefreashListener = new PullToRefreshLinearLayout.PullToRefreashListener() {
 		@Override
-		public void onReeash() {
+		public void onRefresh() {
 			new GetDataTask().execute();
 		}
 
