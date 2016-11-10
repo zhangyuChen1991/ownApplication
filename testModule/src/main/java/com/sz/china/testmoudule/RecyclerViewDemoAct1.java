@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.sz.china.testmoudule.recycleview.adapter.CustomAdapter;
+import com.sz.china.testmoudule.util.ToastUtil;
 
 /**
  * Created by zhangyu on 2016/10/31.
@@ -34,6 +35,7 @@ public class RecyclerViewDemoAct1 extends Activity {
     }
 
     private void initView() {
+        adapter.setRecyclerViewOnClick(recyclerViewOnClickListener);
         recyclerView = (RecyclerView) findViewById(R.id.arvd_recycler_view);
         //参数：context,横向或纵向滑动，是否颠倒显示数据
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
@@ -76,6 +78,19 @@ public class RecyclerViewDemoAct1 extends Activity {
             outRect.set(0,0,0,0);
         }
     }
+
+    CustomAdapter.RecyclerViewOnClickListener recyclerViewOnClickListener = new CustomAdapter.RecyclerViewOnClickListener(){
+
+        @Override
+        public void onItemClick(int position) {
+            ToastUtil.showToast("item click "+ position,0);
+        }
+
+        @Override
+        public void onTextOnclick(int position) {
+            ToastUtil.showToast("text click "+ position,0);
+        }
+    };
 
     private void initResources() {
         adapter.setData(data);

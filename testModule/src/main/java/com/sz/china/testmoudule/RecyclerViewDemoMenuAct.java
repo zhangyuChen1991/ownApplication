@@ -36,7 +36,7 @@ public class RecyclerViewDemoMenuAct extends Activity {
     /**
      * 点击事件监听
      */
-    private CustomAdapter.RecyclerViewOnClick recyclerViewOnClick = new CustomAdapter.RecyclerViewOnClick() {
+    private CustomAdapter.RecyclerViewOnClickListener recyclerViewOnClick = new CustomAdapter.RecyclerViewOnClickListener() {
         @Override
         public void onItemClick(int position) {
             switch (position){

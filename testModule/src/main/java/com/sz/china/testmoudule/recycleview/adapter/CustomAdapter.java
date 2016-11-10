@@ -15,13 +15,14 @@ import com.sz.china.testmoudule.R;
  * Created by zhangyu on 2016/10/31.
  */
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder>{
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
-    private RecyclerViewOnClick recyclerViewOnClick;
+    private RecyclerViewOnClickListener recyclerViewOnClick;
     private String[] data;
 
     //RecyclerView需要手动实现一个ViewHolder ，跟ListView写ViewHolder差不多样
-    protected class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         public TextView tv;
         public View itemView;
 
@@ -29,6 +30,22 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             super(itemView);
             this.itemView = itemView;
             tv = (TextView) itemView.findViewById(R.id.ard_tv);
+
+            //设置点击监听
+            this.itemView.setOnClickListener(this);
+            tv.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            //用getAdapterPosition获取item在adapter中的位置
+            if (v.getId() == itemView.getId()) {
+                if (null != recyclerViewOnClick)
+                    recyclerViewOnClick.onItemClick(getAdapterPosition());
+            } else if (v.getId() == tv.getId()) {
+                if (null != recyclerViewOnClick)
+                    recyclerViewOnClick.onTextOnclick(getAdapterPosition());
+            }
         }
     }
 
@@ -47,31 +64,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         if (data != null && position < data.length)
             holder.tv.setText(data[position]);
 
-        setOnClick(holder.itemView,holder.tv,position);
+//        setOnClick(holder.itemView,holder.tv,position);
     }
 
-    /**
-     * 设置监听
-     * @param itemView 需要被监听的itemView
-     * @param tv 需要被监听的textview
-     * @param position item位置
-     */
-    private void setOnClick(final View itemView, final TextView tv, final int position){
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(v.getId() == itemView.getId()){
-                    if(null != recyclerViewOnClick)
-                        recyclerViewOnClick.onItemClick(position);
-                }else if(v.getId() == tv.getId()){
-                    if(null != recyclerViewOnClick)
-                        recyclerViewOnClick.onTextOnclick(position);
-                }
-            }
-        };
-        itemView.setOnClickListener(onClickListener);
-        tv.setOnClickListener(onClickListener);
-    }
 
     //item数目
     @Override
@@ -83,15 +78,41 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         this.data = data;
     }
 
-    public void setRecyclerViewOnClick(RecyclerViewOnClick recyclerViewOnClick) {
+    public void setRecyclerViewOnClick(RecyclerViewOnClickListener recyclerViewOnClick) {
         this.recyclerViewOnClick = recyclerViewOnClick;
     }
 
     /**
      * 监听回调接口
      */
-    public interface RecyclerViewOnClick{
+    public interface RecyclerViewOnClickListener {
         void onItemClick(int position);
+
         void onTextOnclick(int position);
     }
+
+    /**
+     * 此方法不妥，太开销内存，弃用!
+     * 设置监听
+     *
+     * @param itemView 需要被监听的itemView
+     * @param tv       需要被监听的textview
+     * @param position item位置
+     */
+//    private void setOnClick(final View itemView, final TextView tv, final int position) {
+//        View.OnClickListener onClickListener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (v.getId() == itemView.getId()) {
+//                    if (null != recyclerViewOnClick)
+//                        recyclerViewOnClick.onItemClick(position);
+//                } else if (v.getId() == tv.getId()) {
+//                    if (null != recyclerViewOnClick)
+//                        recyclerViewOnClick.onTextOnclick(position);
+//                }
+//            }
+//        };
+//        itemView.setOnClickListener(onClickListener);
+//        tv.setOnClickListener(onClickListener);
+//    }
 }
