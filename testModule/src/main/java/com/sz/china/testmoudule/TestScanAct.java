@@ -11,17 +11,14 @@ import android.widget.TextView;
 import com.google.zxing.client.android.CaptureActivity;
 import com.google.zxing.client.android.Intents;
 
-import edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView;
-import edu.swu.pulltorefreshswipemenulistview.library.pulltorefresh.interfaces.IXListViewListener;
 
 
 /**
  * 测试二维码扫描框架 以及上下拉刷新侧滑菜单listview：PullToRefreshSwipeMenuListView
  * Created by zhangyu on 2016/7/23 09:28.
  */
-public class TestScanAct extends Activity implements View.OnClickListener, IXListViewListener {
+public class TestScanAct extends Activity implements View.OnClickListener {
 
-    private PullToRefreshSwipeMenuListView listView;
     private static final int REQUEST_CODE = 220;
     private TextView result;
 
@@ -34,11 +31,6 @@ public class TestScanAct extends Activity implements View.OnClickListener, IXLis
     }
 
     private void initView() {
-        listView = (PullToRefreshSwipeMenuListView) findViewById(R.id.listView);
-        listView.setAdapter(new MyAdapter());
-        listView.setPullRefreshEnable(true);
-        listView.setPullLoadEnable(true);
-        listView.setXListViewListener(this);
         result = (TextView) findViewById(R.id.tv);
         result.setText("点我扫码.");
         findViewById(R.id.parent).setOnClickListener(this);
@@ -90,60 +82,4 @@ public class TestScanAct extends Activity implements View.OnClickListener, IXLis
          **/
     }
 
-    @Override
-    public void onRefresh() {
-        new Thread(loading).start();
-    }
-
-    @Override
-    public void onLoadMore() {
-        new Thread(loading).start();
-    }
-
-    private void onLoadOver() {
-        listView.stopRefresh();
-        listView.stopLoadMore();
-    }
-
-    private Runnable loading = new Runnable() {
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(1500);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        onLoadOver();
-                    }
-                });
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
-    private class MyAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return 30;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            TextView tv = new TextView(TestScanAct.this);
-            tv.setText("test房间都是浪费");
-            return tv;
-        }
-    }
 }

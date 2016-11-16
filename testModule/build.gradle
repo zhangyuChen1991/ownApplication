@@ -36,7 +36,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':cLibrary')
     compile project(':zxing-lib')
-    compile project(':Library_PullToRefreshSwipeMenuListView')
     // From node_modules
     compile project(':pulltorefresh_library')
     compile 'com.android.support:recyclerview-v7:23.2.1'
@@ -45,4 +44,5 @@ dependencies {
     //compile 'com.squareup.okhttp3:okhttp:3.4.1'//retrofit已经添加了对OkHttp的依赖，不用再单独配置OkHttp
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
 }
