@@ -22,7 +22,7 @@ public class MenuListAct extends Activity {
             "测试注解 /页面进、出旋转动画 /测试自定义圆形imageview",
             "下拉刷新其一：PullToRefreshScrollView",
             "旋转activity翻页工具类:ActivityRotateAnimationUtil",
-            "测试二维码扫描框架 以及上下拉刷新侧滑菜单listview：PullToRefreshSwipeMenuListView",
+            "测试二维码扫描框架",
             "测试九宫格解锁view",
             "RecyclerViewDemo",
             "SwipeRefreshLayout",
@@ -32,7 +32,7 @@ public class MenuListAct extends Activity {
             "magic line view",
             "GreenDao测试",
             "retrofit、okhttp",
-            "wifi info",
+            "wifi info (root可用)",
             "ScanView Demo"};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;

@@ -12,7 +12,6 @@ import com.google.zxing.client.android.CaptureActivity;
 import com.google.zxing.client.android.Intents;
 
 
-
 /**
  * 测试二维码扫描框架 以及上下拉刷新侧滑菜单listview：PullToRefreshSwipeMenuListView
  * Created by zhangyu on 2016/7/23 09:28.
@@ -42,7 +41,7 @@ public class TestScanAct extends Activity implements View.OnClickListener {
         if (null != data && requestCode == REQUEST_CODE) {
             switch (resultCode) {
                 case Activity.RESULT_OK:    //扫码结果
-                    result.setText(data.getStringExtra(Intents.Scan.RESULT));
+                    result.setText("扫码结果:\n\n" + data.getStringExtra(Intents.Scan.RESULT));
                     break;
                 default:
                     break;

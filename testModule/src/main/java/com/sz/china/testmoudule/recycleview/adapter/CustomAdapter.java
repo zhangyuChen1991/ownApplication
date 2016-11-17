@@ -64,7 +64,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         if (data != null && position < data.length)
             holder.tv.setText(data[position]);
 
-//        setOnClick(holder.itemView,holder.tv,position);
     }
 
 
@@ -91,28 +90,4 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         void onTextOnclick(int position);
     }
 
-    /**
-     * 此方法不妥，太开销内存，弃用!
-     * 设置监听
-     *
-     * @param itemView 需要被监听的itemView
-     * @param tv       需要被监听的textview
-     * @param position item位置
-     */
-//    private void setOnClick(final View itemView, final TextView tv, final int position) {
-//        View.OnClickListener onClickListener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (v.getId() == itemView.getId()) {
-//                    if (null != recyclerViewOnClick)
-//                        recyclerViewOnClick.onItemClick(position);
-//                } else if (v.getId() == tv.getId()) {
-//                    if (null != recyclerViewOnClick)
-//                        recyclerViewOnClick.onTextOnclick(position);
-//                }
-//            }
-//        };
-//        itemView.setOnClickListener(onClickListener);
-//        tv.setOnClickListener(onClickListener);
-//    }
 }
