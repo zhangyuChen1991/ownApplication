@@ -241,6 +241,7 @@
     <color name="indigo">#4B0082</color>
     <!-- 靛青色 -->
     <color name="mediumturquoise">#48D1CC</color>
+    <color name="harf_transparent_mediumturquoise">#aa48D1CC</color>
     <!-- 中绿宝石 -->
     <color name="darkslateblue">#483D8B</color>
     <!-- 暗灰蓝色 -->

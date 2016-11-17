@@ -6,6 +6,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,7 @@ import android.widget.TextView;
 
 import com.cc.musiclist.MainActivity;
 import com.cc.musiclist.R;
+import com.cc.musiclist.adapter.PlayListApapter;
 import com.cc.musiclist.manager.MediaPlayManager;
 import com.cc.musiclist.util.MLog;
 import com.cc.musiclist.util.StringUtil;
@@ -24,6 +29,7 @@ import com.cc.musiclist.util.ToastUtil;
 import com.cc.musiclist.util.TranslateUtil;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,11 +38,10 @@ import java.util.List;
 public class PlayListFragment extends Fragment {
     private static final String TAG = "PlayListFragment";
     private View rootView;
-    private ListView listView;
-    private MAdapter adapter;
+    private RecyclerView recyclerView;
+    private PlayListApapter rAdapter;
     private TranslateUtil tu;
     private MediaPlayManager mediaPlayManager;
-    private MainActivity.MHandler handler;
     private List<File> list;
 
     @Nullable
@@ -57,118 +62,104 @@ public class PlayListFragment extends Fragment {
 
 
     private void initView() {
-        listView = (ListView) rootView.findViewById(R.id.listview_play_list);
-        MLog.d(TAG, "listView = " + listView);
-        listView.setDividerHeight(0);
-        listView.setOnItemClickListener(onItemClickListener);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_play_list);
+        //参数：context,横向或纵向滑动，是否颠倒显示数据
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
     }
 
     private void initResources() {
         list = MediaPlayManager.getInstance().getPlayLists();
-        adapter = new MAdapter();
+        rAdapter = new PlayListApapter();
+        rAdapter.setList(list);
+        rAdapter.setOnClickListener(onClickListener);
+
         tu = new TranslateUtil();
         mediaPlayManager = MediaPlayManager.getInstance();
-        handler = ((MainActivity) getActivity()).getHandler();
     }
 
     public void scrollToNowPlay() {
-        listView.setSelection(mediaPlayManager.getNowPlayPositionInList());
+        recyclerView.scrollToPosition(mediaPlayManager.getNowPlayPositionInList());
     }
 
     private void initViewState() {
-        listView.setAdapter(adapter);
+        recyclerView.setAdapter(rAdapter);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
-    private class MAdapter extends BaseAdapter {
-
+    /**
+     * 使用itemTouchHelper完成拖拽效果
+     * 由于拖拽与下拉刷新有冲突，所以暂时不建议放在一起使用
+     */
+    private ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
         @Override
-        public int getCount() {
-            return list == null ? 0 : list.size();
+        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            final int dragFlag = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+            return makeMovementFlags(dragFlag, 0);
         }
 
         @Override
-        public Object getItem(int position) {
-            return null;
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+
+            int from = viewHolder.getAdapterPosition();
+            int to = target.getAdapterPosition();
+            Log.d(TAG, "onMove  from = " + from + "   ,to = " + to);
+            Collections.swap(list, from, to);
+            rAdapter.setList(list);
+            rAdapter.notifyItemMoved(from, to);
+
+            return true;
         }
 
         @Override
-        public long getItemId(int position) {
-            return 0;
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
         }
 
-        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View v = null;
-            ViewHolder holder = null;
-            if (convertView == null) {
-                v = View.inflate(getContext(), R.layout.play_list_dapter, null);
-                holder = new ViewHolder();
-                holder.itemContainer = (RelativeLayout) v.findViewById(R.id.container);
-                holder.songName = (TextView) v.findViewById(R.id.song_name);
-                holder.delete = (RelativeLayout) v.findViewById(R.id.item_delete_iv_container);
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            PlayListApapter.ViewHolder holder = (PlayListApapter.ViewHolder) viewHolder;
 
-                v.setTag(holder);
-            } else {
-                v = convertView;
-                holder = (ViewHolder) v.getTag();
+            //被选中时，改背景色
+            if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+                holder.itemContainer.setBackgroundColor(getResources().getColor(R.color.harf_transparent_mediumturquoise));
             }
+            super.onSelectedChanged(viewHolder, actionState);
+        }
 
+        @Override
+        public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            super.clearView(recyclerView, viewHolder);
+            PlayListApapter.ViewHolder holder = (PlayListApapter.ViewHolder) viewHolder;
+            holder.itemContainer.setBackgroundColor(getResources().getColor(R.color.whitesmoke));
+
+            mediaPlayManager.refreshNowPlayPosition();
+            rAdapter.notifyDataSetChanged();
+        }
+    });
+
+
+    PlayListApapter.RecyclerViewOnClickListener onClickListener = new PlayListApapter.RecyclerViewOnClickListener() {
+        @Override
+        public void onItemClick(int position) {
             if (position < list.size()) {
-                String sName = list.get(position).getName();
-                holder.songName.setText(StringUtil.subPostfix(sName));
+                mediaPlayManager.setNowPlayFile(list.get(position));
+                mediaPlayManager.prepare();
+                mediaPlayManager.start();
+                rAdapter.notifyDataSetChanged();
             }
-
-            if (position == mediaPlayManager.getNowPlayPositionInList()) {
-                holder.itemContainer.setBackgroundColor(getResources().getColor(R.color.mediumturquoise));
-            } else
-                holder.itemContainer.setBackgroundColor(getResources().getColor(R.color.whitesmoke));
-
-            onItemViewClick(position, holder.delete);
-            return v;
         }
-    }
 
-    private class ViewHolder {
-        private RelativeLayout delete, itemContainer;
-        private TextView songName;
-
-    }
-
-    private void onItemViewClick(final int position, View v) {
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.item_delete_iv_container://条目菜单
-                        mediaPlayManager.deleteSong(position);
-                        adapter.notifyDataSetChanged();
-                        mediaPlayManager.savePlayList();
-                        ToastUtil.showToast("已删除歌曲", 0);
-                        break;
-                }
-            }
-        });
-    }
-
-    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            switch (parent.getId()) {
-                case R.id.listview_play_list:
-                    if (position < list.size()) {
-                        mediaPlayManager.setNowPlayFile(list.get(position));
-                        mediaPlayManager.prepare();
-                        mediaPlayManager.start();
-                        adapter.notifyDataSetChanged();
-                    }
-                    break;
-            }
+        public void deleteOnclick(int position) {
+            mediaPlayManager.deleteSong(position);
+            rAdapter.notifyDataSetChanged();
+            mediaPlayManager.savePlayList();
+            ToastUtil.showToast("已删除歌曲", 0);
         }
     };
 
     public void adapterNotifyDataChange() {
-        adapter.notifyDataSetChanged();
+        rAdapter.notifyDataSetChanged();
     }
 }

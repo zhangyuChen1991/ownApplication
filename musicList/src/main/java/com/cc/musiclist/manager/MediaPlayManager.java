@@ -90,6 +90,9 @@ public class MediaPlayManager {
         return nowPlayPositionInList;
     }
 
+    public void refreshNowPlayPosition(){
+        nowPlayPositionInList = playLists.indexOf(nowPlayFile);
+    }
     public void setNowPlayFile(File nowPlayFile) {
         if (null != nowPlayFile) {
             nowPlayPositionInList = playLists.indexOf(nowPlayFile);
