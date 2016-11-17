@@ -135,11 +135,13 @@ public class PlayListFragment extends Fragment {
 
             mediaPlayManager.refreshNowPlayPosition();
             rAdapter.notifyDataSetChanged();
+
+//            Log.i(TAG,mediaPlayManager.playListToString());
         }
     });
 
 
-    PlayListApapter.RecyclerViewOnClickListener onClickListener = new PlayListApapter.RecyclerViewOnClickListener() {
+    private PlayListApapter.RecyclerViewOnClickListener onClickListener = new PlayListApapter.RecyclerViewOnClickListener() {
         @Override
         public void onItemClick(int position) {
             if (position < list.size()) {

@@ -240,4 +240,17 @@ public class MediaPlayManager {
         SpUtil.put(Constants.playListCache, tu.stringArrayToString(tu.fileListToStrings(playLists)));
     }
 
+    /**
+     * 打印列表
+     * debug专用
+     * @return
+     */
+    public String playListToString(){
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0;i < playLists.size();i++){
+            sb.append(playLists.get(i).getName());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 }
