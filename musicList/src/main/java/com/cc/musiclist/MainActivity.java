@@ -53,9 +53,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private SeekBar seekBar;
     private MediaPlayManager mediaPlayManager;
     private MHandler handler;
-    private Dialog progressDiaLogUtil;
+    private Dialog progressDiaLog;
     private PopupWindow popWindow;
     private TabsAdapter tabsAdapter;
+    private LinearLayout seaechView;
     private List<Fragment> fragmentList;
     private AudioFileFragment audioFileFragment;
     private PlayListFragment playListFragment;
@@ -91,6 +92,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         menu = (LinearLayout) findViewById(R.id.menu);
         playTime = (TextView) findViewById(R.id.play_time);
         seekBar = (SeekBar) findViewById(R.id.seek_bar);
+        seaechView = (LinearLayout) findViewById(R.id.search_view);
 
         stop.setOnClickListener(this);
         modelSet.setOnClickListener(this);
@@ -99,7 +101,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         menu.setOnClickListener(this);
 
 
-        initProgressDiaLogUtil();
+        initProgressDiaLog();
         initPopWindow();
     }
 
@@ -131,18 +133,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         popWindow.setContentView(v);
         popWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
         popWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        popWindow.setOutsideTouchable(false);
         v.findViewById(R.id.scan_song_file).setOnClickListener(this);
         v.findViewById(R.id.cancel_scan_song_file).setOnClickListener(this);
     }
 
-    private void initProgressDiaLogUtil() {
-        progressDiaLogUtil = new Dialog(this, R.style.base_dialog);
-        progressDiaLogUtil.setContentView(R.layout.progress_dailog);
-        WindowManager.LayoutParams params = progressDiaLogUtil.getWindow().getAttributes();
+    private void initProgressDiaLog() {
+        progressDiaLog = new Dialog(this, R.style.base_dialog);
+        progressDiaLog.setContentView(R.layout.progress_dailog);
+        WindowManager.LayoutParams params = progressDiaLog.getWindow().getAttributes();
         params.height = (int) (DisplayUtils.getHeight() * 0.2f);
         params.width = (int) (DisplayUtils.getWidth() * 0.9f);
-        progressDiaLogUtil.getWindow().setAttributes(params);
-        progressDiaLogUtil.setCanceledOnTouchOutside(false);
+        progressDiaLog.getWindow().setAttributes(params);
+        progressDiaLog.setCanceledOnTouchOutside(false);
     }
 
     private void initResources() {
@@ -326,7 +329,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
             case R.id.menu:     //菜单
                 popWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
-                popWindow.setOutsideTouchable(false);
+
                 break;
             case R.id.scan_song_file:       //扫描文件
                 popWindow.dismiss();
@@ -340,11 +343,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void showLoading() {
-        progressDiaLogUtil.show();
+        progressDiaLog.show();
     }
 
     private void dismissLoading() {
-        progressDiaLogUtil.dismiss();
+        progressDiaLog.dismiss();
     }
 
     private void destoryResources() {

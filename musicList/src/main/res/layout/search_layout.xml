@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:padding="1dp"
+    android:orientation="horizontal">
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:hint="请输入要搜索的歌名"
+        android:background="@color/lightgray"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:layout_weight="7"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:background="@drawable/btn_blue_press_selector"
+        android:text="隐藏"
+        android:textColor="@color/whitesmoke"
+        android:textSize="13sp"
+        />
+</LinearLayout>
