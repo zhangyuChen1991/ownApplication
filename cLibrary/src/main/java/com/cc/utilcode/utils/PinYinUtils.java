@@ -15,7 +15,6 @@ public class PinYinUtils {
     private PinYinUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-
     private static int[] pinyinValue = new int[]{-20319, -20317, -20304, -20295, -20292, -20283, -20265, -20257, -20242,
             -20230, -20051, -20036, -20032,
             -20026, -20002, -19990, -19986, -19982, -19976, -19805, -19784, -19775, -19774, -19763, -19756, -19751,

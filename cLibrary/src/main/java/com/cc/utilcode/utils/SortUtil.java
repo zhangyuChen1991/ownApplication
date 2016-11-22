@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * 排序工具
  * Created by zhangyu on 2016/11/22.
  */
 
 public class SortUtil{
-
 
     /**
      * 给一个集合排序
