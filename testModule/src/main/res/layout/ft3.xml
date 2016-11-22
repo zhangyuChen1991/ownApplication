@@ -10,5 +10,4 @@
         android:gravity="center"
         android:textSize="18sp"
         android:text="3"/>
-
 </LinearLayout>

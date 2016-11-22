@@ -29,7 +29,6 @@ public class RecycleViewDemoAct extends AppCompatActivity {
         setContentView(R.layout.activity_demo);
         initResources();
         initView();
-
     }
 
     private void initResources() {
@@ -48,7 +47,6 @@ public class RecycleViewDemoAct extends AppCompatActivity {
 
     private void initView() {
         recyclerView = (RecyclerView) findViewById(R.id.recylerview);
-
         recyclerView.addItemDecoration(new GridDivider(this));//(new LinearDivider(this,LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
