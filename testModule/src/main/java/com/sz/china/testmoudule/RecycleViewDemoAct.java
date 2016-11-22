@@ -52,8 +52,6 @@ public class RecycleViewDemoAct extends AppCompatActivity {
         recyclerView.addItemDecoration(new GridDivider(this));//(new LinearDivider(this,LinearLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
-
-
     }
 
 

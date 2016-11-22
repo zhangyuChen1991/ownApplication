@@ -34,6 +34,7 @@ import com.cc.musiclist.manager.MediaPlayManager;
 import com.cc.musiclist.manager.TimeCountManager;
 import com.cc.musiclist.util.DisplayUtils;
 import com.cc.musiclist.util.FileDirectoryUtil;
+import com.cc.musiclist.util.FileSortUtil;
 import com.cc.musiclist.util.FileUtil;
 import com.cc.musiclist.util.SpUtil;
 import com.cc.musiclist.util.StringUtil;
@@ -41,6 +42,7 @@ import com.cc.musiclist.util.ToastUtil;
 import com.cc.musiclist.util.TranslateUtil;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -309,7 +311,7 @@ public class AudioFileFragment extends Fragment {
                 Thread.sleep(500);
                 String[] fileTypes = {"mp3", "wav", "wma"};
                 files = FileUtil.getFileList(FileDirectoryUtil.getSdCardDirectory(), fileTypes);
-
+                files = FileSortUtil.sortList(files);//排序
                 SpUtil.put(Constants.filesPathCache, tu.stringArrayToString(tu.fileListToStrings(files)));
                 handler.sendEmptyMessage(Constants.initFileOver);
             } catch (InterruptedException e) {

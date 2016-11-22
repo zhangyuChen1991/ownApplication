@@ -9,6 +9,29 @@ import java.io.File;
  */
 public class StringUtil {
     /**
+     * 根据ascii码比较字符串的大小
+     * @param strA
+     * @param strB
+     * @return
+     */
+    public static int compare(String strA ,String strB){
+        for (int i = 0; i < strA.length(); i++) {
+            if (i < strB.length()) {
+                char a = strA.charAt(i);
+                char b = strB.charAt(i);
+                //比较ascii码
+                if (a > b)
+                    return 1;
+                else if (a == b)
+                    continue;
+                else return -1;
+            } else
+                return 1;
+        }
+        return 0;
+    }
+
+    /**
      * 秒值转化为00:00格式字符串
      *
      * @param second
