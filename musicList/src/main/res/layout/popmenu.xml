@@ -24,6 +24,22 @@
         android:background="@drawable/gradient_blue"></View>
 
     <TextView
+        android:id="@+id/find_song"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="3"
+        android:background="@drawable/btn_blue_press_selector"
+        android:gravity="center"
+        android:text="查找"
+        android:textColor="@color/whitesmoke"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_blue"></View>
+
+    <TextView
         android:id="@+id/cancel_scan_song_file"
         android:layout_width="0dp"
         android:layout_height="40dp"

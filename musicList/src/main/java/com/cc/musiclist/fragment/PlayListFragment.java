@@ -44,6 +44,7 @@ public class PlayListFragment extends Fragment {
     private MediaPlayManager mediaPlayManager;
     private List<File> list;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,6 +81,10 @@ public class PlayListFragment extends Fragment {
 
     public void scrollToNowPlay() {
         recyclerView.scrollToPosition(mediaPlayManager.getNowPlayPositionInList());
+    }
+
+    public void scrollToPosition(int position) {
+        recyclerView.scrollToPosition(position);
     }
 
     private void initViewState() {
@@ -163,5 +168,16 @@ public class PlayListFragment extends Fragment {
 
     public void adapterNotifyDataChange() {
         rAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 设置搜索目标位置并更新列表状态
+     * @param position
+     */
+    public void searchResultAt(int position) {
+        rAdapter.searchTargetPosition = position;
+        rAdapter.notifyDataSetChanged();
+        if(position >= 0 && position < list.size())
+            scrollToPosition(position);
     }
 }

@@ -2,10 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="45dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:padding="1dp"
     android:orientation="horizontal">
 
     <EditText
+        android:id="@+id/sl_search_song_rt"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:paddingLeft="10dp"
@@ -17,6 +20,7 @@
         android:layout_weight="7"/>
 
     <Button
+        android:id="@+id/sl_hide_btn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"

@@ -90,9 +90,10 @@ public class MediaPlayManager {
         return nowPlayPositionInList;
     }
 
-    public void refreshNowPlayPosition(){
+    public void refreshNowPlayPosition() {
         nowPlayPositionInList = playLists.indexOf(nowPlayFile);
     }
+
     public void setNowPlayFile(File nowPlayFile) {
         if (null != nowPlayFile) {
             nowPlayPositionInList = playLists.indexOf(nowPlayFile);
@@ -121,11 +122,7 @@ public class MediaPlayManager {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void setPlayLists(List<File> playLists) {
 
-        for (File file : playLists) {
-            this.playLists.add(file);
-            MLog.i(TAG, file.getName());
-        }
-
+        this.playLists.addAll(playLists);
     }
 
     public List<File> getPlayLists() {
@@ -196,7 +193,7 @@ public class MediaPlayManager {
     public void insertSong(File insertFile) {
 
         if (insertPosition < playLists.size() || insertPosition < 0)
-           insertPosition = 0;
+            insertPosition = 0;
 
         playLists.add(insertPosition++, insertFile);
     }
@@ -211,7 +208,8 @@ public class MediaPlayManager {
                 nowPlayPositionInList++;
                 if (nowPlayPositionInList >= playLists.size())
                     nowPlayPositionInList = 0;
-                setNowPlayFile(playLists.get(nowPlayPositionInList));
+                if (playLists.size() > 0)
+                    setNowPlayFile(playLists.get(nowPlayPositionInList));
                 break;
             case RANDOM_MODEL:
                 Random r = new Random();
@@ -243,11 +241,12 @@ public class MediaPlayManager {
     /**
      * 打印列表
      * debug专用
+     *
      * @return
      */
-    public String playListToString(){
+    public String playListToString() {
         StringBuffer sb = new StringBuffer();
-        for(int i = 0;i < playLists.size();i++){
+        for (int i = 0; i < playLists.size(); i++) {
             sb.append(playLists.get(i).getName());
             sb.append("\n");
         }

@@ -61,6 +61,7 @@ public class AudioFileFragment extends Fragment {
     private MainActivity.MHandler handler;
     private ImageView addAnimationImg;
     private View rootView;
+    public int searchTargetPosition = -1;
 
 
     @Nullable
@@ -145,7 +146,9 @@ public class AudioFileFragment extends Fragment {
 
             if (position == MapManager.INSTANCE.getFilePosition(mediaPlayManager.getNowPlayFile())) {
                 holder.itemContainer.setBackgroundColor(getResources().getColor(R.color.mediumturquoise));
-            } else
+            } else if(position == searchTargetPosition)
+                holder.itemContainer.setBackgroundColor(getResources().getColor(R.color.lightpink1));
+            else
                 holder.itemContainer.setBackgroundColor(getResources().getColor(R.color.whitesmoke));
 
             if (position == menuPosition) {
@@ -325,6 +328,10 @@ public class AudioFileFragment extends Fragment {
         listView.setSelection(MapManager.INSTANCE.getFilePosition(mediaPlayManager.getNowPlayFile()));
     }
 
+    public void scrollToPosition(int position) {
+        listView.setSelection(position);
+    }
+
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -340,15 +347,18 @@ public class AudioFileFragment extends Fragment {
         }
     };
 
-    private TimeCountManager timeCountManager = new TimeCountManager() {
-        @Override
-        public void onCount() {
-            Log.d(TAG, "sendEmptyMessage(updateProgress)");
-            handler.sendEmptyMessage(Constants.updateProgress);
-        }
-    };
-
     public void adapterNotifyDataChange() {
         adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 设置搜索目标位置并更新列表状态
+     * @param position
+     */
+    public void searchResultAt(int position){
+        searchTargetPosition = position;
+        adapter.notifyDataSetChanged();
+        if(position >= 0 && position < files.size())
+            scrollToPosition(position);
     }
 }

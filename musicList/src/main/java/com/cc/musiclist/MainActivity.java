@@ -2,6 +2,8 @@ package com.cc.musiclist;
 
 import android.app.Dialog;
 import android.graphics.Color;
+import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.KeyboardView;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,12 +11,17 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -31,6 +38,7 @@ import com.cc.musiclist.manager.SystemBarTintManager;
 import com.cc.musiclist.manager.TimeCountManager;
 import com.cc.musiclist.util.DisplayUtils;
 import com.cc.musiclist.util.MLog;
+import com.cc.musiclist.util.PinYinUtils;
 import com.cc.musiclist.util.SpUtil;
 import com.cc.musiclist.util.StringUtil;
 import com.cc.musiclist.util.ToastUtil;
@@ -46,13 +54,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private static final String TAG = "MainActivity";
     private TextView songNameTv, playTime;
-    private Button modelSet, pauseOrPlay, stop, next;
+    private Button modelSet, pauseOrPlay, stop, next, hideSearch;
     private LinearLayout menu;
+    private EditText searchEt;
     private TitleView titleView;
     private ViewPager viewPager;
     private SeekBar seekBar;
     private MediaPlayManager mediaPlayManager;
     private MHandler handler;
+    private InputMethodManager imm;
     private Dialog progressDiaLog;
     private PopupWindow popWindow;
     private TabsAdapter tabsAdapter;
@@ -60,6 +70,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private List<Fragment> fragmentList;
     private AudioFileFragment audioFileFragment;
     private PlayListFragment playListFragment;
+    private LinearLayout rootContainer;
     private int currentPosition = -1;
 
     @Override
@@ -72,6 +83,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         initView();
         initResources();
         initViewState();
+
     }
 
     public MHandler getHandler() {
@@ -79,6 +91,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void initView() {
+        rootContainer = (LinearLayout) findViewById(R.id.parent);
         titleView = (TitleView) findViewById(R.id.title_view);
         titleView.setCallBack(titleViewCallBack);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -93,16 +106,22 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         playTime = (TextView) findViewById(R.id.play_time);
         seekBar = (SeekBar) findViewById(R.id.seek_bar);
         seaechView = (LinearLayout) findViewById(R.id.search_view);
+        searchEt = (EditText) seaechView.findViewById(R.id.sl_search_song_rt);
+        hideSearch = (Button) seaechView.findViewById(R.id.sl_hide_btn);
 
         stop.setOnClickListener(this);
         modelSet.setOnClickListener(this);
         pauseOrPlay.setOnClickListener(this);
         next.setOnClickListener(this);
         menu.setOnClickListener(this);
+        hideSearch.setOnClickListener(this);
+        searchEt.addTextChangedListener(textWatcher);
 
 
         initProgressDiaLog();
         initPopWindow();
+
+
     }
 
     /**
@@ -136,6 +155,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         popWindow.setOutsideTouchable(false);
         v.findViewById(R.id.scan_song_file).setOnClickListener(this);
         v.findViewById(R.id.cancel_scan_song_file).setOnClickListener(this);
+        v.findViewById(R.id.find_song).setOnClickListener(this);
     }
 
     private void initProgressDiaLog() {
@@ -149,6 +169,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void initResources() {
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         handler = new MHandler(this);
 
         audioFileFragment = new AudioFileFragment();
@@ -176,6 +197,69 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             mediaPlayManager.prepare();
         }
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String input = s.toString().toLowerCase();
+            if (TextUtils.isEmpty(input)) {
+                audioFileFragment.searchResultAt(-1);
+                playListFragment.searchResultAt(-1);
+                return;
+            }
+
+            List<File> files = audioFileFragment.files;
+            int targetPosition1 = -1, targetPosition2 = -1;
+            if (null != files) {
+                for (int i = 0; i < files.size(); i++) {
+                    String name = files.get(i).getName().toLowerCase();
+                    String nameE = PinYinUtils.ccs2Pinyin(name).toLowerCase();
+                    if (name.startsWith(input) || nameE.startsWith(input)) {
+
+                        audioFileFragment.searchResultAt(i);
+                        targetPosition1 = -1;
+                        break;
+                    }
+                    if (name.contains(input) || nameE.contains(input)) {
+                        if (targetPosition1 == -1)
+                            targetPosition1 = i;
+                    }
+                }
+                if (targetPosition1 != -1) {
+                    audioFileFragment.searchResultAt(targetPosition1);
+                }
+            }
+            List<File> playLists = mediaPlayManager.getPlayLists();
+            if (null != playLists) {
+                for (int j = 0; j < playLists.size(); j++) {
+                    String name = playLists.get(j).getName().toLowerCase();
+                    String nameE = PinYinUtils.ccs2Pinyin(name).toLowerCase();
+                    if (name.startsWith(input) || nameE.startsWith(input)) {
+                        playListFragment.searchResultAt(j);
+                        targetPosition2 = -1;
+                        break;
+                    }
+                    if (name.contains(input) || nameE.contains(input)) {
+                        if (targetPosition2 == -1)
+                            targetPosition2 = j;
+                    }
+
+                }
+                if (targetPosition2 != -1)
+                    playListFragment.searchResultAt(targetPosition2);
+            }
+        }
+    };
 
     /**
      * 设置播放列表
@@ -259,7 +343,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            MLog.d(TAG, "onPageScrolled  position = " + position + "  ,positionOffset = " + positionOffset + "  ,positionOffsetPixels = " + positionOffsetPixels + "  ,currX = " + currX);
             setMarkViewLeftMargin(position, positionOffset);
         }
 
@@ -270,7 +353,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setMarkViewLeftMargin(position, 0);
             }
 
-                currentPosition = position;
+            currentPosition = position;
             if (position == 0)
                 playListFragment.adapterNotifyDataChange();
         }
@@ -287,6 +370,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     /**
      * 设置标记位view距离左端距离
+     *
      * @param position
      * @param positionOffset
      */
@@ -294,7 +378,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int width = titleView.markView.getWidth();
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) titleView.markView.getLayoutParams();
         params.leftMargin = (int) ((position + positionOffset) * width);
-        MLog.i(TAG, "params.leftMargin = " + params.leftMargin);
         titleView.markView.setLayoutParams(params);
         titleView.invalidate();
     }
@@ -338,9 +421,28 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case R.id.cancel_scan_song_file:        //取消扫描文件
                 popWindow.dismiss();
                 break;
+            case R.id.sl_hide_btn:      //隐藏搜索栏
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+                searchEt.clearFocus();
+                seaechView.setVisibility(View.GONE);
+                break;
+            case R.id.find_song:    //显示搜索栏
+                seaechView.setVisibility(View.VISIBLE);
+                popWindow.dismiss();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchEt.requestFocus();
+                        searchEt.selectAll();
+                        imm.showSoftInput(searchEt,InputMethodManager.SHOW_FORCED);
+                    }
+                }, 170);
+
+                break;
         }
         updateViewState();
     }
+
 
     private void showLoading() {
         progressDiaLog.show();
@@ -372,8 +474,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         @Override
         public void startNew(String newSongName, final int duration) {
             updateViewState();
-            audioFileFragment.adapterNotifyDataChange();
-            playListFragment.adapterNotifyDataChange();
+            audioFileFragment.searchResultAt(-1);
+            playListFragment.searchResultAt(-1);
             seekBar.setMax(duration / 1000);
             timeCountManager.restartCount();
         }
@@ -459,4 +561,5 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

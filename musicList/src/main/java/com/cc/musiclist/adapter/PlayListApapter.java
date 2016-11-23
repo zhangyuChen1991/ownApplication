@@ -26,11 +26,13 @@ public class PlayListApapter extends RecyclerView.Adapter<PlayListApapter.ViewHo
     private static final String TAG = "PlayListApapter";
     private Context context;
     private List<File> list;
+    public int searchTargetPosition = -1;
     private RecyclerViewOnClickListener recyclerViewOnClick;
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.i(TAG,"onCreateViewHolder");
-        if(null == context)
+        Log.i(TAG, "onCreateViewHolder");
+        if (null == context)
             context = parent.getContext();
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.play_list_dapter, parent, false);
         return new ViewHolder(v);
@@ -45,17 +47,19 @@ public class PlayListApapter extends RecyclerView.Adapter<PlayListApapter.ViewHo
 
         if (position == MediaPlayManager.getInstance().getNowPlayPositionInList()) {
             holder.itemContainer.setBackgroundColor(context.getResources().getColor(R.color.mediumturquoise));
-        } else
+        } else if (position == searchTargetPosition)
+            holder.itemContainer.setBackgroundColor(context.getResources().getColor(R.color.lightpink1));
+        else
             holder.itemContainer.setBackgroundColor(context.getResources().getColor(R.color.whitesmoke));
     }
 
     @Override
     public int getItemCount() {
-        Log.d(TAG,"getItemCount:"+list.size());
+        Log.d(TAG, "getItemCount:" + list.size());
         return null == list ? 0 : list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView songName;
         public RelativeLayout delete, itemContainer;
 
