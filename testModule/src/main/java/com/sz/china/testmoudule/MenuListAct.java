@@ -33,7 +33,8 @@ public class MenuListAct extends Activity {
             "GreenDao测试",
             "retrofit、okhttp",
             "wifi info (root可用)",
-            "ScanView Demo"};
+            "ScanView Demo (使用百分比控件布局)",
+            "高斯模糊"};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
@@ -134,10 +135,10 @@ public class MenuListAct extends Activity {
                         Intent intent15 = new Intent(MenuListAct.this, ScanViewDemoAct.class);
                         startActivity(intent15);
                         break;
-//                    case 16:
-//                        Intent intent16 = new Intent(MenuListAct.this, RecyclerViewDemoAct1.class);
-//                        startActivity(intent16);
-//                        break;
+                    case 16:
+                        Intent intent16 = new Intent(MenuListAct.this, BlurDemo.class);
+                        startActivity(intent16);
+                        break;
 
                 }
             }

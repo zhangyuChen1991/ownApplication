@@ -77,13 +77,13 @@ public class PageMenuHorizontalScrollView extends HorizontalScrollView implement
             for (int i = 0; i < 7; i++) {
                 ImageView iv;
                 if (i == 0) {
-                    iv = createImageView(getResources().getDrawable(R.drawable.t_img3), true, false);
+                    iv = createImageView(getResources().getDrawable(R.drawable.ig2), true, false);
                 } else if (i == 2) {
                     iv = createImageView(getResources().getDrawable(R.drawable.img_menu), false, false);
                 } else if (i == 6) {
-                    iv = createImageView(getResources().getDrawable(R.drawable.t_img3), false, true);
+                    iv = createImageView(getResources().getDrawable(R.drawable.ig2), false, true);
                 } else {
-                    iv = createImageView(getResources().getDrawable(R.drawable.t_img3), false, false);
+                    iv = createImageView(getResources().getDrawable(R.drawable.ig2), false, false);
                 }
 
                 images.add(i, iv);

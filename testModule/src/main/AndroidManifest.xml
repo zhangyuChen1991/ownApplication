@@ -43,6 +43,7 @@
         <activity android:name=".ScanViewDemoAct"></activity>
         <activity android:name=".RecyclerViewDemoAct1"></activity>
         <activity android:name=".RecyclerViewDemoMenuAct"></activity>
+        <activity android:name=".BlurDemo"></activity>
     </application>
 
 </manifest>
