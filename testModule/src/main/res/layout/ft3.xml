@@ -6,8 +6,34 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:gravity="center"
-        android:textSize="18sp"
-        android:text="3"/>
+        android:text="3\n关于GestureDetector的探索"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/ft3_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/lightgray"
+        android:padding="30dp">
+
+        <com.sz.china.testmoudule.view.GestureDetectorView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray">
+
+            <TextView
+                android:id="@+id/ft3_child"
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:textColor="@color/whitesmoke"
+                android:textSize="15sp"
+                android:text="child"
+                android:layout_centerInParent="true"
+                android:background="@color/red"/>
+        </com.sz.china.testmoudule.view.GestureDetectorView>
+    </LinearLayout>
 </LinearLayout>
