@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.widget.Toast;
 
 import com.cc.musiclist.constant.Constants;
 import com.cc.musiclist.util.MLog;
@@ -100,7 +101,7 @@ public class MediaPlayManager {
             this.nowPlayFile = nowPlayFile;
         } else
             nowPlayFile = playLists.get(0);
-        insertPosition = -1;      //初始化插入位置
+        insertPosition = nowPlayPositionInList + 1;      //设置插入歌曲的位置
     }
 
     public int getNowFileDuration() {
@@ -192,7 +193,7 @@ public class MediaPlayManager {
 
     public void insertSong(File insertFile) {
 
-        if (insertPosition < playLists.size() || insertPosition < 0)
+        if (insertPosition > playLists.size() || insertPosition < 0)
             insertPosition = 0;
 
         playLists.add(insertPosition++, insertFile);
@@ -200,6 +201,7 @@ public class MediaPlayManager {
 
     public void deleteSong(int position) {
         playLists.remove(position);
+        refreshNowPlayPosition();
     }
 
     public void playNext() {
