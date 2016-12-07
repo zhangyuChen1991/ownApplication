@@ -34,7 +34,8 @@ public class MenuListAct extends Activity {
             "retrofit、okhttp",
             "wifi info (root可用)",
             "ScanView Demo (使用百分比控件布局)",
-            "高斯模糊"};
+            "高斯模糊",
+            "Glide"};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
@@ -138,6 +139,10 @@ public class MenuListAct extends Activity {
                     case 16:
                         Intent intent16 = new Intent(MenuListAct.this, BlurDemo.class);
                         startActivity(intent16);
+                        break;
+                    case 17:
+                        Intent intent17 = new Intent(MenuListAct.this, GlideAct.class);
+                        startActivity(intent17);
                         break;
 
                 }

@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+
     <application
         android:name=".application.BaseApplication"
         android:allowBackup="true"
@@ -44,6 +45,13 @@
         <activity android:name=".RecyclerViewDemoAct1"></activity>
         <activity android:name=".RecyclerViewDemoMenuAct"></activity>
         <activity android:name=".BlurDemo"></activity>
+        <activity android:name=".GlideAct"></activity>
+
     </application>
+
+    <!--Glide配置-->
+    <meta-data
+        android:name="com.sz.china.testmoudule.GlideAct$GlideConfiguration"
+        android:value="GlideModule" />
 
 </manifest>
