@@ -131,7 +131,7 @@ public class MagicLineView extends View {
         corrDatas.add(corrdinataData);
     }
 
-    class CorrdinateData {
+    private class CorrdinateData {
         float p1X, p1Y, p2X, p2Y;
 
         CorrdinateData(float p1X, float p1Y, float p2X, float p2Y) {
@@ -162,7 +162,6 @@ public class MagicLineView extends View {
             viewHeight = getHeight();
         }
     }
-
 
     public void setDrawingListener(DrawingListener drawingListener) {
         this.drawingListener = drawingListener;

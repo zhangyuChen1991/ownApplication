@@ -35,7 +35,8 @@ public class MenuListAct extends Activity {
             "wifi info (root可用)",
             "ScanView Demo (使用百分比控件布局)",
             "高斯模糊",
-            "Glide"};
+            "Glide",
+            "用一组图片构成动画(逐帧动画)"};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
@@ -143,6 +144,10 @@ public class MenuListAct extends Activity {
                     case 17:
                         Intent intent17 = new Intent(MenuListAct.this, GlideAct.class);
                         startActivity(intent17);
+                        break;
+                    case 18:
+                        Intent intent18 = new Intent(MenuListAct.this, FrameAnimationAct.class);
+                        startActivity(intent18);
                         break;
 
                 }

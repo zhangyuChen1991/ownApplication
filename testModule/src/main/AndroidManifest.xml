@@ -46,6 +46,7 @@
         <activity android:name=".RecyclerViewDemoMenuAct"></activity>
         <activity android:name=".BlurDemo"></activity>
         <activity android:name=".GlideAct"></activity>
+        <activity android:name=".FrameAnimationAct"></activity>
 
     </application>
 
