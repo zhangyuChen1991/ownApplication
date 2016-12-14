@@ -36,7 +36,8 @@ public class MenuListAct extends Activity {
             "ScanView Demo (使用百分比控件布局)",
             "高斯模糊",
             "Glide",
-            "用一组图片构成动画(逐帧动画)"};
+            "用一组图片构成动画(逐帧动画)",
+            "CoordinatorLayoutBehaiorAct Demo"};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
@@ -148,6 +149,10 @@ public class MenuListAct extends Activity {
                     case 18:
                         Intent intent18 = new Intent(MenuListAct.this, FrameAnimationAct.class);
                         startActivity(intent18);
+                        break;
+                    case 19:
+                        Intent intent19 = new Intent(MenuListAct.this, CoordinatorLayoutBehaviorAct.class);
+                        startActivity(intent19);
                         break;
 
                 }

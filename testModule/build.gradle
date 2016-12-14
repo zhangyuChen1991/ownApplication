@@ -44,7 +44,8 @@ dependencies {
     //compile 'com.squareup.okhttp3:okhttp:3.4.1'//retrofit已经添加了对OkHttp的依赖，不用再单独配置OkHttp
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:appcompat-v7:23.0.0'
     //glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:design:23.0.1'
 }
