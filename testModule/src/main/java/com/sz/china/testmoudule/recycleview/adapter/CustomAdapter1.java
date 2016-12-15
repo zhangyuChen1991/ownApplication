@@ -43,9 +43,9 @@ public class CustomAdapter1 extends RecyclerView.Adapter<CustomAdapter1.Holder> 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
         if (position == 0) {
-
+            //初始化ViewPager
             List<View> list = new ArrayList<>();
-            int[] colors = {R.color.red, R.color.burlywood, R.color.yellow, R.color.green};
+            int[] colors = {R.color.red, R.color.dodgerblue, R.color.springgreen, R.color.darkorange};
             for (int i = 0; i < 4; i++) {
                 ImageView imageView = (ImageView) LayoutInflater.from(context).inflate(R.layout.image_view, null);
                 imageView.setBackgroundColor(context.getResources().getColor(colors[i]));

@@ -47,7 +47,7 @@
         <activity android:name=".BlurDemo"></activity>
         <activity android:name=".GlideAct"></activity>
         <activity android:name=".FrameAnimationAct"></activity>
-        <activity android:name=".CoordinatorLayoutBehaviorAct"></activity>
+        <activity android:name=".NewsLayoutAct"></activity>
 
     </application>
 

@@ -3,16 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/acb_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/acb_swiperefresh_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/acb_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/acb_search_container"
         android:layout_width="match_parent"
-        android:background="@color/transparent"
         android:layout_height="50dp"
+        android:background="@color/darkturquoise1"
         android:paddingBottom="5dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
@@ -22,12 +28,12 @@
             android:id="@+id/acb_search_edittext"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/half_circle_recentage"
-            android:textSize="11sp"
-            android:paddingLeft="13dp"
+            android:background="@drawable/half_circle_recentage_white"
             android:gravity="center_vertical"
             android:hint="输入你要搜索的内容"
-            />
+            android:paddingLeft="13dp"
+            android:textColorHint="@color/gray"
+            android:textSize="11sp" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

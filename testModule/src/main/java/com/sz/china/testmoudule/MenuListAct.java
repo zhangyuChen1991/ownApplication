@@ -151,7 +151,7 @@ public class MenuListAct extends Activity {
                         startActivity(intent18);
                         break;
                     case 19:
-                        Intent intent19 = new Intent(MenuListAct.this, CoordinatorLayoutBehaviorAct.class);
+                        Intent intent19 = new Intent(MenuListAct.this, NewsLayoutAct.class);
                         startActivity(intent19);
                         break;
 
