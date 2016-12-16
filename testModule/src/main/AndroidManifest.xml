@@ -48,6 +48,7 @@
         <activity android:name=".GlideAct"></activity>
         <activity android:name=".FrameAnimationAct"></activity>
         <activity android:name=".NewsLayoutAct"></activity>
+        <activity android:name=".CoordinatorLayoutSample"></activity>
 
     </application>
 

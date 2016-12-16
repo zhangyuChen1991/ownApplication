@@ -27,7 +27,6 @@ public class MenuListAct extends Activity {
             "RecyclerViewDemo",
             "SwipeRefreshLayout",
             "滑动删除item listview",
-            "测试，横向滑动页面菜单",
             "viewpager滑动指示器",
             "magic line view",
             "GreenDao测试",
@@ -37,7 +36,14 @@ public class MenuListAct extends Activity {
             "高斯模糊",
             "Glide",
             "用一组图片构成动画(逐帧动画)",
-            "CoordinatorLayoutBehaiorAct Demo"};
+            "NewsLayout sample",
+            "CoordinatorLayoutSample"};
+    private Class[] activities = {ImmersionAct.class, TestAct1.class, PullToRefreshScrollViewAct.class, TestRotateAnimationAct.class
+            , TestScanAct.class, TestUnlockViewAct.class, RecyclerViewDemoMenuAct.class,
+            SwipeRefreshLayoutAct.class, ScrollRemoveItemAct.class, TestFt.class,
+            MagicLineAct.class, GreenDaoAct.class, RetrofitAndOkHttpAct.class, WifiInfoAct.class,
+            ScanViewDemoAct.class, BlurDemo.class, GlideAct.class, FrameAnimationAct.class,
+            NewsLayoutAct.class, CoordinatorLayoutSample.class};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
@@ -62,100 +68,13 @@ public class MenuListAct extends Activity {
 
     }
 
+
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             if (parent.getId() == R.id.listview) {
-                switch (position) {
-                    case 0:
-                        Intent intent = new Intent(MenuListAct.this, ImmersionAct.class);
-                        startActivity(intent);
-                        break;
-                    case 1:
-                        Intent intent1 = new Intent(MenuListAct.this, TestAct1.class);
-                        startActivity(intent1);
-                        break;
-                    case 2:
-                        Intent intent2 = new Intent(MenuListAct.this, PullToRefreshScrollViewAct.class);
-                        startActivity(intent2);
-                        break;
-                    case 3:
-                        Intent intent3 = new Intent(MenuListAct.this, TestRotateAnimationAct.class);
-                        startActivity(intent3);
-                        break;
-                    case 4:
-                        Intent intent4 = new Intent(MenuListAct.this, TestScanAct.class);
-                        startActivity(intent4);
-                        break;
-                    case 5:
-                        Intent intent5 = new Intent(MenuListAct.this, TestUnlockViewAct.class);
-                        startActivity(intent5);
-                        break;
-                    case 6:
-                        Intent intent6 = new Intent(MenuListAct.this, RecyclerViewDemoMenuAct.class);
-                        startActivity(intent6);
-                        break;
-                    case 7:
-                        Intent intent7 = new Intent(MenuListAct.this, SwipeRefreshLayoutAct.class);
-                        startActivity(intent7);
-                        break;
-                    case 8:
-                        Intent intent8 = new Intent(MenuListAct.this, ScrollRemoveItemAct.class);
-                        startActivity(intent8);
-                        break;
-                    case 9:
-
-                        pageMenuHorizontalScrollView.initView();
-                        pageMenuHorizontalScrollView.scrollToPst();
-                        pageMenuHorizontalScrollView.setVisibility(View.VISIBLE);
-
-                        listView.setVisibility(View.GONE);
-                        pageMenuHorizontalScrollView.startZoomInAnim();
-
-                        break;
-                    case 10:
-                        Intent intent10 = new Intent(MenuListAct.this, TestFt.class);
-                        startActivity(intent10);
-
-                        break;
-                    case 11:
-                        Intent intent11 = new Intent(MenuListAct.this, MagicLineAct.class);
-                        startActivity(intent11);
-                        break;
-                    case 12:
-                        Intent intent12 = new Intent(MenuListAct.this, GreenDaoAct.class);
-                        startActivity(intent12);
-                        break;
-                    case 13:
-                        Intent intent13 = new Intent(MenuListAct.this, RetrofitAndOkHttpAct.class);
-                        startActivity(intent13);
-                        break;
-                    case 14:
-                        Intent intent14 = new Intent(MenuListAct.this, WifiInfoAct.class);
-                        startActivity(intent14);
-                        break;
-                    case 15:
-                        Intent intent15 = new Intent(MenuListAct.this, ScanViewDemoAct.class);
-                        startActivity(intent15);
-                        break;
-                    case 16:
-                        Intent intent16 = new Intent(MenuListAct.this, BlurDemo.class);
-                        startActivity(intent16);
-                        break;
-                    case 17:
-                        Intent intent17 = new Intent(MenuListAct.this, GlideAct.class);
-                        startActivity(intent17);
-                        break;
-                    case 18:
-                        Intent intent18 = new Intent(MenuListAct.this, FrameAnimationAct.class);
-                        startActivity(intent18);
-                        break;
-                    case 19:
-                        Intent intent19 = new Intent(MenuListAct.this, NewsLayoutAct.class);
-                        startActivity(intent19);
-                        break;
-
-                }
+                Intent intent = new Intent(MenuListAct.this, activities[position]);
+                startActivity(intent);
             }
         }
     };

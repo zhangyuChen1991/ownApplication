@@ -39,7 +39,7 @@ public class NewsLayoutAct extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coordinatorlayout_behavior);
+        setContentView(R.layout.activity_newslayout);
         ViewInjectUtil.injectView(this);
 
         initResources();
