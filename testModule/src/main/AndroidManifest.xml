@@ -49,6 +49,7 @@
         <activity android:name=".FrameAnimationAct"></activity>
         <activity android:name=".NewsLayoutAct"></activity>
         <activity android:name=".CoordinatorLayoutSample"></activity>
+        <activity android:name=".CoolDownloadingAct"></activity>
 
     </application>
 
