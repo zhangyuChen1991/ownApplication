@@ -29,7 +29,7 @@ public class CoolDownloadingAct extends Activity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.acd_cool_downloading:
-                coolDownloading.startCircleToLinePathAnim();
+                coolDownloading.startAnim();
                 break;
         }
     }
