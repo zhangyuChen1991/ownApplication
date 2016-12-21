@@ -30,19 +30,33 @@ public class CoolDownloading extends View {
     private Point center, lineCenter;
     private final double sin45 = Math.sin(45 * 2 * Math.PI / 360);
     private Context context;
-    private Paint paint, radiusPaint;
+    private Paint outPaint, innerPaint, circlePaint;
     //左右两段三阶贝塞尔曲线的起点、终点、各自的两个控制点
     private Point startP, stopPL, stopPR, ctrlL1, ctrlL2, ctrlR1, ctrlR2;
     //贝塞尔曲线控制点坐标与中心点坐标的差值 与 圆框半径的比率
     private float ctrlWRate = 1.35f, ctrlHRate = 1;
     //左右两段三阶贝塞尔曲线的path
-    private Path pathLeft, pathRight, linePath;
+    private Path pathLeft, pathRight, linePath, cornerRectPath, progressRectPath;
     private ValueAnimator scaleAnim, circleToLinePathAnim, lineJumpAnim, arrowToRectAnim, mergeAnim;
     private final int SCALE = 0X1229, CIRCLE_TO_LINE = 0X1331, LINE_JUMP = 0X1332, SHOW_LOADINGBAR = 0X1333;
-    private int nowDrawState = CIRCLE_TO_LINE;
-
+    private int nowDrawState = SCALE;
+    //直线是否弹跳到最高点
+    private boolean JUMP_HIGHEST = false;
+    //弹跳到最高点的y位置 以及与中心点的垂直距离
+    private float jumpHightY, distance;
     //圆圈的半径
     private float circleRadius = 120;
+    private int circlePaintAlpha = 255;
+    //圆形填充颜色
+    private int circleColor = Color.parseColor("#A52A2A");//Color.parseColor("#A9A9A9");
+    //箭头颜色
+    private int arrowColor = Color.WHITE;//Color.BLACK;
+    //下载进度 100满格
+    private int progress = 0;
+
+    //是否正在下载
+    private boolean isDownloading = false;
+
 
     public CoolDownloading(Context context) {
         super(context);
@@ -61,19 +75,23 @@ public class CoolDownloading extends View {
 
     private void init(final Context context) {
         this.context = context;
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(5);
+        outPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        outPaint.setStyle(Paint.Style.STROKE);
+        outPaint.setColor(arrowColor);
+        outPaint.setStrokeWidth(5);
 
-        radiusPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        radiusPaint.setColor(Color.BLACK);
-        radiusPaint.setStrokeWidth(5);
-        radiusPaint.setStyle(Paint.Style.FILL);
+        innerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        innerPaint.setStrokeWidth(5);
+        innerPaint.setStyle(Paint.Style.FILL);
+
+        circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        circlePaint.setStyle(Paint.Style.FILL);
 
         pathLeft = new Path();
         pathRight = new Path();
         linePath = new Path();
+        cornerRectPath = new Path();
+        progressRectPath = new Path();
 
 
         LinearInterpolator linearInterpolator = new LinearInterpolator();
@@ -130,12 +148,13 @@ public class CoolDownloading extends View {
         mergeAnim.setInterpolator(linearInterpolator);
         mergeAnim.setDuration(350);
         mergeAnim.addUpdateListener(mergeAnimListener);
-        arrowToRectAnim.addListener(new AnimatorListenerAdapter() {
+        mergeAnim.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 JUMP_HIGHEST = false;
                 radius = circleRadius;
-                arrowCenter = new Point(center.x,center.y);
+                arrowCenter = new Point(center.x, center.y);
+                circlePaintAlpha = 255;
                 super.onAnimationEnd(animation);
             }
         });
@@ -148,28 +167,29 @@ public class CoolDownloading extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (nowDrawState == SCALE) {//圆框缩放阶段
-            drawCurvePath(canvas, paint);
-            drawArrow(canvas, paint);
+            drawInnerCircle(canvas, circlePaintAlpha);
+            drawCurvePath(canvas);
+            drawArrow(canvas);
         } else if (nowDrawState == CIRCLE_TO_LINE) {
-            drawCurvePath(canvas, paint);
+            drawCurvePath(canvas);
             if (startP.y <= center.y + rate3 * circleRadius) {//碰到曲线时，跟随弹动
                 arrowCenter.y = startP.y - rate3 * circleRadius;
-                drawArrow(canvas, paint);
+                drawArrow(canvas);
             } else {
-                drawArrow(canvas, paint);
+                drawArrow(canvas);
             }
 //          drawCtrlLine(canvas);//绘制控制点和由控制点组成的方框
         } else if (nowDrawState == LINE_JUMP) {
-            drawLinePath(canvas, paint);
+            drawLinePath(canvas);
             if (!JUMP_HIGHEST) {//在接触过程中还没弹到最高点,跟随线条上弹
                 arrowCenter.y = lineCenter.y - rate3 * circleRadius;
-                drawArrow(canvas, paint);
-            } else {//接触过程中弹到最高点，开始飞起，再落下，过程中箭头渐变成圆形
-                drawArrowToCircle(canvas, radius);
+                drawArrow(canvas);
+            } else {//接触过程中弹到最高点，开始飞起，再落下，过程中箭头渐变成圆角方框
+                drawArrowToRect(canvas, radius);
             }
         } else if (nowDrawState == SHOW_LOADINGBAR) {
-            drawArrowToCircle(canvas, radius);
-            drawLoadingBar(canvas, paint, barHeight, 0.15f);
+            drawArrowToRect(canvas, radius);
+            drawLoadingBar(canvas, barHeight);
         }
     }
 
@@ -177,16 +197,15 @@ public class CoolDownloading extends View {
      * 绘制上下跳动的直线轨迹
      *
      * @param canvas
-     * @param paint
      */
-    private void drawLinePath(Canvas canvas, Paint paint) {
-        paint.setStyle(Paint.Style.STROKE);
+    private void drawLinePath(Canvas canvas) {
+        outPaint.setStyle(Paint.Style.STROKE);
         linePath.reset();
         //从上一阶段两条三阶贝塞尔曲线变成直线后再让直线上下跳动
         //stopL成为现在的linePath新起点，stopR成为新的终点 lineCenter作为控制点 构造新的二阶贝塞尔曲线
         linePath.moveTo(stopPL.x, stopPL.y);
         linePath.quadTo(lineCenter.x, lineCenter.y, stopPR.x, stopPR.y);
-        canvas.drawPath(linePath, paint);
+        canvas.drawPath(linePath, outPaint);
     }
 
     /**
@@ -194,8 +213,8 @@ public class CoolDownloading extends View {
      *
      * @param canvas
      */
-    private void drawCurvePath(Canvas canvas, Paint paint) {
-        paint.setStyle(Paint.Style.STROKE);
+    private void drawCurvePath(Canvas canvas) {
+        outPaint.setStyle(Paint.Style.STROKE);
         pathLeft.reset();
         pathRight.reset();
 
@@ -205,8 +224,19 @@ public class CoolDownloading extends View {
         pathLeft.cubicTo(ctrlL1.x, ctrlL1.y, ctrlL2.x, ctrlL2.y, stopPL.x, stopPL.y);
         pathRight.cubicTo(ctrlR1.x, ctrlR1.y, ctrlR2.x, ctrlR2.y, stopPR.x, stopPR.y);
 
-        canvas.drawPath(pathLeft, paint);
-        canvas.drawPath(pathRight, paint);
+        canvas.drawPath(pathLeft, outPaint);
+        canvas.drawPath(pathRight, outPaint);
+    }
+
+    private void drawInnerCircle(Canvas canvas, int alpha) {
+        Path circlePath = new Path();
+        circlePath.moveTo(startP.x, startP.y);
+        circlePath.cubicTo(ctrlL1.x, ctrlL1.y, ctrlL2.x, ctrlL2.y, stopPL.x, stopPL.y);
+        circlePath.cubicTo(ctrlR2.x, ctrlR2.y, ctrlR1.x, ctrlR1.y, startP.x, startP.y);
+
+        circlePaint.setColor(circleColor);
+        circlePaint.setAlpha(alpha);
+        canvas.drawPath(circlePath, circlePaint);
     }
 
     //箭头的各个顶点
@@ -215,13 +245,7 @@ public class CoolDownloading extends View {
     private float rate1 = 0.27f, rate2 = 0.55f, rate3 = 2 * rate1;
     private Point arrowCenter;
 
-    public void startAnim() {
-        nowDrawState = SCALE;
-        scaleAnim.start();
-    }
-
-
-    Path ctrlPath = new Path();
+    private Path ctrlPath = new Path();
 
     private void drawCtrlLine(Canvas canvas) {
         ctrlPath.reset();
@@ -231,19 +255,20 @@ public class CoolDownloading extends View {
         ctrlPath.lineTo(ctrlR1.x, ctrlR1.y);
         ctrlPath.close();
 
-        paint.setStrokeWidth(3);
-        canvas.drawPath(ctrlPath, paint);
+        outPaint.setStrokeWidth(3);
+        canvas.drawPath(ctrlPath, outPaint);
 
-        paint.setStrokeWidth(7);
-        canvas.drawPoint(ctrlL1.x, ctrlL1.y, paint);
-        canvas.drawPoint(ctrlL2.x, ctrlL2.y, paint);
-        canvas.drawPoint(ctrlR1.x, ctrlR1.y, paint);
-        canvas.drawPoint(ctrlR2.x, ctrlR2.y, paint);
+        outPaint.setStrokeWidth(7);
+        canvas.drawPoint(ctrlL1.x, ctrlL1.y, outPaint);
+        canvas.drawPoint(ctrlL2.x, ctrlL2.y, outPaint);
+        canvas.drawPoint(ctrlR1.x, ctrlR1.y, outPaint);
+        canvas.drawPoint(ctrlR2.x, ctrlR2.y, outPaint);
     }
 
     private void initData() {
         center = new Point(vWidth / 2f, vHeight / 2f);
-
+        float base = vWidth > vHeight ? vWidth : vHeight;
+        circleRadius = base * 0.8f / 8f;
         //初始化直线的中心点
         lineCenter = new Point(center.x, center.y);
 
@@ -279,7 +304,13 @@ public class CoolDownloading extends View {
             rate1 = 0.27f * value;
             rate2 = 0.55f * value;
             rate3 = 2 * rate1;
+
             updateCtrlPoint();
+            Log.i(TAG, "circlePaintAlpha = " + circlePaintAlpha);
+            if (circlePaintAlpha > 0) {
+                circlePaintAlpha -= 5;
+                circlePaintAlpha = circlePaintAlpha < 0 ? 0 : circlePaintAlpha;
+            }
             invalidate();
         }
     };
@@ -315,8 +346,6 @@ public class CoolDownloading extends View {
         }
     };
 
-    private boolean JUMP_HIGHEST = false;
-    float jumpHightY, distance;
     /**
      * 直线上下跳动的动画监听  描述数据变化过程
      */
@@ -386,33 +415,33 @@ public class CoolDownloading extends View {
         }
     };
 
-    private void drawArrow(Canvas canvas, Paint paint) {
-        paint.setStyle(Paint.Style.FILL);
+    private void drawArrow(Canvas canvas) {
+        innerPaint.setPathEffect(null);
+        innerPaint.setColor(arrowColor);
         updateArrowPointByCenter();
 
         Path arrowPath = createArrowPath();
 
-        canvas.drawPath(arrowPath, paint);
+        canvas.drawPath(arrowPath, innerPaint);
     }
 
-    private void drawArrowToCircle(Canvas canvas, float radius) {
-        //arrow0、3、4、6点位移至左上、右上、右下、左下方形成矩形 顶点加圆弧效果，模拟圆形
-        radiusPaint.setPathEffect(new CornerPathEffect(radius));
-
+    private void drawArrowToRect(Canvas canvas, float radius) {
+        //arrow0、3、4、6点位移至左上、右上、右下、左下方形成矩形 顶点加圆弧效果
+        innerPaint.setPathEffect(new CornerPathEffect(radius));
+        innerPaint.setColor(arrowColor);
         Path path = createArrowPath();
 
-        canvas.drawPath(path, radiusPaint);
+        canvas.drawPath(path, innerPaint);
 
     }
 
     /**
      * @param canvas
-     * @param paint
      * @param height
-     * @param progress 百分数
      */
-    private void drawLoadingBar(Canvas canvas, Paint paint, float height, float progress) {
-        paint.setStyle(Paint.Style.FILL);
+    private void drawLoadingBar(Canvas canvas, float height) {
+        innerPaint.setStyle(Paint.Style.FILL);
+        innerPaint.setPathEffect(new CornerPathEffect(30));
         //完整矩形左上角，右下角的点
         Point lu = new Point(stopPL.x, stopPL.y - height);
         Point rd = new Point(stopPR.x, stopPR.y + height);
@@ -420,14 +449,34 @@ public class CoolDownloading extends View {
         float length = stopPR.x - stopPL.x;
         //进度右下角点
 
-        paint.setColor(Color.parseColor("#A9A9A9"));
-        canvas.drawRect(lu.x, lu.y, rd.x, rd.y, paint);
+        innerPaint.setTextSize(35);
 
-        paint.setColor(Color.BLACK);
-        canvas.drawRect(lu.x, lu.y, progress * length, rd.y, paint);
 
-        paint.setTextSize(35);
-        canvas.drawText(((int) (progress * 100)) + "%", progress * length + 15, stopPR.y + 10, paint);
+        //完整进度条长度
+        innerPaint.setColor(arrowColor);
+        cornerRectPath.reset();
+        cornerRectPath.moveTo(lu.x, lu.y);
+        cornerRectPath.lineTo(rd.x, lu.y);
+        cornerRectPath.lineTo(rd.x, rd.y);
+        cornerRectPath.lineTo(lu.x, rd.y);
+        cornerRectPath.close();
+        canvas.drawPath(cornerRectPath, innerPaint);
+
+
+        //已下载长度
+        innerPaint.setColor(circleColor);
+        progressRectPath.reset();
+        progressRectPath.moveTo(lu.x, lu.y);
+        progressRectPath.lineTo(lu.x + progress * 0.01f * length, lu.y);
+        progressRectPath.lineTo(lu.x + progress * 0.01f * length, rd.y);
+        progressRectPath.lineTo(lu.x, rd.y);
+        progressRectPath.close();
+        canvas.drawPath(progressRectPath, innerPaint);
+
+
+        String text = progress + "%";
+        innerPaint.setColor(arrowColor);
+        canvas.drawText(text, lu.x + progress * 0.01f * length - text.length() * 25, stopPR.y + 10, innerPaint);
     }
 
     /**
@@ -481,7 +530,75 @@ public class CoolDownloading extends View {
         vWidth = getMeasuredWidth();
 
         initData();
+    }
 
+
+    /**
+     * 设置下载进度
+     *
+     * @param progress
+     */
+    public void setProgress(int progress) {
+        this.progress = progress;
+        if (progress == 100) {//下载完毕
+//            nowDrawState = SCALE;
+            isDownloading = false;
+
+//            //初始化相关数据
+//            updateArrowPointByCenter();//重置箭头
+//            ctrlWRate = 1.35f;
+//            ctrlHRate = 1;
+//            updateCtrlPoint();
+        }
+        invalidate();
+    }
+
+    /**
+     * 设置圆形填充颜色
+     *
+     * @param circleColor
+     */
+    public void setCircleColor(int circleColor) {
+        this.circleColor = circleColor;
+    }
+
+    /**
+     * 设置箭头填充颜色
+     *
+     * @param arrowColor
+     */
+    public void setArrowColor(int arrowColor) {
+        this.arrowColor = arrowColor;
+    }
+
+
+    public boolean startDownload() {
+        if (!isDownloading) {
+            progress = 0;
+            isDownloading = true;
+            nowDrawState = SCALE;
+            scaleAnim.start();
+            return true;
+        }
+        return false;
+    }
+
+    public void stopDownloading() {
+        isDownloading = false;
+        scaleAnim.cancel();
+        circleToLinePathAnim.cancel();
+        lineJumpAnim.cancel();
+        mergeAnim.cancel();
+        nowDrawState = SCALE;
+        invalidate();
+    }
+
+    /**
+     * 是否正在下载
+     * @return
+     */
+    public boolean isDownloading() {
+        return isDownloading;
     }
 
     private class Point {

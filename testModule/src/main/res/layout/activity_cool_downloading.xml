@@ -8,6 +8,6 @@
         android:id="@+id/acd_cool_downloading"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@color/lightgray"/>
+        android:background="@color/background_blue"/>
 
 </LinearLayout>
