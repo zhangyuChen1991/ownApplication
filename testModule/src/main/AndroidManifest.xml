@@ -50,6 +50,7 @@
         <activity android:name=".NewsLayoutAct"></activity>
         <activity android:name=".CoordinatorLayoutSample"></activity>
         <activity android:name=".CoolDownloadingAct"></activity>
+        <activity android:name=".SVGAnimAct"></activity>
 
     </application>
 

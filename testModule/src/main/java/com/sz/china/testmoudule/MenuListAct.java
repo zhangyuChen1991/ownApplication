@@ -38,13 +38,14 @@ public class MenuListAct extends Activity {
             "用一组图片构成动画(逐帧动画)",
             "NewsLayout sample",
             "CoordinatorLayoutSample",
-            "CoolDownloading"};
+            "CoolDownloading",
+            "SVG sample"};
     private Class[] activities = {ImmersionAct.class, TestAct1.class, PullToRefreshScrollViewAct.class, TestRotateAnimationAct.class
             , TestScanAct.class, TestUnlockViewAct.class, RecyclerViewDemoMenuAct.class,
             SwipeRefreshLayoutAct.class, ScrollRemoveItemAct.class, TestFt.class,
             MagicLineAct.class, GreenDaoAct.class, RetrofitAndOkHttpAct.class, WifiInfoAct.class,
             ScanViewDemoAct.class, BlurDemo.class, GlideAct.class, FrameAnimationAct.class,
-            NewsLayoutAct.class, CoordinatorLayoutSample.class,CoolDownloadingAct.class};
+            NewsLayoutAct.class, CoordinatorLayoutSample.class, CoolDownloadingAct.class,SVGAnimAct.class};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 
