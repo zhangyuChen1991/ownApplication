@@ -39,7 +39,7 @@ public class MenuListAct extends Activity {
             "NewsLayout sample",
             "CoordinatorLayoutSample",
             "CoolDownloading",
-            "SVG sample"};
+            "SVG Test"};
     private Class[] activities = {ImmersionAct.class, TestAct1.class, PullToRefreshScrollViewAct.class, TestRotateAnimationAct.class
             , TestScanAct.class, TestUnlockViewAct.class, RecyclerViewDemoMenuAct.class,
             SwipeRefreshLayoutAct.class, ScrollRemoveItemAct.class, TestFt.class,

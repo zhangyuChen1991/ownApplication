@@ -2,9 +2,7 @@ package com.sz.china.testmoudule;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.graphics.drawable.Animatable;
 import android.graphics.drawable.AnimatedVectorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +10,7 @@ import android.widget.ImageView;
 
 import com.cc.library.annotation.ViewInject;
 import com.cc.library.annotation.ViewInjectUtil;
+import com.sz.china.testmoudule.view.SVGTestView;
 import com.sz.china.testmoudule.util.ToastUtil;
 
 /**
@@ -24,6 +23,9 @@ public class SVGAnimAct extends Activity {
     ImageView vectorIv;
     @ViewInject(R.id.asa_vector_iv1)
     ImageView vectorHeartIv;
+    @ViewInject(R.id.asa_vector_iv0)
+    SVGTestView svgTestView;
+
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -55,5 +57,11 @@ public class SVGAnimAct extends Activity {
         }else{
             ToastUtil.showToast("android版本太低 无法演示动画",0);
         }
+
+        initResources();
+    }
+
+    private void initResources() {
+        svgTestView.setSvgData(getResources().getString(R.string.heart_path));
     }
 }
