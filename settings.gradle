@@ -1,1 +1,1 @@
-include ':cLibrary', ':DesignPattern', ':testModule', ':zxing-lib', ':musicList', ':pulltorefresh_library', ':rxJavaDemo'
+include ':cLibrary', ':DesignPattern', ':testModule', ':zxing-lib', ':musicList', ':pulltorefresh_library', ':rxJavaDemo', ':dataStructureAlgorithm'
