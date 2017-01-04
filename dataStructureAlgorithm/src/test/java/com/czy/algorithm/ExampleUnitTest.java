@@ -38,7 +38,6 @@ public class ExampleUnitTest {
         int[] g = {4, 5, 32, 6, 18, 51, 21, 8, 9};
         int[] s = {5, 99, 8, 7, 2, 1};
 
-        QuestionSolutionTemp qst = new QuestionSolutionTemp();
-        System.out.println("answer = " + qst.assignCookies(g, s));
+        System.out.println("answer = " + questionSolution.assignCookies(g, s));
     }
 }
