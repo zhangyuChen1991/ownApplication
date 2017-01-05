@@ -55,8 +55,12 @@ public class ExampleUnitTest {
 //        System.out.println("isRepeated = " + questionSolution.repeatedSubstringPattern("aaabvaaabvaaabv"));
 //        System.out.println("result = " + questionSolution.zigZagConversion("PAYPALISHIRING",3));
 
-        int[] array = {4,3,2,7,8,2,3,1};
-        System.out.println(questionSolution.findDisappearedNumbers(array));
+//        int[] array = {4,3,2,7,8,2,3,1};
+//        System.out.println(questionSolution.findDisappearedNumbers(array));
+
+//        int[] array = {1,2147483647};
+        int[] array = {1,3,5,8,9,11,17,19};
+        System.out.println(questionSolution.minMoves(array));
 
     }
 }

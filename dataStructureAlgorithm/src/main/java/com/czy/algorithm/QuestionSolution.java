@@ -377,7 +377,7 @@ public class QuestionSolution {
      * 找出从1-n的数字里没出现在数组中的数字
      * Input:
      * [4,3,2,7,8,2,3,1]
-     *
+     * <p>
      * Output:
      * [5,6]
      *
@@ -404,24 +404,116 @@ public class QuestionSolution {
 
     /**
      * 简洁代码 处理过程只一个循环 思路从上面推演下来比较好理解
+     *
      * @param nums
      * @return
      */
     public List<Integer> findDisappearedNumbers1(int[] nums) {
         List<Integer> ret = new ArrayList<Integer>();
 
-        for(int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < nums.length; i++) {
             int val = Math.abs(nums[i]) - 1;
-            if(nums[val] > 0) {
+            if (nums[val] > 0) {
                 nums[val] = -nums[val];
             }
         }
 
-        for(int i = 0; i < nums.length; i++) {
-            if(nums[i] > 0) {
-                ret.add(i+1);
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > 0) {
+                ret.add(i + 1);
             }
         }
         return ret;
     }
+
+    /**
+     * 一个数组 有n个元素  每次让n-1个元素+1  使数组中每个元素相等
+     * 求+1操作的最小次数m
+     * <p>
+     * 这个算法在leetcode上是没通过的 因为对某些数组 超时了
+     *
+     * @param nums
+     * @return
+     */
+    public int minMoves(int[] nums) {
+        if (null == nums || nums.length <= 1)
+            return 0;
+        int max = nums[0];
+        int maxIndex = 0;
+        int stepCount = 0;
+
+
+        while (!elementsEqual(nums)) {
+            for (int i = 0; i < nums.length; i++) {
+                if (max < nums[i]) {
+                    max = nums[i];
+                    maxIndex = i;
+                }
+            }
+
+            for (int i = 0; i < nums.length; i++) {
+                if (maxIndex != i)
+                    nums[i] += 1;
+            }
+            stepCount++;
+        }
+        return stepCount;
+    }
+
+    /**
+     * 数组中的元素是否全部相等
+     *
+     * @param nums
+     * @return true 相等；false 不相等
+     */
+    public boolean elementsEqual(int[] nums) {
+        boolean equal = true;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] != nums[i + 1]) {
+                equal = false;
+                break;
+            }
+        }
+        return equal;
+    }
+
+    /**
+     * 一个数组 有n个元素  每次让n-1个元素+1  最终使数组中每个元素相等
+     * 求+1操作的最小次数m
+     * <p>
+     * 聪明的家伙推导出来的数学公式
+     * sum + m*(n - 1) = n * x;//sum 最初数组元素总和  m操作次数  n元素个数 x最终数组元素大小
+     * x = min + m;
+     * 所以：m = sum - n*min
+     *
+     * @param nums
+     * @return
+     */
+    public int minMoves1(int[] nums) {
+        if (null == nums || nums.length <= 1)
+            return 0;
+        int sum = 0;
+        int min = nums[0];
+        for (int i = 0; i < nums.length; i++) {
+            if (min > nums[i])
+                min = nums[i];
+            sum += nums[i];
+        }
+
+        return sum - nums.length * min;
+    }
+    /**
+     * 给出平面上的n个点，求出元组(i,j,k)的个数，其中元组满足i与j的距离与i与k距离相等，与(i,j,k)顺序有关
+     */
+    public int numberOfBoomerangs(int[][] points) {
+        for(int i = 0;i < points.length;i++){
+            for(int j = i + 1;j < points.length;j++){
+                //把所有的两点间的距离算出来
+                //把包含同一个点的线段归为一组
+                //每一组算出组合情况数 累加
+            }
+        }
+        return 0;
+    }
+
 }
