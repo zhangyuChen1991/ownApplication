@@ -40,14 +40,13 @@ public class MenuListAct extends Activity {
             "CoordinatorLayoutSample",
             "CoolDownloading",
             "SVG Test",
-            "openGL try"};
+            "DataBindingSample"};
     private Class[] activities = {ImmersionAct.class, TestAct1.class, PullToRefreshScrollViewAct.class, TestRotateAnimationAct.class
             , TestScanAct.class, TestUnlockViewAct.class, RecyclerViewDemoMenuAct.class,
             SwipeRefreshLayoutAct.class, ScrollRemoveItemAct.class, TestFt.class,
             MagicLineAct.class, GreenDaoAct.class, RetrofitAndOkHttpAct.class, WifiInfoAct.class,
             ScanViewDemoAct.class, BlurDemo.class, GlideAct.class, FrameAnimationAct.class,
-            NewsLayoutAct.class, CoordinatorLayoutSample.class, CoolDownloadingAct.class, SVGAnimAct.class,
-            OpenGLAct.class};
+            NewsLayoutAct.class, CoordinatorLayoutSample.class, CoolDownloadingAct.class, SVGAnimAct.class, DataBindingSampleAct.class};
 
     private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
 

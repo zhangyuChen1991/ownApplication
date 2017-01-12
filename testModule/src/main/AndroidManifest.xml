@@ -53,7 +53,7 @@
         <activity android:name=".CoordinatorLayoutSample"></activity>
         <activity android:name=".CoolDownloadingAct"></activity>
         <activity android:name=".SVGAnimAct"></activity>
-        <activity android:name=".OpenGLAct"></activity>
+        <activity android:name=".DataBindingSampleAct"></activity>
 
     </application>
 

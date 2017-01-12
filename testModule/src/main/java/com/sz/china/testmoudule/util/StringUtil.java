@@ -45,4 +45,7 @@ public class StringUtil {
         return str.matches("^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$");
     }
 
+    public static String testDataBinding(String name) {
+        return "姓名：" + name;
+    }
 }
