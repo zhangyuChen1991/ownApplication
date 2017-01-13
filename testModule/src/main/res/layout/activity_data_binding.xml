@@ -2,16 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <import type="com.sz.china.testmoudule.util.StringUtil" />
-
         <import type="android.view.View" />
-
 
         <variable
             name="user"
             type="com.sz.china.testmoudule.bean.UserBean"></variable>
-
         <variable
             name="viewHandler"
             type="com.sz.china.testmoudule.control.ViewHandler"></variable>

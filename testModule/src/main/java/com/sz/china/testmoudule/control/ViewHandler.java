@@ -1,6 +1,7 @@
 package com.sz.china.testmoudule.control;
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.sz.china.testmoudule.util.ToastUtil;
 
@@ -13,7 +14,7 @@ public class ViewHandler {
      * dataBinding 绑定事件
      * @param view
      */
-    public void onButton1Click(View view){
-        ToastUtil.showToast("button1 click",0);
+    public void onButton1Click(TextView view){
+        ToastUtil.showToast(" click",0);
     }
 }
