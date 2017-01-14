@@ -1,10 +1,15 @@
 package com.sz.china.testmoudule.bean;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+import com.sz.china.testmoudule.BR;
+
 /**
  * Created by zhangyu on 2017/1/12.
  */
 
-public class UserBean {
+public class UserBean extends BaseObservable{
     private String name;
     private int age;
     private String sex;
@@ -20,7 +25,7 @@ public class UserBean {
     }
 
 
-
+    @Bindable
     public int getAge() {
         return age;
     }
@@ -43,6 +48,7 @@ public class UserBean {
 
     public void setSex(String sex) {
         this.sex = sex;
+        notifyPropertyChanged(BR.user);
     }
 
     public String getDate() {

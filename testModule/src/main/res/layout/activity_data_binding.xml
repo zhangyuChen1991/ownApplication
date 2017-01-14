@@ -56,11 +56,22 @@
                 android:textSize="13sp" />
 
             <Button
+                android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{viewHandler.onButton1Click}"
                 android:paddingLeft="15dp"
                 android:text="button1"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:visibility="@{user.age > 18 ? View.VISIBLE : View.GONE}" />
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{(view)->viewHandler.onButton2Click(view)}"
+                android:paddingLeft="15dp"
+                android:text="button2"
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 android:visibility="@{user.age > 18 ? View.VISIBLE : View.GONE}" />
