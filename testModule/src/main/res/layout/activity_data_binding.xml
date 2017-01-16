@@ -2,15 +2,22 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <import type="com.sz.china.testmoudule.util.StringUtil" />
+
         <import type="android.view.View" />
 
         <variable
             name="user"
             type="com.sz.china.testmoudule.bean.UserBean"></variable>
+
         <variable
             name="viewHandler"
             type="com.sz.china.testmoudule.control.ViewHandler"></variable>
+
+        <variable
+            name="exampleText"
+            type="String"></variable>
     </data>
 
     <LinearLayout
@@ -59,12 +66,13 @@
                 android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{viewHandler.onButton1Click}"
+                android:onClick="onButton1Click"
                 android:paddingLeft="15dp"
                 android:text="button1"
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 android:visibility="@{user.age > 18 ? View.VISIBLE : View.GONE}" />
+
             <Button
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
@@ -75,6 +83,22 @@
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 android:visibility="@{user.age > 18 ? View.VISIBLE : View.GONE}" />
+
+            <TextView
+                android:id="@+id/adb_tv5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:textColor="@color/black"
+                android:text="@{exampleText}"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

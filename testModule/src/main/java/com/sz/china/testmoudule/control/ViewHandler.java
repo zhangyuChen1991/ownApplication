@@ -21,9 +21,6 @@ public class ViewHandler {
      *
      * @param view
      */
-    public void onButton1Click(View view) {
-        ToastUtil.showToast("button1 click", 0);
-    }
 
     public void onButton2Click(View view) {
         ToastUtil.showToast("button2 click", 0);
