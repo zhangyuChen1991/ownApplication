@@ -54,6 +54,7 @@
         <activity android:name=".CoolDownloadingAct"></activity>
         <activity android:name=".SVGAnimAct"></activity>
         <activity android:name=".DataBindingSampleAct"></activity>
+        <activity android:name=".ThreeDimensionalTestAct"></activity>
 
     </application>
 
