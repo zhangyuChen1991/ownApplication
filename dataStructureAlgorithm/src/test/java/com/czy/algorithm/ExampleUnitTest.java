@@ -59,8 +59,11 @@ public class ExampleUnitTest {
 //        System.out.println(questionSolution.findDisappearedNumbers(array));
 
 //        int[] array = {1,2147483647};
-        int[] array = {1,3,5,8,9,11,17,19};
-        System.out.println(questionSolution.minMoves(array));
+//        int[] array = {1,3,5,8,9,11,17,19};
+//        System.out.println(questionSolution.minMoves(array));
+
+        int[] array = {1,0,0,1,0,1,1,0};
+        System.out.println(questionSolution.findMaxConsecutiveOnes(array));
 
     }
 }

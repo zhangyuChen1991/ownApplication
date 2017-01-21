@@ -502,12 +502,13 @@ public class QuestionSolution {
 
         return sum - nums.length * min;
     }
+
     /**
      * 给出平面上的n个点，求出元组(i,j,k)的个数，其中元组满足i与j的距离与i与k距离相等，与(i,j,k)顺序有关
      */
     public int numberOfBoomerangs(int[][] points) {
-        for(int i = 0;i < points.length;i++){
-            for(int j = i + 1;j < points.length;j++){
+        for (int i = 0; i < points.length; i++) {
+            for (int j = i + 1; j < points.length; j++) {
                 //把所有的两点间的距离算出来
                 //把包含同一个点的线段归为一组
                 //每一组算出组合情况数 累加
@@ -516,4 +517,32 @@ public class QuestionSolution {
         return 0;
     }
 
+    /**
+     * Max Consecutive Ones
+     * <p>
+     * 数组只包含0和1  长度为整数且小于10000
+     * 找出连续的1的最长个数
+     *
+     * @param nums
+     * @return
+     */
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int maxCount = 0, nowCount = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) {
+                nowCount++;
+            } else {
+                if(maxCount < nowCount){
+                    maxCount = nowCount;
+                }
+                nowCount = 0;
+            }
+        }
+        if(maxCount < nowCount){
+            maxCount = nowCount;
+        }
+
+        return maxCount;
+    }
 }
