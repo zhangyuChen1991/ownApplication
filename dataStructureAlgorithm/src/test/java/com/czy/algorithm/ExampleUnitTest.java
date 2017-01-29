@@ -1,5 +1,7 @@
 package com.czy.algorithm;
 
+import com.czy.algorithm.datastructure.ListNode;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -62,8 +64,27 @@ public class ExampleUnitTest {
 //        int[] array = {1,3,5,8,9,11,17,19};
 //        System.out.println(questionSolution.minMoves(array));
 
-        int[] array = {1,0,0,1,0,1,1,0};
-        System.out.println(questionSolution.findMaxConsecutiveOnes(array));
+//        int[] array = {1,0,0,1,0,1,1,0};
+//        System.out.println(questionSolution.findMaxConsecutiveOnes(array));
+
+//        questionSolution.test0();
+//        int[] array = {0, 1, 3, 6, 8, 9, 13, 17, 19};
+//        int[] array1 = {2, 4, 5, 10, 11, 18, 20, 22};
+//        int[] array = {0,1,2,3};
+//        int[] array1 = {4,5,6};
+//
+//        ListNode l1 = questionSolution.buildLinkedList(array);
+//        ListNode l2 = questionSolution.buildLinkedList(array1);
+//
+//        questionSolution.printLinkedList(l1);
+//        questionSolution.printLinkedList(l2);
+//
+//        ListNode mergeList = questionSolution.mergeTwoList(l1, l2);
+//        questionSolution.printLinkedList(mergeList);
+
+
+        int[] array = {1,2,3,3,4,4,5,6,7,8};
+        System.out.println(questionSolution.removeElement(array,4));
 
     }
 }

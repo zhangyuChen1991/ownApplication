@@ -1,6 +1,7 @@
 package com.czy.algorithm;
 
-import android.util.Log;
+
+import com.czy.algorithm.datastructure.ListNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -533,16 +534,160 @@ public class QuestionSolution {
             if (nums[i] == 1) {
                 nowCount++;
             } else {
-                if(maxCount < nowCount){
+                if (maxCount < nowCount) {
                     maxCount = nowCount;
                 }
                 nowCount = 0;
             }
         }
-        if(maxCount < nowCount){
+        if (maxCount < nowCount) {
             maxCount = nowCount;
         }
 
         return maxCount;
+    }
+
+    /**
+     * 合并两个已排序的链表 合并后依然有序
+     * ListNode为链表节点
+     *
+     * @param l1 有序链表的头节点
+     * @param l2 有序链表的头节点
+     * @return
+     */
+    public ListNode mergeTwoList(ListNode l1, ListNode l2) {
+        List<ListNode> nodes = new ArrayList<>();
+
+        ListNode currL1Node = l1;
+        ListNode currL2Node = l2;
+        while (currL1Node != null || currL2Node != null) {
+            if (currL1Node.nextNode == null) {
+                addNode(nodes, currL2Node);
+                break;
+            }
+            if (currL2Node.nextNode == null) {
+                addNode(nodes, currL1Node);
+                break;
+            }
+
+            if (currL1Node.element < currL2Node.element) {
+                addNode(nodes, currL1Node);
+                currL1Node = currL1Node.nextNode;
+
+            } else {
+                addNode(nodes, currL2Node);
+                currL2Node = currL2Node.nextNode;
+            }
+        }
+
+        //todo 暂时通过一些用例的测试  leetcode还没测
+        return nodes.get(0);
+    }
+
+    /**
+     * 链表集合中增加元素  并增添关联关系
+     *
+     * @param nodes
+     * @param node
+     */
+    public void addNode(List<ListNode> nodes, ListNode node) {
+        if (nodes == null || node == null)
+            return;
+        int size = nodes.size();
+        if (size > 0) {
+            ListNode lastNode = nodes.get(size - 1);
+            lastNode.nextNode = node;
+        }
+        nodes.add(node);
+    }
+
+    /**
+     * 根据数组元素按顺序构造一个链表
+     *
+     * @param arry
+     * @return
+     */
+    public ListNode buildLinkedList(int[] arry) {
+        if (null == arry || arry.length == 0)
+            return null;
+
+
+        ListNode headNode = new ListNode();
+        ListNode currentNode = headNode.nextNode = new ListNode();
+
+        headNode.element = arry[0];
+
+        for (int i = 1; i < arry.length; i++) {
+            currentNode.element = arry[i];
+            currentNode.nextNode = new ListNode();
+            currentNode = currentNode.nextNode;
+        }
+
+        return headNode;
+    }
+
+    /**
+     * 打印链表
+     *
+     * @param headNode 头节点
+     */
+    public void printLinkedList(ListNode headNode) {
+        StringBuffer sb = new StringBuffer();
+        while (headNode.nextNode != null) {
+            sb.append(headNode.element);
+            sb.append("-->");
+            headNode = headNode.nextNode;
+        }
+        if (sb.length() > 3)
+            sb.delete(sb.length() - 3, sb.length());
+
+        System.out.print(sb.toString());
+        System.out.println();
+    }
+
+    public void test0() {
+        ListNode listNode = new ListNode();
+        System.out.println("listNode.nextNode" + listNode.nextNode);
+
+    }
+
+    /**
+     * 去除数组中与给定元素相同的元素，返回新数组的长度
+     *
+     * @param array 待处理数组
+     * @param val   给定的元素值
+     * @return 处理后数组的长度
+     */
+    public int removeElement(int[] array, int val) {
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == val)
+                count++;
+        }
+
+        //todo 总觉得这道题的题意理解有误  等到OJ上测试
+        return array.length - count;
+    }
+
+    /**
+     *　一个只包含［ ］｛ ｝（ ）三种括号的字符串 一个左括号配相应的右括号  判断它们是否完全配对
+     * 比如："[{}] ()" 配对  "｛［ ｝］"不配对
+     * @param s
+     * @return
+     */
+    public boolean isValid(String s){
+        /**
+         * 遍历
+         * 如果第一个是右括号  返回false
+         * 记录左括号类型和数目   当开始出现右括号时，与记录的左括号匹配，如果全部匹配上，进入
+         * 下一阶段的匹配，往复进行，到末尾未出错，全程结束，返回true，否则返回false；
+         */
+        char[] leftBrackets = new char[s.length()];
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length;i++){
+
+        }
+
+        return true;
     }
 }
