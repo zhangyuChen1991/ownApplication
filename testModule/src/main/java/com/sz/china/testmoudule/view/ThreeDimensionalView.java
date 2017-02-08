@@ -492,7 +492,7 @@ public class ThreeDimensionalView extends View {
      * 参考drawable文件夹中的图片explain_3d_img进行阅读
      * <p>
      * 1.camera.rotateX(rotateDegree);  camera有一个三维坐标系系统 这里绕X轴设置旋转角度
-     * 加粗*旋转的中心点是被旋转物的中心*加粗
+     * 旋转的中心点是(0,0)
      * <p>
      * 2.
      * matrix.preTranslate(-bitmap.getWidth() / 2, -bitmap.getHeight());

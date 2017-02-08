@@ -18,6 +18,7 @@ import com.cc.library.annotation.ViewInject;
 import com.cc.library.annotation.ViewInjectUtil;
 
 /**
+ * 沉浸式状态栏
  * Created by zhangyu on 2016/7/10 08:25.
  */
 public class ImmersionAct extends Activity {

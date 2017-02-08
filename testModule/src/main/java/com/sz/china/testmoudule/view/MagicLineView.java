@@ -1,6 +1,7 @@
 package com.sz.china.testmoudule.view;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -82,9 +83,11 @@ public class MagicLineView extends View {
         }
     };
 
-    Animator.AnimatorListener animatorListener = new Animator.AnimatorListener() {
+
+    AnimatorListenerAdapter animatorListener = new AnimatorListenerAdapter() {
         @Override
         public void onAnimationStart(Animator animation) {
+            super.onAnimationStart(animation);
             if (null != drawingListener)
                 drawingListener.drawStart();
             corrDatas.clear();
@@ -92,20 +95,12 @@ public class MagicLineView extends View {
 
         @Override
         public void onAnimationEnd(Animator animation) {
+            super.onAnimationEnd(animation);
             if (null != drawingListener)
                 drawingListener.drawOver();
         }
-
-        @Override
-        public void onAnimationCancel(Animator animation) {
-
-        }
-
-        @Override
-        public void onAnimationRepeat(Animator animation) {
-
-        }
     };
+
 
     /**
      * 开始绘制
