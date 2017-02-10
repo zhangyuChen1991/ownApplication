@@ -1,15 +1,19 @@
 package com.sz.china.testmoudule;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.client.android.CaptureActivity;
 import com.google.zxing.client.android.Intents;
+import com.sz.china.testmoudule.util.ToastUtil;
 
 
 /**
@@ -20,6 +24,7 @@ public class TestScanAct extends Activity implements View.OnClickListener {
 
     private static final int REQUEST_CODE = 220;
     private TextView result;
+    private final int cameraRequestCode = 0x110;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,21 @@ public class TestScanAct extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        callCapture(null);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+            callCapture(null);
+        else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, cameraRequestCode);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if(grantResults.length > 0){
+            if(requestCode == cameraRequestCode)
+                callCapture(null);
+        }else
+            ToastUtil.showToast("摄像头权限未获取，请开启应用摄像头权限",0);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     /**
@@ -71,14 +90,6 @@ public class TestScanAct extends Activity implements View.OnClickListener {
         // intent.putExtra(Intents.Scan.PROMPT_MESSAGE, "type your prompt message");
         intent.setClass(this, CaptureActivity.class);
         startActivityForResult(intent, REQUEST_CODE);
-        /**
-         *
-         //设置扫描控件的各个颜色
-         intent.putExtra(ViewfinderView.MaskColor, R.color.black);
-         intent.putExtra(ViewfinderView.ResultColor, R.color.green);
-         intent.putExtra(ViewfinderView.ResultPointColor, R.color.red);
-         intent.putExtra(ViewfinderView.LaserColor, R.color.yellow);
-         **/
     }
 
 }

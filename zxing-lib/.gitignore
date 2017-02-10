@@ -1,9 +1,0 @@
-/.settings/
-/bin/
-/gen/
-/out/
-/target/
-*.iml
-.classpath
-.project
-/build
