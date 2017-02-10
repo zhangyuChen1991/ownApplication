@@ -311,7 +311,15 @@ public final class CameraConfigurationUtils {
       Log.i(TAG, "Supported preview sizes: " + previewSizesString);
     }
 
-    double screenAspectRatio = screenResolution.x / (double) screenResolution.y;
+//    double screenAspectRatio = screenResolution.x / (double) screenResolution.y;//fixed
+    //修改开始
+    double screenAspectRatio;
+    if (screenResolution.x < screenResolution.y) { // 竖屏
+      screenAspectRatio = (double) screenResolution.y / (double) screenResolution.x;
+    } else {
+      screenAspectRatio = (double) screenResolution.x / (double) screenResolution.y;
+    }
+    //修改结束
 
     // Remove sizes that are unsuitable
     Iterator<Camera.Size> it = supportedPreviewSizes.iterator();
@@ -334,11 +342,12 @@ public final class CameraConfigurationUtils {
         continue;
       }
 
-      if (maybeFlippedWidth == screenResolution.x && maybeFlippedHeight == screenResolution.y) {
-        Point exactPoint = new Point(realWidth, realHeight);
-        Log.i(TAG, "Found preview size exactly matching screen size: " + exactPoint);
-        return exactPoint;
-      }
+//注释掉
+//      if (maybeFlippedWidth == screenResolution.x && maybeFlippedHeight == screenResolution.y) {
+//        Point exactPoint = new Point(realWidth, realHeight);
+//        Log.i(TAG, "Found preview size exactly matching screen size: " + exactPoint);
+//        return exactPoint;
+//      }
     }
 
     // If no exact match, use largest preview size. This was not a great idea on older devices because
