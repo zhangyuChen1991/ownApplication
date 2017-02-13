@@ -10,8 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.sz.china.testmoudule.view.PageMenuHorizontalScrollView;
-
 /**
  * Created by zhangyu on 2016/8/7 14:01.
  */
@@ -41,16 +39,15 @@ public class MenuListAct extends Activity {
             "CoolDownloading",
             "SVG Test",
             "DataBindingSample",
-    "ThreeDimensionalTestAct"};
+            "ThreeDimensionalTestAct",
+            "文字、图片竖直轮播器"};
     private Class[] activities = {ImmersionAct.class, TestAct1.class, PullToRefreshScrollViewAct.class,
             TestRotateAnimationAct.class, TestScanAct.class, TestUnlockViewAct.class, RecyclerViewDemoMenuAct.class,
             SwipeRefreshLayoutAct.class, ScrollRemoveItemAct.class, TestFt.class,
             MagicLineAct.class, GreenDaoAct.class, RetrofitAndOkHttpAct.class, WifiInfoAct.class,
             ScanViewDemoAct.class, BlurDemo.class, GlideAct.class, FrameAnimationAct.class,
             NewsLayoutAct.class, CoordinatorLayoutSample.class, CoolDownloadingAct.class,
-            SVGAnimAct.class, DataBindingSampleAct.class, ThreeDimensionalTestAct.class};
-
-    private PageMenuHorizontalScrollView pageMenuHorizontalScrollView;
+            SVGAnimAct.class, DataBindingSampleAct.class, ThreeDimensionalTestAct.class,ItemMarqueenSampleAct.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +65,6 @@ public class MenuListAct extends Activity {
         listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(onItemClickListener);
-
-        pageMenuHorizontalScrollView = (PageMenuHorizontalScrollView) findViewById(R.id.page_menu_scrollview);
 
     }
 

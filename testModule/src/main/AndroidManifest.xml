@@ -55,6 +55,7 @@
         <activity android:name=".SVGAnimAct"></activity>
         <activity android:name=".DataBindingSampleAct"></activity>
         <activity android:name=".ThreeDimensionalTestAct"></activity>
+        <activity android:name=".ItemMarqueenSampleAct"></activity>
 
     </application>
 
