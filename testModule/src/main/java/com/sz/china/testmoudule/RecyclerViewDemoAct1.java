@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.sz.china.testmoudule.recycleview.adapter.CustomAdapter;
+import com.sz.china.testmoudule.util.DisplayUtils;
 import com.sz.china.testmoudule.util.ToastUtil;
 
 /**
@@ -95,5 +96,11 @@ public class RecyclerViewDemoAct1 extends Activity {
     private void initResources() {
         adapter.setData(data);
         adapter.notifyDataSetChanged();
+
+        //滚到目标位置
+//        recyclerView.scrollToPosition(data.length - 1);//滚到目标item的中间位置
+        //滚到最底部
+//        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//        layoutManager.scrollToPositionWithOffset(data.length - 1, DisplayUtils.dip2px(RecyclerViewDemoAct1.this,-450));//增加一个偏移量
     }
 }
