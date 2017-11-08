@@ -54,4 +54,5 @@ dependencies {
     compile project(':zxingLib')
     //Lottie 动画库
     compile 'com.airbnb.android:lottie:1.5.0'
+
 }
