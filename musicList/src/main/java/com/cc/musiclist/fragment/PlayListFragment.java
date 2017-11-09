@@ -112,13 +112,8 @@ public class PlayListFragment extends Fragment {
 //            Collections.swap(list, from, to);//感叹号加粗！！！千万不要这样交换数据，移动后是插入，不是交换！！这样做数据会完全对不上号。
 
             File targetData = list.get(from);//找到移动的数据
+            list.remove(from);//删除原位置数据
             list.add(to,targetData);//插入目标位置
-            //删除原位置数据
-            if(from < to){
-                list.remove(from);
-            }else{
-                list.remove(from + 1);
-            }
 
             rAdapter.setList(list);
             rAdapter.notifyItemMoved(from, to);
