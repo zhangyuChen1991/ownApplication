@@ -84,7 +84,8 @@ public class GlideAct extends Activity {
         imageUrls[17] = "http://img.sj33.cn/uploads/allimg/201302/1-130201105044.jpg";
         imageUrls[18] = "http://img.sj33.cn/uploads/allimg/200906/20090615225216717.jpg";
         imageUrls[19] = "http://n1.itc.cn/img8/wb/recom/2016/04/27/146174853763319352.JPEG";
-        imageUrls[20] = "http://imgsrc.baidu.com/forum/w=580/sign=0ffe3c76f403738dde4a0c2a8319b073/1e5b7a43fbf2b21125ecc698c88065380ed78e8d.jpg";
+//        imageUrls[20] = "http://imgsrc.baidu.com/forum/w=580/sign=0ffe3c76f403738dde4a0c2a8319b073/1e5b7a43fbf2b21125ecc698c88065380ed78e8d.jpg";
+        imageUrls[20] = "http://img.weixinyidu.com/151129/0200fad2.jpg";
     }
 
     private class MAdapter extends RecyclerView.Adapter<MAdapter.MHolder> {
@@ -99,40 +100,29 @@ public class GlideAct extends Activity {
         @Override
         public void onBindViewHolder(MHolder holder, int position) {
             int resize = DisplayUtils.getWidth() / 3;
-            Glide.with(getApplicationContext())
-                    .load(imageUrls[position])
-                    .override(resize, resize)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)//缓存源资源
-                    .listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            Log.e(TAG, "load image exception  error:");
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            Log.i(TAG, "model = " + model);
-                            return false;
-                        }
-                    }).placeholder(R.mipmap.icon_m)
-                    .into(holder.iv);
-
             if(position == 20){
                 Glide.with(getApplicationContext())
                         .load(imageUrls[position])
-                        .asBitmap()
+                        .asGif()
                         .override(resize, resize)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)//缓存源资源
-                        .listener(new RequestListener<String,Bitmap>(){
-
+                        .placeholder(R.mipmap.icon_m)
+                        .into(holder.iv);
+            }else{
+                Glide.with(getApplicationContext())
+                        .load(imageUrls[position])
+                        .override(resize, resize)
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)//缓存源资源
+                        .listener(new RequestListener<String, GlideDrawable>() {
                             @Override
-                            public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                Log.e(TAG, "load image exception  error:");
                                 return false;
                             }
 
                             @Override
-                            public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                Log.i(TAG, "model = " + model);
                                 return false;
                             }
                         }).placeholder(R.mipmap.icon_m)
