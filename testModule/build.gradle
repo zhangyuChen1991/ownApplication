@@ -3,6 +3,14 @@ apply plugin: 'realm-android'//realm
 apply plugin: 'org.greenrobot.greendao'
 
 android {
+    signingConfigs {
+        config {
+            keyPassword '0471196610'
+            storeFile file('E:/czy/git_local/ownApplication/testModule/src/keystore.jks')
+            storePassword '0471196610'
+            keyAlias 'key0'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion '25.0.0'
     defaultConfig {
@@ -15,12 +23,17 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            buildConfigField "boolean", "APP_DEBUG", "false"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            signingConfig signingConfigs.config
+        }
+        debug {
+            buildConfigField "boolean", "APP_DEBUG", "true"
         }
     }
     productFlavors {
     }
-
     dataBinding {
         enabled = true
     }

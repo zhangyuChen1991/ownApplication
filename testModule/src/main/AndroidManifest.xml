@@ -57,6 +57,21 @@
         <activity android:name=".ThreeDimensionalTestAct"></activity>
         <activity android:name=".ItemMarqueenSampleAct"></activity>
         <activity android:name=".LottieAct"></activity>
+        <activity android:name=".HyperlinkAndSchmemAct"></activity>
+
+        <activity android:name=".SchemeAct2">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
+
+                <data android:host="host"></data>
+                <data android:port="8888"></data>
+                <data android:scheme="scheme"></data>
+                <data android:path="/path"></data>
+            </intent-filter>
+        </activity>
+
 
     </application>
 

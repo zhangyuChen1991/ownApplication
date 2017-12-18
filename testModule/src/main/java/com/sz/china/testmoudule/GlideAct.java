@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -62,7 +63,7 @@ public class GlideAct extends Activity {
     }
 
     private void initImageUrls() {
-        imageUrls = new String[20];
+        imageUrls = new String[21];
         imageUrls[0] = "http://image95.360doc.com/DownloadImg/2016/03/2115/68159708_2.jpg";
         imageUrls[1] = "http://img.sj33.cn/uploads/allimg/201005/20100509135319416.jpg";
         imageUrls[2] = "http://img5.niutuku.com/phone/1212/3131/3131-niutuku.com-20272.jpg";
@@ -83,6 +84,8 @@ public class GlideAct extends Activity {
         imageUrls[17] = "http://img.sj33.cn/uploads/allimg/201302/1-130201105044.jpg";
         imageUrls[18] = "http://img.sj33.cn/uploads/allimg/200906/20090615225216717.jpg";
         imageUrls[19] = "http://n1.itc.cn/img8/wb/recom/2016/04/27/146174853763319352.JPEG";
+//        imageUrls[20] = "http://imgsrc.baidu.com/forum/w=580/sign=0ffe3c76f403738dde4a0c2a8319b073/1e5b7a43fbf2b21125ecc698c88065380ed78e8d.jpg";
+        imageUrls[20] = "http://img.weixinyidu.com/151129/0200fad2.jpg";
     }
 
     private class MAdapter extends RecyclerView.Adapter<MAdapter.MHolder> {
@@ -97,24 +100,38 @@ public class GlideAct extends Activity {
         @Override
         public void onBindViewHolder(MHolder holder, int position) {
             int resize = DisplayUtils.getWidth() / 3;
-            Glide.with(getApplicationContext())
-                    .load(imageUrls[position])
-                    .override(resize, resize)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)//缓存源资源
-                    .listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            Log.e(TAG, "load image exception  error:");
-                            return false;
-                        }
+            if(position == 20){
+                Glide.with(getApplicationContext())
+                        .load(imageUrls[position])
+                        .asGif()
+                        .override(resize, resize)
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)//缓存源资源
+                        .placeholder(R.mipmap.icon_m)
+                        .into(holder.iv);
+            }else{
+                Glide.with(getApplicationContext())
+                        .load(imageUrls[position])
+                        .override(resize, resize)
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)//缓存源资源
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                Log.e(TAG, "load image exception  error:");
+                                return false;
+                            }
 
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            Log.i(TAG, "model = " + model);
-                            return false;
-                        }
-                    }).placeholder(R.mipmap.icon_m)
-                    .into(holder.iv);
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                Log.i(TAG, "model = " + model);
+                                return false;
+                            }
+                        }).placeholder(R.mipmap.icon_m)
+                        .into(holder.iv);
+            }
+
+            //如果希望加载gif时只加载gif的第一帧,把gif当作普通图片一样加载,那么只需要加上asBitmap方法即可
+//            Glide.with(getApplicationContext()).load(imageUrls[position]).asBitmap();
+//            Glide.with(getApplicationContext()).load(imageUrls[position]).asGif();
         }
 
         @Override

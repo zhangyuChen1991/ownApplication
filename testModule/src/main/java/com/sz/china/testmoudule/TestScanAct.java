@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cc.utilcode.utils.ClipboardUtils;
 import com.google.zxing.client.android.CaptureActivity;
 import com.google.zxing.client.android.Intents;
 import com.sz.china.testmoudule.util.ToastUtil;
@@ -20,11 +21,12 @@ import com.sz.china.testmoudule.util.ToastUtil;
  * 测试二维码扫描框架 以及上下拉刷新侧滑菜单listview：PullToRefreshSwipeMenuListView
  * Created by zhangyu on 2016/7/23 09:28.
  */
-public class TestScanAct extends Activity implements View.OnClickListener {
+public class TestScanAct extends Activity implements View.OnClickListener, View.OnLongClickListener {
 
     private static final int REQUEST_CODE = 220;
     private TextView result;
     private final int cameraRequestCode = 0x110;
+    private String resultStr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class TestScanAct extends Activity implements View.OnClickListener {
         result = (TextView) findViewById(R.id.tv);
         result.setText("点我扫码.");
         findViewById(R.id.parent).setOnClickListener(this);
+        findViewById(R.id.parent).setOnLongClickListener(this);
     }
 
     @Override
@@ -46,7 +49,8 @@ public class TestScanAct extends Activity implements View.OnClickListener {
         if (null != data && requestCode == REQUEST_CODE) {
             switch (resultCode) {
                 case Activity.RESULT_OK:    //扫码结果
-                    result.setText("扫码结果:\n\n" + data.getStringExtra(Intents.Scan.RESULT));
+                    resultStr = data.getStringExtra(Intents.Scan.RESULT);
+                    result.setText("扫码结果:\n\n" + resultStr);
                     break;
                 default:
                     break;
@@ -65,11 +69,11 @@ public class TestScanAct extends Activity implements View.OnClickListener {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if(grantResults.length > 0){
-            if(requestCode == cameraRequestCode)
+        if (grantResults.length > 0) {
+            if (requestCode == cameraRequestCode)
                 callCapture(null);
-        }else
-            ToastUtil.showToast("摄像头权限未获取，请开启应用摄像头权限",0);
+        } else
+            ToastUtil.showToast("摄像头权限未获取，请开启应用摄像头权限", 0);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -92,4 +96,10 @@ public class TestScanAct extends Activity implements View.OnClickListener {
         startActivityForResult(intent, REQUEST_CODE);
     }
 
+    @Override
+    public boolean onLongClick(View v) {
+        ClipboardUtils.copyText(TestScanAct.this, resultStr);
+        ToastUtil.show(this, "已复制扫码结果");
+        return true;
+    }
 }
