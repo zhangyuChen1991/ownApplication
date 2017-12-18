@@ -1,5 +1,6 @@
 package com.example.rxjavademo.activity;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -120,6 +121,7 @@ public class ObservableCreateAct extends BaseActivity {
             public void onCompleted() {
                 Log.i(TAG, "just(...)  onCompleted");
                 refreshStr("just(...)  onCompleted\n");
+                SharedPreferences sp;
             }
 
             @Override

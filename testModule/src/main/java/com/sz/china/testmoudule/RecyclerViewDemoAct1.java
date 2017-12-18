@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.sz.china.testmoudule.recycleview.adapter.CustomAdapter;
-import com.sz.china.testmoudule.util.DisplayUtils;
 import com.sz.china.testmoudule.util.ToastUtil;
 
 /**

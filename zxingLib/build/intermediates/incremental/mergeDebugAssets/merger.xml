@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\ownApplication\zxingLib\assets"/><source path="E:\ownApplication\zxingLib\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\ownApplication\zxingLib\build-types\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\AndroidStudioProjects\ownApplication\zxingLib\assets"/><source path="E:\AndroidStudioProjects\ownApplication\zxingLib\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\AndroidStudioProjects\ownApplication\zxingLib\build-types\debug\assets"/></dataSet></merger>
