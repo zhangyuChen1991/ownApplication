@@ -38,7 +38,6 @@ public class MenuListAct extends Activity {
             "CoordinatorLayoutSample",
             "CoolDownloading",
             "SVG Test",
-            "DataBindingSample",
             "ThreeDimensionalTestAct",
             "文字、图片竖直轮播器",
             "Lottie Sample",
@@ -49,7 +48,7 @@ public class MenuListAct extends Activity {
             MagicLineAct.class, GreenDaoAct.class, RetrofitAndOkHttpAct.class, WifiInfoAct.class,
             ScanViewDemoAct.class, BlurDemo.class, GlideAct.class, FrameAnimationAct.class,
             NewsLayoutAct.class, CoordinatorLayoutSample.class, CoolDownloadingAct.class,
-            SVGAnimAct.class, DataBindingSampleAct.class, ThreeDimensionalTestAct.class, ItemMarqueenSampleAct.class,
+            SVGAnimAct.class, ThreeDimensionalTestAct.class, ItemMarqueenSampleAct.class,
             LottieAct.class,HyperlinkAndSchmemAct.class};
 
     @Override

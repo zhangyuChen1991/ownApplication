@@ -3,9 +3,16 @@ apply plugin: 'realm-android'//realm
 apply plugin: 'org.greenrobot.greendao'
 
 android {
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
     signingConfigs {
         config {
-            keyAlias 'key0'
+            keyAlias 'key1'
             keyPassword '123456'
             storeFile file('E:/czy/git_local/ownApplication/testModule/src/testmodel.jks')
             storePassword '123456'
@@ -32,7 +39,17 @@ android {
     productFlavors {
     }
     dataBinding {
-        enabled = true
+        enabled = false
+    }
+
+    productFlavors {
+        wandoujia {}
+        vivo {}
+        huawei {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [channel_value: name]
     }
 }
 

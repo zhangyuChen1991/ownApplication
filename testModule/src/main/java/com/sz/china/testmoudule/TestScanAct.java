@@ -2,7 +2,9 @@ package com.sz.china.testmoudule;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -38,7 +40,8 @@ public class TestScanAct extends Activity implements View.OnClickListener, View.
 
     private void initView() {
         result = (TextView) findViewById(R.id.tv);
-        result.setText("点我扫码.");
+//        result.setText("点我扫码.");
+        result.setText("渠道: " + getChannelFromPkg(this));
         findViewById(R.id.parent).setOnClickListener(this);
         findViewById(R.id.parent).setOnLongClickListener(this);
     }
@@ -101,5 +104,17 @@ public class TestScanAct extends Activity implements View.OnClickListener, View.
         ClipboardUtils.copyText(TestScanAct.this, resultStr);
         ToastUtil.show(this, "已复制扫码结果");
         return true;
+    }
+
+    private static String getChannelFromPkg(Context context) {
+        String KEY_CHANNEL = "channel_id";
+        ApplicationInfo info = null;
+        try {
+            info = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Bundle bundle = info != null ? info.metaData : null;
+        return bundle != null ? bundle.getString(KEY_CHANNEL) : null;
     }
 }

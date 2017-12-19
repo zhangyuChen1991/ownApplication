@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
 
+
     <application
         android:name=".application.BaseApplication"
         android:allowBackup="true"
@@ -15,6 +16,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="channel_id" android:value="${channel_value}" />
+
         <activity android:name=".MenuListAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,7 +57,6 @@
         <activity android:name=".CoordinatorLayoutSample"></activity>
         <activity android:name=".CoolDownloadingAct"></activity>
         <activity android:name=".SVGAnimAct"></activity>
-        <activity android:name=".DataBindingSampleAct"></activity>
         <activity android:name=".ThreeDimensionalTestAct"></activity>
         <activity android:name=".ItemMarqueenSampleAct"></activity>
         <activity android:name=".LottieAct"></activity>
