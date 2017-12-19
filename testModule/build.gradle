@@ -5,10 +5,10 @@ apply plugin: 'org.greenrobot.greendao'
 android {
     signingConfigs {
         config {
-            keyPassword '0471196610'
-            storeFile file('E:/czy/git_local/ownApplication/testModule/src/keystore.jks')
-            storePassword '0471196610'
             keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('E:/czy/git_local/ownApplication/testModule/src/testmodel.jks')
+            storePassword '123456'
         }
     }
     compileSdkVersion 24
@@ -23,13 +23,10 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            buildConfigField "boolean", "APP_DEBUG", "false"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            debuggable true
             signingConfig signingConfigs.config
         }
         debug {
-            buildConfigField "boolean", "APP_DEBUG", "true"
         }
     }
     productFlavors {
