@@ -50,10 +50,12 @@ public class RetrofitAndOkHttpAct extends Activity {
         ViewInjectUtil.injectView(this);
         loadingDialog = DialogUtils.createLoadingDialog(this,"加载中..");
 
-        String url = "https://www.baidu.com/";
-//        getAsyn(url);
+//        String url = "https://www.baidu.com/";
+        String url = "http://api.douban.com/v2/movie/top250?start=25&count=25";
+
+        getAsyn(url);
 //        getSync(url);
-        doRetrofitCall();
+//        doRetrofitCall();
 //        doTestLogin();//调试通过后，敏感常量已改，代码可以参考，无法运行
 
     }
