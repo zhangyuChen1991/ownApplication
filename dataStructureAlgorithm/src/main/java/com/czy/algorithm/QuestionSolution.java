@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 一些基础算法题目的解答方案
@@ -157,7 +158,7 @@ public class QuestionSolution {
      * 你有g.length个孩子 s.length个饼干。饼干大小为元素数值大小，每个孩子拿到不同大小的饼干(g元素大小)就会满足，每个孩子最多发一个饼干
      * 判断能使孩子满足的最大人数 返回答案
      *
-     * @param g 令孩子满足的饼干大小数组   饼干大小数组
+     * @param g 令孩子满足的饼干大小数组
      * @param s
      * @return
      */
@@ -670,24 +671,108 @@ public class QuestionSolution {
     }
 
     /**
-     *　一个只包含［ ］｛ ｝（ ）三种括号的字符串 一个左括号配相应的右括号  判断它们是否完全配对
+     * 　一个只包含［ ］｛ ｝（ ）三种括号的字符串 一个左括号配相应的右括号  判断它们是否完全配对
      * 比如："[{}] ()" 配对  "｛［ ｝］"不配对
+     *
      * @param s
      * @return
      */
-    public boolean isValid(String s){
+    public boolean isValid(String s) {
         /**
-         * 遍历
-         * 如果第一个是右括号  返回false
-         * 记录左括号类型和数目   当开始出现右括号时，与记录的左括号匹配，如果全部匹配上，进入
-         * 下一阶段的匹配，往复进行，到末尾未出错，全程结束，返回true，否则返回false；
+         * 依次遍历，左括号入栈 右括号与栈顶匹配，若栈为空，匹配失败，返回false;若与栈顶匹配不上，返回false，匹配得上，栈顶出栈
+         * 遍历完成后，若栈已空，则全部匹配成功，否则失败;
          */
-        char[] leftBrackets = new char[s.length()];
+        if (s.length() == 0 || s.length() == 1)
+            return false;
+        Stack<Character> leftP = new Stack<>();
         char[] chars = s.toCharArray();
-        for (int i = 0; i < chars.length;i++){
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == '(' || chars[i] == '{' || chars[i] == '[') {
+                leftP.push(chars[i]);
+            } else {
+                if (leftP.empty())
+                    return false;
 
+                char top = leftP.pop();
+                if (chars[i] == ')') {
+                    if (top != '(')
+                        return false;
+                }
+                if (chars[i] == '}') {
+                    if (top != '{')
+                        return false;
+                }
+                if (chars[i] == ']') {
+                    if (top != '[')
+                        return false;
+                }
+            }
+        }
+        return leftP.empty();
+    }
+
+    /**
+     * 判断一个数是否是回文(正着读和倒着读都一样的数)
+     *
+     * @param x
+     * @return
+     */
+    public boolean isPalindrome(int x) {
+        if (x < 0)
+            return false;
+        if (x < 10)
+            return true;
+
+        int temp = x;
+        int count = 1;
+        while (temp >= 10) {
+            count *= 10;
+            temp /= 10;
+        }
+
+        while (x > 1) {
+            int left = x / count;
+            int rifht = x % 10;
+
+            if (left != rifht)
+                return false;
+
+            x %= count;
+            x /= 10;
+
+            count /= 100;
         }
 
         return true;
     }
+
+    public static void main(String[] args) {
+        QuestionSolution questionSolution = new QuestionSolution();
+//        System.out.println(questionSolution.isPalindrome(123321));
+//        System.out.println(questionSolution.isPalindrome(101));
+//        System.out.println(questionSolution.isPalindrome(-1));
+//        System.out.println(questionSolution.isPalindrome(123));
+        System.out.println(questionSolution.isValid("()"));
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
