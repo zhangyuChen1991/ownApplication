@@ -13,13 +13,9 @@ import android.util.Log;
 import android.widget.ImageView;
 
 /**
- * 圆形imageview
- * 基本原理，图层上第一层放矩形图片，往上第二层放一个圆形的位图(bitmap)，
- * 利用PorterDuffXfermode设置渲染模式，只绘制两图层的交集并显示下一图层的内容
- * 最终的效果就是一个被切出一个圆形的imageview效果.
  * Created by zhangyu on 2016-07-07 14:17.
  */
-public class RoundImageView extends ImageView {
+public class XferModeTestView extends ImageView {
 
     private static final String TAG = "RoundImageView";
     private PorterDuffXfermode porterDuffXFermode;//颜色渲染模式
@@ -27,17 +23,17 @@ public class RoundImageView extends ImageView {
     private int viewWidth, viewHeight;
     private Paint paint;
 
-    public RoundImageView(Context context) {
+    public XferModeTestView(Context context) {
         super(context);
         init();
     }
 
-    public RoundImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public XferModeTestView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    public RoundImageView(Context context, AttributeSet attrs) {
+    public XferModeTestView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
@@ -46,7 +42,7 @@ public class RoundImageView extends ImageView {
         paint = new Paint();
         paint.setAntiAlias(true);
 
-        porterDuffXFermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);//取两层绘制交集,显示下层。
+        porterDuffXFermode = new PorterDuffXfermode(PorterDuff.Mode.XOR);//去除两图层交集部分
     }
 
     @Override
@@ -59,10 +55,14 @@ public class RoundImageView extends ImageView {
         drawable.setBounds(0, 0, viewWidth, viewHeight);//设置drawable绘制区域
         drawable.draw(drawCanvas);//将所设置的图片绘制到画布上(第一层)
 
+
         paint.setFilterBitmap(false);
         paint.setXfermode(porterDuffXFermode);
-        Bitmap roundBitmap = getRoundBitmap();//圆形位图
-        drawCanvas.drawBitmap(roundBitmap, 0, 0, paint);//将圆形位图绘制到画布上(第二层)
+
+        for (int i = 1;i < 8;i++) {
+            Bitmap roundBitmap = getRoundBitmap(viewWidth / 8 * i);//圆形位图
+            drawCanvas.drawBitmap(roundBitmap, 0, 0, paint);//将圆形位图绘制到画布上(第二层)
+        }
 
         paint.setXfermode(null);
         canvas.drawBitmap(bitmap, 0, 0, paint);//将drawCanvas上绘制好的位图(已经有两层内容并按渲染模式绘制)绘制到控件画布上
@@ -72,12 +72,12 @@ public class RoundImageView extends ImageView {
      * 获取一个圆形的bitmap 大小内切image尺寸矩形
      * @return
      */
-    private Bitmap getRoundBitmap() {
+    private Bitmap getRoundBitmap(float cX) {
         Bitmap bitmap = Bitmap.createBitmap(viewWidth, viewHeight, Bitmap.Config.ARGB_8888);
         Canvas roundCanvas = new Canvas(bitmap);
 
-        int raidus = Math.min(viewHeight, viewWidth) / 2;
-        roundCanvas.drawCircle(viewWidth / 2, viewHeight / 2, raidus, new Paint(Color.WHITE));
+        int raidus = Math.min(viewHeight, viewWidth) / 8;
+        roundCanvas.drawCircle(cX, viewHeight / 2, raidus, new Paint(Color.WHITE));
 
         return bitmap;
     }

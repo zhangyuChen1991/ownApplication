@@ -1,5 +1,7 @@
 package com.sz.china.testmoudule;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.AnimationSet;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,6 +18,8 @@ import android.widget.TextView;
 
 import com.cc.library.annotation.ViewInject;
 import com.cc.library.annotation.ViewInjectUtil;
+import com.cc.utilcode.utils.DeviceUtils;
+import com.sz.china.testmoudule.util.DisplayUtils;
 
 /**
  * 测试注解 页面进、出旋转动画 测试自定义圆形imageview
@@ -35,6 +40,9 @@ public class TestAct1 extends AppCompatActivity implements View.OnClickListener 
     @ViewInject(R.id.rotate_tv)
     private TextView rotateTv;
 
+    @ViewInject(R.id.red_point)
+    private View mRedPoint;
+
     private Drawable imageDrawable;
 
     @Override
@@ -44,6 +52,19 @@ public class TestAct1 extends AppCompatActivity implements View.OnClickListener 
 
         ViewInjectUtil.injectView(this);//给关联注解的字段设置findViewById()值
         initView();
+        startRedPointTranslate();
+
+    }
+
+    private void startRedPointTranslate() {
+        float curTranslationX = mRedPoint.getTranslationX();
+        ObjectAnimator animator = ObjectAnimator.ofFloat(mRedPoint, "translationX",
+                curTranslationX, curTranslationX + DisplayUtils.dip2px(this, 262.5f), curTranslationX);
+        animator.setDuration(10000);
+        animator.setRepeatCount(-1);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.setRepeatMode(ValueAnimator.REVERSE);
+        animator.start();
     }
 
 

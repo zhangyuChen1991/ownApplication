@@ -1,9 +1,11 @@
 package com.sz.china.testmoudule;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Binder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".TestAct1">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".TestAct1">
 
     <TextView
         android:id="@+id/rotate_tv"
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="roatate"
-        android:textSize="18sp" />
+        android:textSize="18sp"/>
 
     <com.cc.library.view.RoundImageView
         android:id="@+id/round_image"
@@ -19,7 +19,29 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:src="@drawable/rr942" />
+        android:src="@drawable/rr942"/>
+
+
+    <RelativeLayout
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp">
+        <View
+            android:id="@+id/red_point"
+            android:layout_width="12.5dp"
+            android:layout_height="12.5dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="37dp"
+            android:background="@drawable/red_circle"/>
+
+        <com.cc.library.view.XferModeTestView
+            android:id="@+id/xfermode_test_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/black_rect"
+            />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/scale_big_image_container"
@@ -32,7 +54,7 @@
             android:id="@+id/scale_big_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 
     <com.sz.china.testmoudule.view.ForkedTailStarView
