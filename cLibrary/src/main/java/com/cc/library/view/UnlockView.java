@@ -301,7 +301,7 @@ public class UnlockView extends View {
                 return drawingPwd[i - 1];
             }
         }
-        return 0;
+        return -1;
     }
     /**
      * 获取两个点之间经过的点
