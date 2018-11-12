@@ -54,7 +54,7 @@ public class DragView1 extends RelativeLayout {
             case MotionEvent.ACTION_MOVE:
                 moved = true;
                 Log.d(TAG,"event.getX(): "+event.getX() + ",getWidth() = "+getWidth());
-                if (event.getX() < getWidth() - SizeUtils.dp2px(mContext,50)){//在长条左侧触碰，不跟随移动
+                if (event.getX() < getWidth() - SizeUtils.dp2px(mContext,80)){//在长条左侧触碰，不跟随移动
                     return false;
                 }
                 setTranslationX(getTranslationX() + (event.getX() - mDownX));
