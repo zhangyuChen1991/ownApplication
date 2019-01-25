@@ -5,11 +5,13 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.sz.china.testmoudule.recycleview.adapter.CustomAdapter;
+import com.sz.china.testmoudule.recycleview.adapter.CustomAdapter2;
 import com.sz.china.testmoudule.util.ToastUtil;
 
 /**
@@ -18,7 +20,8 @@ import com.sz.china.testmoudule.util.ToastUtil;
 
 public class RecyclerViewDemoAct1 extends Activity {
     private RecyclerView recyclerView;
-    private CustomAdapter adapter = new CustomAdapter();
+    private CustomAdapter listAdapter = new CustomAdapter();
+    private CustomAdapter2 gridAdapter = new CustomAdapter2();
     private String[] data = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
             "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
@@ -35,15 +38,32 @@ public class RecyclerViewDemoAct1 extends Activity {
     }
 
     private void initView() {
-        adapter.setRecyclerViewOnClick(recyclerViewOnClickListener);
+        gridAdapter = new CustomAdapter2();
+        listAdapter.setRecyclerViewOnClick(recyclerViewOnClickListener);
         recyclerView = (RecyclerView) findViewById(R.id.arvd_recycler_view);
         //参数：context,横向或纵向滑动，是否颠倒显示数据
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         //参数：context,列数或行数(对应第三个参数是纵向或横向)，纵向或横向滑动，是否颠倒显示数据
 //        recyclerView.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.VERTICAL, true));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(listAdapter);
 //        recyclerView.addItemDecoration(new VerticalLinearDivider());//设置装饰
 
+        findViewById(R.id.change_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recyclerView.getLayoutManager() instanceof GridLayoutManager){
+                    recyclerView.setLayoutManager(new LinearLayoutManager(RecyclerViewDemoAct1.this,LinearLayoutManager.VERTICAL,false));
+                    recyclerView.setAdapter(listAdapter);
+                    listAdapter.notifyDataSetChanged();
+                }else{
+
+                    recyclerView.setAdapter(gridAdapter);
+                    recyclerView.setLayoutManager(new GridLayoutManager(RecyclerViewDemoAct1.this,2));
+                    gridAdapter.setData(data);
+                    gridAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     RecyclerView.ItemDecoration itemDecoration = new RecyclerView.ItemDecoration() {
@@ -93,8 +113,8 @@ public class RecyclerViewDemoAct1 extends Activity {
     };
 
     private void initResources() {
-        adapter.setData(data);
-        adapter.notifyDataSetChanged();
+        listAdapter.setData(data);
+        listAdapter.notifyDataSetChanged();
 
         //滚到目标位置
 //        recyclerView.scrollToPosition(data.length - 1);//滚到目标item的中间位置

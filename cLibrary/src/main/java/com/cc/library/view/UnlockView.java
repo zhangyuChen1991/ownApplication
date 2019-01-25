@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.location.Location;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -123,7 +121,7 @@ public class UnlockView extends View {
     private void initLocation() {
         for (int i = 0; i < 9; i++) {
             locations[i] = new Location();
-            locations[i].deawed = false;
+            locations[i].drawed = false;
 
             //纵向1、2、3列x坐标
             if (i % 3 == 0) {
@@ -148,7 +146,7 @@ public class UnlockView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         for (int i = 0; i < 9; i++) {
-            if (!locations[i].deawed) {//没被画
+            if (!locations[i].drawed) {//没被画
                 whitePaint.setStrokeWidth(4);
                 canvas.drawPoint(locations[i].x, locations[i].y, whitePaint);
                 whitePaint.setStrokeWidth(1.5f);
@@ -216,20 +214,26 @@ public class UnlockView extends View {
         int nowTouched = getWhichOneBeTouched(nowX, nowY);
         if (nowTouched != -1) {//触摸到了点上
 
-            if (!locations[nowTouched].deawed) {//如果这点没被触摸过
+            if (!locations[nowTouched].drawed) {//如果这点没被触摸过
+                int passThroughPoint = getPassThroughPoint(getLastPwNumber(),nowTouched);
+                if (passThroughPoint != -1 && !locations[passThroughPoint].drawed){//被轨迹经过的店没被触摸过
+                    drawingPwd[drawedNumber] = passThroughPoint;//记录经过的点进入密码
+                    drawedNumber++;     //被触摸点数+1
+                    locations[passThroughPoint].drawed = true;
+                }
                 drawingPwd[drawedNumber] = nowTouched;      //记录密码
                 drawedNumber++;     //被触摸点数+1
                 Log.v(TAG, "nowTouched " + nowTouched + "  ,drawedNumber = " + drawedNumber);
 
             }
-            locations[nowTouched].deawed = true;
+            locations[nowTouched].drawed = true;
         }
         invalidate();
     }
 
     private class Location {
         public float x = -1, y = -1;
-        public boolean deawed;//是否被画过了
+        public boolean drawed;//是否被画过了
     }
 
     /**
@@ -287,6 +291,67 @@ public class UnlockView extends View {
         this.rightPwd = rightPwd;
     }
 
+    /**
+     * 获取已绘制的最后一个密码数字
+     * @return
+     */
+    private int getLastPwNumber(){
+        for (int i = 0;i < drawingPwd.length;i++){
+            if (drawingPwd[i] == -1 && i > 0){
+                return drawingPwd[i - 1];
+            }
+        }
+        return -1;
+    }
+    /**
+     * 获取两个点之间经过的点
+     * @param startPoint
+     * @param endPoint
+     * @return
+     */
+    private int getPassThroughPoint(int startPoint,int endPoint){
+        int[] pGroup1 = {0,2};
+        int[] pGroup2 = {0,8};
+        int[] pGroup3 = {0,6};
+        int[] pGroup4 = {1,7};
+        int[] pGroup5 = {2,6};
+        int[] pGroup6 = {2,8};
+        int[] pGroup7 = {3,5};
+        int[] pGroup8 = {6,8};
+        if ((pGroup1[0] == startPoint && pGroup1[1] == endPoint)
+                ||(pGroup1[1] == startPoint && pGroup1[0] == endPoint)){
+            return 1;
+        }
+        if ((pGroup2[0] == startPoint && pGroup2[1] == endPoint)
+                ||(pGroup2[1] == startPoint && pGroup2[0] == endPoint)){
+            return 4;
+        }
+        if ((pGroup3[0] == startPoint && pGroup3[1] == endPoint)
+                ||(pGroup3[1] == startPoint && pGroup3[0] == endPoint)){
+            return 3;
+        }
+        if ((pGroup4[0] == startPoint && pGroup4[1] == endPoint)
+                ||(pGroup4[1] == startPoint && pGroup4[0] == endPoint)){
+            return 4;
+        }
+        if ((pGroup5[0] == startPoint && pGroup5[1] == endPoint)
+                ||(pGroup5[1] == startPoint && pGroup5[0] == endPoint)){
+            return 4;
+        }
+        if ((pGroup6[0] == startPoint && pGroup6[1] == endPoint)
+                ||(pGroup6[1] == startPoint && pGroup6[0] == endPoint)){
+            return 5;
+        }
+        if ((pGroup7[0] == startPoint && pGroup7[1] == endPoint)
+                ||(pGroup7[1] == startPoint && pGroup7[0] == endPoint)){
+            return 4;
+        }
+        if ((pGroup8[0] == startPoint && pGroup8[1] == endPoint)
+                ||(pGroup8[1] == startPoint && pGroup8[0] == endPoint)){
+            return 7;
+        }
+        return -1;
+    }
     //监听接口
     public interface UnlockListener {
         public void drawOver(int[] pwd);

@@ -41,7 +41,8 @@ public class MenuListAct extends Activity {
             "ThreeDimensionalTestAct",
             "文字、图片竖直轮播器",
             "Lottie Sample",
-            "Textview超链接、Scheme跳转",
+            "Textview超链接、Scheme跳转"
+            , "ConstraintLayoutDemo",
             "RecyclerView 浮动标题Demo"};
     private Class[] activities = {ImmersionAct.class, TestAct1.class, PullToRefreshScrollViewAct.class,
             TestRotateAnimationAct.class, TestScanAct.class, TestUnlockViewAct.class, RecyclerViewDemoMenuAct.class,
@@ -50,7 +51,7 @@ public class MenuListAct extends Activity {
             ScanViewDemoAct.class, BlurDemo.class, GlideAct.class, FrameAnimationAct.class,
             NewsLayoutAct.class, CoordinatorLayoutSample.class, CoolDownloadingAct.class,
             SVGAnimAct.class, ThreeDimensionalTestAct.class, ItemMarqueenSampleAct.class,
-            LottieAct.class, HyperlinkAndSchmemAct.class,RcvFloatTitleTestActivity.class};
+            LottieAct.class, HyperlinkAndSchmemAct.class, ConstraintLayoutDemoAct.class, RcvFloatTitleTestActivity.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
