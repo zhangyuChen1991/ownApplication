@@ -68,16 +68,16 @@ dependencies {
     compile project(':cLibrary')
     // From node_modules
     compile project(':pulltorefresh_library')
-    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.android.support:recyclerview-v7:25.1.1'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'org.greenrobot:greendao:3.2.2'
     //compile 'com.squareup.okhttp3:okhttp:3.4.1'//retrofit已经添加了对OkHttp的依赖，不用再单独配置OkHttp
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.android.support:appcompat-v7:23.0.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
     //glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:design:23.0.1'
+    compile 'com.android.support:design:24.2.1'
     compile project(':zxingLib')
     //Lottie 动画库
     compile 'com.airbnb.android:lottie:1.5.0'
